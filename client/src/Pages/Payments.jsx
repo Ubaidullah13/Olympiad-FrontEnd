@@ -5,8 +5,7 @@ import DownloadForOfflineOutlinedIcon from "@mui/icons-material/DownloadForOffli
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import SideNav from "../Components/SideNav";
-import TopNav from "../Components/TopNav";
+import UserLayout from "../Components/UserLayout";
 
 const Payments = ({}) => {
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ const Payments = ({}) => {
     }
   };
 
-  // Calculate total cost
   const totalCost =
     registrationFee +
     tennisFee +
@@ -40,18 +38,19 @@ const Payments = ({}) => {
   };
 
   return (
-    <div>
-      <TopNav
-        profileImagePath="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        userName="John Doe"
-      />
-      <div className="container my-5">
-        <div className="row">
-          <div className="col-md-2">
-            {/* SideNav component goes here */}
-            <SideNav></SideNav>
-          </div>
-          <div className="col-md-10">
+    // <div>
+    //   <TopNav
+    //     profileImagePath="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    //     userName="John Doe"
+    //   />
+    //   <div className="container my-5">
+    //     <div className="row">
+    //       <div className="col-md-2">
+    //         {/* SideNav component goes here */}
+    //         <SideNav></SideNav>
+    //       </div>
+    //       <div className="col-md-10">
+    <UserLayout>
             <div className="row">
               <div className="col-md-6">
                 {/* Payment section */}
@@ -150,10 +149,11 @@ const Payments = ({}) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </UserLayout>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 };
 

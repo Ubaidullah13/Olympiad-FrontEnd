@@ -17,10 +17,6 @@ import Nav from '../Components/Navigation';
 
 import API_URL from '../config';
 
-
-// api link
-// vaasel-nust-olympiad.onrender.com/api/auth/login
-
 const apiUrl = API_URL;
 
 const initialState = { 

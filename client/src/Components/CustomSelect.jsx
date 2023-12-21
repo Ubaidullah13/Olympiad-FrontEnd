@@ -2,7 +2,7 @@ import React from 'react';
 import {Select, MenuItem, ListItemIcon, ListItemText} from '@mui/material';
 import WcOutlinedIcon from '@mui/icons-material/WcOutlined';
 
-const CustomSelectField = ({ type, iconType, label,value }) => {
+const CustomSelectField = ({ type, iconType, label, name, value, onChange }) => {
   const inputProps = {
     style: { borderRadius: '50px' },
   };
@@ -13,9 +13,11 @@ const CustomSelectField = ({ type, iconType, label,value }) => {
   ];
 
   return (
-    <Select label=". Gender                        ."
+    <Select label="Gender"
     style={{ borderRadius: '50px' }}
     value={value}
+    onChange={onChange}
+    name={name}
     >
     <MenuItem value={"male"}>Male</MenuItem>
     <MenuItem value={"female"}>Female</MenuItem>

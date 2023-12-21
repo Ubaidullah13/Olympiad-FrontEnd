@@ -16,18 +16,84 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { useNavigate } from "react-router-dom";
 import olympiad from "../Images/logo/logo.png";
 
+import API_URL from '../config';
+import axios from 'axios';
+
+const apiUrl = API_URL;
+
+const initialState = { 
+  cnicFront: null,
+  cnicBack: null,
+  cnic: "",
+  phoneno: "",
+  address: "",
+  guardianName: "",
+  guardianNumber: "",
+  schoolName: "",
+  address: "",
+  gender: true,
+  profilePhoto: null,
+  schoolName: "schoolName",
+};
+
 const OlympiadRegistration = () => {
   const navigate = useNavigate();
   const [profilePic, setProfilePic] = useState("");
   const [cnicFront, setCnicFront] = useState("");
   const [cnicBack, setCnicBack] = useState("");
+  
+  const [data, setData]= useState(initialState);
 
-  const handleButtonClick = (e) => {
-    try{
-      e.preventDefault();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+    // console.log(data);
+  };
+
+  const handleGenderChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value === "male" ? true : false });
+    // console.log(value);
+  }
+
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+  
+    const formData = new FormData();
+  
+    // Append text data to formData
+    Object.keys(data).forEach(key => {
+      if (key !== "cnicFront" && key !== "cnicBack" && key !== "profilePhoto") {
+        formData.append(key, data[key]);
+      }
+    });
+  
+    // Append file data to formData
+    if (data.profilePhoto) {
+      formData.append("profilePhoto", data.profilePhoto);
+    }
+    if (data.cnicFront) {
+      formData.append("cnicFront", data.cnicFront);
+    }
+    if (data.cnicBack) {
+      formData.append("cnicBack", data.cnicBack);
+    }
+  
+    try {
+      const response = await axios.post(`${apiUrl}/basic/basicinfoCreate`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
+  
+      console.log(response.data);
+      const accessToken = response.data.accessToken;
+      localStorage.setItem('accessToken', accessToken);
       navigate("/details");
-    }catch(err){
-      console.log(err);
+    } catch (err) {
+      console.error(err);
+      alert("Error occurred while uploading data. Please try again.");
     }
   };
 
@@ -45,6 +111,7 @@ const OlympiadRegistration = () => {
         setProfilePic(reader.result);
       };
       reader.readAsDataURL(file);
+      setData(prevData => ({ ...prevData, profilePhoto: file }));
     }
   };
 
@@ -54,8 +121,10 @@ const OlympiadRegistration = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setCnicFront(reader.result);
+        
       };
       reader.readAsDataURL(file);
+      setData(prevData => ({ ...prevData, cnicFront: file }));
     }
   };
 
@@ -67,6 +136,7 @@ const OlympiadRegistration = () => {
         setCnicBack(reader.result);
       };
       reader.readAsDataURL(file);
+      setData(prevData => ({ ...prevData, cnicBack: file }));
     }
   };
   return (
@@ -106,7 +176,6 @@ const OlympiadRegistration = () => {
       <div className="row">
         <div className="col-md-4 mb-3">
           <CustomTextField
-            type="Person"
             iconType={<AccountCircleOutlinedIcon />}
             label="Name"
           />
@@ -115,18 +184,30 @@ const OlympiadRegistration = () => {
           {/* <label className="bold-label" htmlFor="phone">Phone Number</label>
             <input type="tel" className="form-control form-input" id="phone" placeholder="(123) 456-7890" required /> */}
           <CustomTextField
-            type="Phone"
+            type="number"
             iconType={<PhoneAndroidOutlinedIcon />}
-            label="Phone"
+            label="Phone Number"
+            name="phoneno"
+            onChange={handleInputChange}
           />
+
+          <CustomTextField
+              id="sn"
+              type="hidden"
+              name="schoolName"
+              value="schoolName"
+              hidden
+            />
         </div>
         <div className="col-md-4 mb-3">
           {/* <label className="bold-label" htmlFor="cnic">CNIC</label>
             <input type="text" className="form-control form-input" id="cnic" placeholder="1234-567890-1" required /> */}
           <CustomTextField
-            type="CNIC"
+            type="number"
             iconType={<CreditCardOutlinedIcon />}
-            label="CNIC"
+            label="cnic"
+            name="cnic"
+            onChange={handleInputChange}
           />
         </div>
       </div>
@@ -143,12 +224,13 @@ const OlympiadRegistration = () => {
             margin="normal"
             required
             style={{ marginTop: "15px" }}
+            label="gender"
           >
             <InputLabel id="demo-simple-select-label">
               <WcOutlinedIcon style={{ marginRight: "8px" }} />
               Gender
             </InputLabel>
-            <CustomSelectField />
+            <CustomSelectField name="gender" onChange={handleGenderChange}/>
           </FormControl>
         </div>
         <div className="col-md-8 mb-3">
@@ -159,6 +241,8 @@ const OlympiadRegistration = () => {
             iconType={<HomeOutlinedIcon />}
             label="Address"
             fullWidth
+            name="address"
+            onChange={handleInputChange}
           />
         </div>
       </div>
@@ -167,18 +251,22 @@ const OlympiadRegistration = () => {
           {/* <label className="bold-label" htmlFor="guardian_name">Guardian Name</label>
             <input type="text" className="form-control form-input" id="guardian_name" placeholder="Carter Alpha" required /> */}
           <CustomTextField
-            type="Person"
+            type="text"
             iconType={<AccountCircleOutlinedIcon />}
-            label="Guardian Name"
+            label="Father's/Guardian Name"
+            name="guardianName"
+            onChange={handleInputChange}
           />
         </div>
         <div className="col-md-4 mb-3">
           {/* <label className="bold-label" htmlFor="guardian_phone">Guardian Number</label>
             <input type="tel" className="form-control form-input" id="guardian_phone" placeholder="(123) 456-7890" required /> */}
           <CustomTextField
-            type="Phone"
+            type="number"
             iconType={<PhoneAndroidOutlinedIcon />}
-            label="Guardian Contact No."
+            label="Father's/Guardian Contact No."
+            name="guardianNumber"
+            onChange={handleInputChange}
           />
         </div>
       </div>
@@ -198,7 +286,7 @@ const OlympiadRegistration = () => {
             {/* <input type="file" className="form-control-file" id="cnicFront" onChange={handleFileChange} /> */}
           {/* </div> */}
           <div
-            class="upload-box "
+            className="upload-box "
             style={{
               backgroundImage: `url(${cnicFront})`,
               backgroundSize: "cover",
@@ -225,7 +313,7 @@ const OlympiadRegistration = () => {
             {/* <input type="file" className="form-control-file" id="cnicBack" onChange={handleFileChange} /> */}
           </div>
           <div
-            class="upload-box"
+            className="upload-box"
             style={{
               backgroundImage: `url(${cnicBack})`,
               backgroundSize: "cover",

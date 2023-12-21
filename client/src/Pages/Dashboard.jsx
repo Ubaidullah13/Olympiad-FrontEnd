@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 import CustomCard from '../Components/CustomCard';
 import StatusCard from '../Components/StatusCards';
-import TopNav from '../Components/TopNav';
+
 import { useState } from 'react';
-import SideNav from '../Components/SideNav';
+
 import JoinTeamCard from '../Components/JoinTeamCard';
 import OpenCard from '../Components/OpenCard';
 import AlertBox from '../Components/AlertBox';
@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import logo from '../Images/logo/logo.png';
 import API_URL from '../config';
 import axios from 'axios';
+import UserLayout from "../Components/UserLayout";
 
 const Dashboard = () => {
 
@@ -82,42 +83,8 @@ const Dashboard = () => {
       },
     ];
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-        {/* TopNav */}
-        <TopNav
-          logoImagePath={logo}
-          profileImagePath="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          userName="John Doe"
-          // style={{ zIndex: 2 }}
-        />
-  
-        {/* Main Container */}
-        <div style={{ display: 'flex', flexGrow: 0.5, overflow: 'hidden' }}>
-          {/* SideNav */}
-          <div
-            style={{
-              flex: '0 0 15%',
-              overflowY: 'auto',
-              position: 'sticky',
-              top: '64px',
-              height: 'calc(100vh - 64px)', // Adjusted height to cover the remaining viewport
-            }}
-          >
-            <SideNav />
-          </div>
-  
-          {/* Content */}
-          <div
-            style={{
-              flex: '1',
-              overflow: 'auto',
-              marginLeft: '20px',
-              padding: '20px',
-              minWidth: 0,
-            }}
-          >
-            {/* Dashboard Section */}
-            
+     
+      <UserLayout>
             <Typography variant="h4" component="div"  sx={{ fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               Dashboard
             </Typography>
@@ -180,9 +147,7 @@ const Dashboard = () => {
         onConfirm={handleConfirmApply}
         dialogContent={customDialogContent}
       />
-          </div>
-        </div>
-      </div>
+      </UserLayout>
     );
 };
 export default Dashboard;

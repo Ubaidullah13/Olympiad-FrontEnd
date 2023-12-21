@@ -21,6 +21,7 @@ const CustomTextField = ({ type, iconType, label, handleInputChange, req='1', ..
         ...inputProps,
       }}
       label={<span style={{ ...labelStyles }}>{iconComponent}{label}</span>}
+      type={type}
       onChange={handleInputChange}
       variant="outlined"
       margin="normal"
@@ -36,6 +37,7 @@ const CustomTextField = ({ type, iconType, label, handleInputChange, req='1', ..
       label={<span style={{ ...labelStyles }}>{iconComponent}{label}</span>}
       variant="outlined"
       margin="normal"
+      type={type}
       fullWidth
       {...props}
     />

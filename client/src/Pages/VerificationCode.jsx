@@ -23,7 +23,7 @@ const VerificationCode = () => {
       });
         // Handle successful verification
         console.log('Verification successful', response.data.data);
-        navigate('/dashboard');
+        navigate('/registration');
         
       } catch (error) {
         // Handle errors
