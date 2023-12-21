@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import SideNav from '../Components/SideNav';
-import TopNav from '../Components/TopNav';
+
 import CustomCard from '../Components/CustomCard';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import JoinTeamCard from '../Components/JoinTeamCard';
 import CreateTeamCard from '../Components/CreateTeamCard';
+import UserLayout from "../Components/UserLayout";
 
-const Dashboard2 = () => {
+const Competitions = () => {
   const [selectedHeader, setSelectedHeader] = useState('individual');
 
   const handleHeaderChange = (newHeader) => {
@@ -40,31 +40,10 @@ const Dashboard2 = () => {
   const cardData = selectedHeader === 'individual' ? individualParticipationData : CreateTeamData;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh'}}>
-      {/* TopNav */}
-      <TopNav
-        logoImagePath="https:encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGZpzfGOb1d6ZbEiairsX09aVHH9gROHhbGw&usqp=CAU"
-        profileImagePath="https:images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        userName="John Doe"
-        style={{ zIndex: 2 }}
-      />
-
-      {/* Main Container */}
-      <div style={{ display: 'flex', flexGrow: 1, overflow: 'hidden' }}>
-        {/* SideNav */}
-        <div
-          style={{
-            flex: '0 0 15%',
-            overflowY: 'auto',
-            position: 'sticky',
-            top: '64px',
-            height: 'calc(100vh - 64px)', 
-            xIndex: 1,
-          }}
-        >
-          <SideNav />
-        </div>
-
+    <UserLayout>
+            <Typography variant="h4" component="div"  sx={{ fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
+            Competitions
+            </Typography>
         {/* Content Container */}
         <div style={{ flex: '1', padding: '20px', backgroundColor: '#f5f5f5' }}>
          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
@@ -118,9 +97,8 @@ const Dashboard2 = () => {
     </Grid>
           </div>
         </div>
-      </div>
-    </div>
+    </UserLayout>
   );
 };
 
-export default Dashboard2;
+export default Competitions;

@@ -87,13 +87,13 @@ const SideNav = () => {
             </ListItemIcon>
             <ListItemText primary="Dashboard" style={listItemTextStyles} />
           </ListItem>
-          <ListItem button component="a" href="/createteam">
+          <ListItem button component="a" href="/Sports">
             <ListItemIcon>
               <SportsIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>
             <ListItemText primary="Sports" style={listItemTextStyles} />
           </ListItem>
-          <ListItem button component="a" href="/createteam">
+          <ListItem button component="a" href="/Competitions">
             <ListItemIcon>
               <EmojiEventsIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>

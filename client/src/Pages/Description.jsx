@@ -7,6 +7,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import SideNav from '../Components/SideNav';
 import TopNav from '../Components/TopNav';
+import UserLayout from "../Components/UserLayout";
 
 const CricketDescription = ({ data }) => {
   const navigate = useNavigate();
@@ -36,18 +37,7 @@ const CricketDescription = ({ data }) => {
   };
 
   return (
-    <div> 
-      <TopNav
-      profileImagePath="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-      userName="John Doe"
-      ></TopNav>
-    <Container fluid className="mt-5">
-      <Row>
-        {/* SideNav in the first two columns */}
-        <Col md={2}>
-          <SideNav />
-        </Col>
-        <Col md={10}>
+    <UserLayout>
           <div>
             <Typography variant="h2" align="left">
               {title}
@@ -73,7 +63,7 @@ const CricketDescription = ({ data }) => {
                   marginBottom: '10px',
                 }}
               >
-                {/* ... (existing member display code) */}
+               
               </div>
             ))}
           </div>
@@ -83,8 +73,7 @@ const CricketDescription = ({ data }) => {
           >
             Go Back
           </Button>
-        </Col>
-      </Row>
+      
 
       {showModal && (
         <div
@@ -96,7 +85,7 @@ const CricketDescription = ({ data }) => {
             background: 'white',
             padding: '20px',
             borderRadius: '5px',
-            // boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+            
           }}
         >
           <p>Are you sure you want to delete this member?</p>
@@ -116,8 +105,8 @@ const CricketDescription = ({ data }) => {
           </div>
         </div>
       )}
-    </Container>
-    </div>
+    </UserLayout>
+    
   );
 };
 

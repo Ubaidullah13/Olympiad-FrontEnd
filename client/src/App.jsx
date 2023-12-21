@@ -12,7 +12,8 @@ import './Styles/SignUpPage.css';
 import './Styles/Registration.css'
 import OlympiadRegistration from './Pages/Registration';
 import Dashboard from './Pages/Dashboard';
-import CreateTeam from './Pages/CreateTeam';
+import Sports from './Pages/Sports';
+import Competitions from './Pages/Competitions';
 import SportDetails from './Pages/SportDetails';
 import Details from './Pages/UserDetails';
 import RegEdit from './Pages/RegEdit';
@@ -26,6 +27,7 @@ import AddComp from './Pages/RegPortal/AddComp';
 import Challans from './Pages/RegPortal/Challans';
 import SingleUser from './Pages/RegPortal/SingleUser';
 import ChallanDetails from './Pages/RegPortal/SingleChallan';
+import PleaseWait from "./Pages/PleaseWait";
 
 
 const App = () => {
@@ -66,7 +68,10 @@ const App = () => {
         <Route exact path ='/dashboard' element={<ProtectedRoute Component={Dashboard} />}>
         </Route>
   
-          <Route exact path ='/createteam' element={<ProtectedRoute Component={CreateTeam }/>}>
+          <Route exact path ='/Sports' element={<ProtectedRoute Component={Sports }/>}>
+          </Route>
+
+          <Route exact path ='/Competitions' element={<ProtectedRoute Component={Competitions }/>}>
           </Route>
 
           <Route exact path ='/sportdetails' element={<ProtectedRoute Component={SportDetails }/>}>
@@ -99,6 +104,9 @@ const App = () => {
         </Route>
 
         <Route exact path ='/challan/:id' element={<ChallanDetails />}>
+        </Route>
+
+        <Route exact path ='/PleaseWait' element={<PleaseWait />}>
         </Route>
 
 
