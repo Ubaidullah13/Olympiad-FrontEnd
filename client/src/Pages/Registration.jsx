@@ -88,7 +88,7 @@ const OlympiadRegistration = () => {
       });
   
       console.log(response.data);
-      const accessToken = response.data.accessToken;
+      const accessToken = response.data.data.accessToken;
       localStorage.setItem('accessToken', accessToken);
       navigate("/details");
     } catch (err) {
