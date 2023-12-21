@@ -46,8 +46,8 @@ const LoginPage = () => {
     try {
       e.preventDefault();
       const response = await axios.post(`${API_URL}/auth/login`, data);
-      const accessToken = response.data.accessToken;
-      const UserID = response.data.user.id;
+      const accessToken = response.data.data.accessToken;
+      const UserID = response.data.data.user.id;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('UserID', UserID);
       console.log('Access token set in localStorage:', accessToken);
