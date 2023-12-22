@@ -6,7 +6,7 @@ import API_URL from '../config';
 const apiUrl = API_URL;
 
 
-const ProtectedRoute = (props) => {
+const RPR = (props) => {
     const Component = props.Component;
     console.log(Component.name);
     const navigate = useNavigate();
@@ -22,10 +22,10 @@ const ProtectedRoute = (props) => {
                 Authorization: `Bearer ${localStorage.accessToken}`,
                 }
             })
-
-            if(response.data.data.isParticipant === false)
+                console.log(response.data);
+            if(response.data.data.isParticipant === true)
             {
-                navigate('/users');
+                navigate('/dashboard');
             }
             }catch(error){
                 console.log(error);
@@ -51,4 +51,4 @@ const ProtectedRoute = (props) => {
     );
 }
 
-export default ProtectedRoute;
+export default RPR;

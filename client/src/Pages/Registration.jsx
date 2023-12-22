@@ -90,6 +90,7 @@ const OlympiadRegistration = () => {
       console.log(response.data);
       const accessToken = response.data.data.accessToken;
       localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('basicInfo', true);
       navigate("/details");
     } catch (err) {
       console.error(err);

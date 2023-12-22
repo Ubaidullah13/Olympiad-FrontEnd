@@ -56,20 +56,29 @@ const LoginPage = () => {
           headers: {
           Authorization: `Bearer ${localStorage.accessToken}`,
         }
-
       })
       console.log(response);
-      if (response.data.data.isValidated === false){
-        navigate('/verifycode')
-      }
-      else{
-        if (response.data.isParticipant === true){
+      if(response.data.data.isParticipant === true)
+      {
+        if (response.data.data.isValidated === false){
+          navigate('/verifycode')
+        }else{
           navigate('/dashboard');
         }
-        else{
-          // redirect to reg portal
-        }
+      }else{
+        navigate('/users');
       }
+      // if (response.data.data.isValidated === false){
+      //   navigate('/verifycode')
+      // }
+      // else{
+      //   if (response.data.data.isParticipant === true){
+      //     navigate('/dashboard');
+      //   }
+      //   else{
+      //     navigate('/users');
+      //   }
+      // }
       }catch(error){
         console.log(error);
       }
