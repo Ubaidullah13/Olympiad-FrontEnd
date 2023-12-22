@@ -11,7 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import CircularProgress from '@mui/material/CircularProgress'; 
 
 import Nav from '../Components/Navigation';
 
@@ -31,6 +31,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const [data, setData]= useState(initialState);
+  const [loading, setLoading] = useState(false);
   
 
   const handleInputChange = (e) => {
@@ -41,6 +42,7 @@ const LoginPage = () => {
   const handleButtonClick = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const response = await axios.post(`${API_URL}/auth/login`, data);
       console.log(response);
       const accessToken = response.data.data.accessToken;
@@ -58,6 +60,7 @@ const LoginPage = () => {
         }
       })
       console.log(response);
+      setLoading(false);
       if(response.data.data.isParticipant === true)
       {
         if (response.data.data.isValidated === false){
@@ -68,21 +71,12 @@ const LoginPage = () => {
       }else{
         navigate('/users');
       }
-      // if (response.data.data.isValidated === false){
-      //   navigate('/verifycode')
-      // }
-      // else{
-      //   if (response.data.data.isParticipant === true){
-      //     navigate('/dashboard');
-      //   }
-      //   else{
-      //     navigate('/users');
-      //   }
-      // }
       }catch(error){
+        setLoading(false);
         console.log(error);
       }
   } catch (error) {
+      setLoading(false);
       alert('Invalid credentials! Please try again.');
   }
     
@@ -120,13 +114,19 @@ const LoginPage = () => {
               }}/>
             </div>
             <br></br>
+            {loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ) :(
             <button
               type="submit"
               className="button"
               style={{transform: 'scale(1.25)', paddingLeft:'40px', paddingRight:'40px', paddingTop:'20px', paddingBottom:'20px'}}
             >
               Login
-            </button>          
+            </button>
+        )}          
           </form>
          
           <p className="mt-4 text-sm" style={{fontWeight:'bold', textAlign : 'center'}}>

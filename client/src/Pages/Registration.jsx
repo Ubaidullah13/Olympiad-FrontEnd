@@ -18,6 +18,7 @@ import olympiad from "../Images/logo/logo.png";
 
 import API_URL from '../config';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const apiUrl = API_URL;
 
@@ -41,6 +42,7 @@ const OlympiadRegistration = () => {
   const [profilePic, setProfilePic] = useState("");
   const [cnicFront, setCnicFront] = useState("");
   const [cnicBack, setCnicBack] = useState("");
+  const [loading, setLoading] = useState(false);
   
   const [data, setData]= useState(initialState);
 
@@ -58,7 +60,7 @@ const OlympiadRegistration = () => {
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
-  
+    setLoading(true);
     const formData = new FormData();
   
     // Append text data to formData
@@ -91,8 +93,10 @@ const OlympiadRegistration = () => {
       const accessToken = response.data.data.accessToken;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('basicInfo', true);
+      setLoading(false);
       navigate("/details");
     } catch (err) {
+      setLoading(false);
       console.error(err);
       alert("Error occurred while uploading data. Please try again.");
     }
@@ -334,12 +338,18 @@ const OlympiadRegistration = () => {
           </div>
         </div>
       </div>
+      {loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ) :(
       <button
         type="submit"
         className="btn right-align btnColor"
       >
         Next step
       </button>
+        )}
       </form>
     </div>
   );

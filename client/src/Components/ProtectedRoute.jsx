@@ -35,8 +35,7 @@ const ProtectedRoute = (props) => {
           }
 
         let token = localStorage.getItem('accessToken');
-        // let basicInfo = localStorage.getItem('basicInfo');
-        // let basicInfoDetails = localStorage.getItem('basicInfoDetails');
+
         if(!token){
             navigate('/login');
         }else{
