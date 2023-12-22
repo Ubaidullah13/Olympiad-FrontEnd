@@ -36,8 +36,7 @@ const UserDetails = () => {
     setAction(actionType);
   };
 
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
+  const token = localStorage.getItem("accessToken");
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -51,7 +50,7 @@ const UserDetails = () => {
   const setStatus = async () => {
     try {
       const { data } = await axios.post(
-        `${API_URL}basic/basicSetStatus`,
+        `${API_URL}/basic/basicSetStatus`,
         {
           userId: parseInt(id),
           reason,
@@ -75,7 +74,7 @@ const UserDetails = () => {
   const getSingleUser = async () => {
     try {
       const { data } = await axios.get(
-        `${API_URL}basic/basicSingleUser/${id}`,
+        `${API_URL}/basic/basicSingleUser/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

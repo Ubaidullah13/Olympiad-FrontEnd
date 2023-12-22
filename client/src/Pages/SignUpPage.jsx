@@ -79,6 +79,7 @@ const SignUpPage = () => {
         console.log('Access token set in localStorage:', accessToken);
         localStorage.setItem('basicInfoDetails', false);
         localStorage.setItem('basicInfo', false);
+        localStorage.setItem('isParticipant', true);
       // console.log(response.data.accessToken)
       navigate('/verifycode');
   } catch (error) {

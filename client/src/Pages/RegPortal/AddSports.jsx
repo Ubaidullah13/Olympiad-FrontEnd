@@ -10,16 +10,15 @@ import Modal from "react-bootstrap/Modal";
 const initialState = {
   name: "",
   description: "",
-  minPlayer: 0,
-  maxPlayer: 0,
-  price: 0,
+  minPlayer: "",
+  maxPlayer: "",
+  price: "",
   gender: true,
   teamCap: 0,
 };
 
+const token = localStorage.getItem("accessToken");
 const AddSports = () => {
-  const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
 
   const [sports, setSports] = useState([]);
   const [sport, setSport] = useState(initialState);
@@ -35,12 +34,12 @@ const AddSports = () => {
 
   const getSports = async () => {
     try {
-      const response = await axios.get(`${API_URL}sports/AllSports`, {
+      const response = await axios.get(`${API_URL}/sports/AllSports`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log(token);
       setSports(response.data.data);
       console.log(response);
     } catch (error) {
@@ -57,6 +56,7 @@ const AddSports = () => {
       const intMaxPlayer = parseInt(sport.maxPlayer);
       const intPrice = parseInt(sport.price);
       const intTeamCap = parseInt(sport.teamCap);
+      const gender = sport.gender === "true" ? true : false;
   
       const updatedSport = {
         ...sport,
@@ -64,11 +64,12 @@ const AddSports = () => {
         maxPlayer: intMaxPlayer,
         price: intPrice,
         teamCap: intTeamCap,
+        gender
       };
-  
-      const response = await axios.post(`${API_URL}sports/addSport`, updatedSport, {
+      console.log(updatedSport);
+      const response = await axios.post(`${API_URL}/sports/addSport`, updatedSport, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ3YXFhc2FsaTAwMTIzKzEyMzJAZ21haWwuY29tIiwiaWF0IjoxNzAyODk5NDY0LCJleHAiOjE3MDMwNzIyNjR9.t52Q-eg_4Qts-50Dm6Uluehm3VFvT87twtgk7RChNFo`,
+          Authorization: `Bearer ${token}`,
         },
       });
   
