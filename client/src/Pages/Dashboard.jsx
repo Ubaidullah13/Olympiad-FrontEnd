@@ -15,8 +15,30 @@ import API_URL from '../config';
 import axios from 'axios';
 import UserLayout from "../Components/UserLayout";
 
-const Dashboard = () => {
 
+
+
+const Dashboard = () => {
+  useEffect (() => {
+    const getBasicDisplay = async() => {
+      try {
+        const response = await axios.get(`${API_URL}/basic/basicDisplay`, 
+        {headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }})
+      // console.log(response.data)
+      setStatus(response.data.data.status)
+      console.log(response.data.data.accomodation)
+      setIsApplied(response.data.data.accomodation)
+    } catch (error) {
+      console.log(error)
+    }
+    }
+
+    getBasicDisplay();
+  })
+
+  const [status, setStatus] = useState("Pending");
   const [isApplied, setIsApplied] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply for accommodation?"
@@ -40,17 +62,17 @@ const Dashboard = () => {
   
   const statusCardData = [
     {
-      title: 'Verified',
+      title: status,
       description: 'Account Verification',
       color: '#FFD2B1', 
     },
     {
-      title: 'Pending',
+      title: 'pending',
       description: 'Challan Status',
       color : '#FFB1B1',
     },
     {
-      title: 'Applied',
+      title: isApplied ? 'Applied' : 'Not applied',
       description: 'Accomodation Status',
       color: '#E7AEFF', // Specify the color for the third card
     },
@@ -82,6 +104,8 @@ const Dashboard = () => {
         leftCount: 8,
       },
     ];
+
+
     return (
      
       <UserLayout>

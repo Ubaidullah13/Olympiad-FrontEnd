@@ -60,6 +60,7 @@ const LoginPage = () => {
       console.log(response);
       if(response.data.data.isParticipant === true)
       {
+        localStorage.setItem('name', response.data.data.name)
         if (response.data.data.isValidated === false){
           navigate('/verifycode')
         }else{
