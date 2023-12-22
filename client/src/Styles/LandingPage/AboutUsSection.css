@@ -2,6 +2,10 @@
     padding: 2rem;
 }
 
+#Olympiad{
+    padding: 2rem;
+}
+
 #about-us-title{
     color: var(--primary-dark);
     font-family: 'LemonMilkBold';
@@ -22,4 +26,42 @@
 
 .sports{
     font-family: 'LemonMilkMedium';
+}
+
+.play-icon svg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Blue glow effect */
+    text-shadow: 0 0 20px rgba(0, 0, 255, 0.7);
+    animation: glow 1300ms ease-in-out infinite;
+}
+  
+@keyframes glow {
+        0% {
+          color: var(--secondary-color);
+          /* box-shadow: 0 0 5px #2ba805; */
+        }
+        50% {
+          color: var(--primary-light);
+          /* box-shadow: 0 0 20px #49e819; */
+        }
+        100% {
+          color: var(--primary-dark);
+          /* box-shadow: 0 0 5px #2ba805; */
+        }
+}
+
+.custom-modal-size .modal-dialog {
+    max-width: 80%;
+    margin: 1rem auto;
+}
+
+/*Full size model in mobile*/
+@media screen and (max-width: 768px) {
+    .custom-modal-size .modal-dialog {
+        max-width: 100%;
+        margin: 1rem auto;
+    }
 }

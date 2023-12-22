@@ -7,6 +7,7 @@ import Contact from './Contact';
 import EC from './EC';
 import Sponsors from './Sponsors';
 import Nav from './Nav';
+import Olympiad from './Olympiad';
 
 const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,8 +42,7 @@ const LandingPage = () => {
           <Nav />
           <Banner />
           <AboutUsSection />
-          <br />
-          <br />
+          <Olympiad />
           <EC />
           <Sponsors />
           <Contact />

@@ -10,7 +10,7 @@ const CustomRadioField = ({ type, label,handleChange }) => {
 
   const Options = [
     { value: 'nust', label: 'Nust' },
-    { value: 'other_uni', label: 'Other University' },
+    { value: 'uni', label: 'Other University' },
     { value: 'college', label: 'College' },
     { value: 'school', label: 'School' },
     { value: 'other', label: 'Other' },

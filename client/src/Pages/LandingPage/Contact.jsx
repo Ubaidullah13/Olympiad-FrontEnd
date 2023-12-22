@@ -14,7 +14,7 @@ const Contact = () => {
                     <h1 className="fst-italic lh-1 mb-4">Contact Us</h1>
                     <p className='fst-italic'>If you have any query, feel free to reach out to us</p>
 
-                    <button className="btn btn-primary fst-italic" id="submitButton">contact@olympiad.nust.edu.pk</button>
+                    <a href="mailto:info@olympiad.nust.edu.pk"><button className="btn btn-primary fst-italic" id="submitButton">info@olympiad.nust.edu.pk</button></a>
                     {/* <form id="contactForm" data-sb-form-api-token="API_TOKEN"> */}
                         {/* <div className="invalid-feedback mt-2" data-sb-feedback="email:required">An email is required.</div>
                         <div className="invalid-feedback mt-2" data-sb-feedback="email:email">Email is not valid.</div> */}
