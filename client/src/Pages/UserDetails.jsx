@@ -17,6 +17,7 @@ import olympiad from "../Images/logo/logo.png";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import API_URL from '../config';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 const UserDetails = () => {
 
   const initialState = { 
@@ -30,6 +31,7 @@ const UserDetails = () => {
   };
 
   const [data, setData]= useState(initialState);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -77,6 +79,7 @@ const UserDetails = () => {
   
     const handleButtonClick = async (e) => {
       e.preventDefault();
+      setLoading(true);
     
       const formData = new FormData();
     
@@ -105,8 +108,10 @@ const UserDetails = () => {
         const accessToken = response.data.accessToken;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('basicInfoDetails', true);
+        setLoading(false);
         navigate("/PleaseWait");
       } catch (err) {
+        setLoading(false);
         console.error(err);
         alert(err.response.data.data);
       }
@@ -213,11 +218,17 @@ const UserDetails = () => {
       </div>
         </div>
       )}
+      {loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ):(
        <button 
         variant="contained"
         color="primary"
         type="submit"
         className="btn right-align btnColor">Next step</button>
+        )}
     </form>
     </div>
 
