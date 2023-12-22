@@ -8,3 +8,39 @@
     height: auto;
     border: none;
 }
+
+.banner-container.overlay {
+    position: relative;
+}
+
+.banner-container.overlay video {
+    /* Optional: Darken the video */
+    filter: brightness(30%);
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.overlay-content h1{
+    color: var(--primary-dark);
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.overlay-content p {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+/*hide overlay content in mobile*/
+@media screen and (max-width: 768px) {
+    .overlay-content {
+        display: none;
+    }
+}

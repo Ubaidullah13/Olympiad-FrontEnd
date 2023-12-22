@@ -62,9 +62,9 @@
     font-family: 'LemonMilkBold';
   }
   .team-member img {
-    width: 15rem;
-    height: 15rem;
-    border: 0.5rem solid rgba(0, 0, 0, 0.1);
+    width: 10rem;
+    height: 10rem;
+    border: 0.2rem solid rgba(0, 0, 0, 0.1);
   }
   .team-member h4, .team-member .h4 {
     margin-top: 1.5rem;

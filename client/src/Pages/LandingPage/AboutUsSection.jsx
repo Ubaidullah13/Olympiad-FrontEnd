@@ -4,6 +4,9 @@ import CelebrationIcon from '@mui/icons-material/Celebration';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import SportsCricketIcon from '@mui/icons-material/SportsCricket';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import e1 from "../../Images/event/e1.jpg";
+import e2 from "../../Images/event/e2.jpg";
+import e3 from "../../Images/event/e3.jpg";
 
 const AboutUsSection = () => {
   return (
@@ -16,7 +19,7 @@ const AboutUsSection = () => {
                 <div className="col-lg-12 col-md-12 mt-4 pt-2">
                   <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
                     <img
-                      src="images/event/e3.jpg"
+                      src={e1}
                       className="img-fluid"
                     />
                     <div className="img-overlay bg-dark"></div>
@@ -30,7 +33,7 @@ const AboutUsSection = () => {
                 <div className="col-lg-12 col-md-12">
                   <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
                     <img
-                      src="images/event/e1.jpg"
+                      src={e2}
                       className="img-fluid"
                     />
                     <div className="img-overlay bg-dark"></div>
@@ -40,7 +43,7 @@ const AboutUsSection = () => {
                 <div className="col-lg-12 col-md-12 mt-4 pt-2">
                   <div className="card work-desk rounded border-0 shadow-lg overflow-hidden">
                     <img
-                      src="images/event/e2.jpg"
+                      src={e3}
                       className="img-fluid"
                     />
                     <div className="img-overlay bg-dark"></div>
@@ -53,14 +56,12 @@ const AboutUsSection = () => {
 
         <div className="col-lg-6 col-md-6 col-12 order-1 order-md-2">
           <div className="section-title ml-lg-5">
-            <h2 className="font-weight-normal mb-3" id="about-us-title">About Us</h2>
-            <h4 className="title mb-4">
-              Our mission is to make your life easier.
-            </h4>
+            <h2 className="font-weight-normal mb-3" id="about-us-title">Olympiad NUST 24</h2>
+            <h5 className="title mb-4">
+            Igniting Innovation, Celebrating Excellence – A Journey Beyond Boundaries.
+            </h5>
             <p className="Abouttext mb-0">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit quod
-              debitis praesentium pariatur temporibus ipsa, cum quidem obcaecati
-              sunt?
+            Welcome to Olympiad NUST 24, a spectacle of talent, innovation, and sporting excellence, set to unfold in the prestigious corridors of the National University of Sciences and Technology in 2024. This four-day extravaganza is not just an event; it's a groundbreaking celebration of youthful energy, intellectual prowess, and athletic vigor.
             </p>
             <div className="row">
               <div className="col-lg-6 mt-4 pt-2">

@@ -23,10 +23,10 @@ const UserDetails = () => {
     stdFront: null,
     stdBack: null,
     cnic: "",
-    studentOf: "",
+    StudentOf: "",
     student_id: "",
     schoolName: "",
-    ambassadorcode: "",
+    ambassadorcode: "0000",
   };
 
   const [data, setData]= useState(initialState);
@@ -108,7 +108,7 @@ const UserDetails = () => {
         navigate("/PleaseWait");
       } catch (err) {
         console.error(err);
-        alert("Error occurred while uploading data. Please try again.");
+        alert(err.response.data.data);
       }
     };
 
@@ -126,7 +126,7 @@ const UserDetails = () => {
       </div>
       <div className="row">
         <div className="col-md-4 mb-3 right-align-text">
-        <CustomRadioField type="University" name="studentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
+        <CustomRadioField type="University" name="StudentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
         </div>
         </div>
         {showComponent && (
