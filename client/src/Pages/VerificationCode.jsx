@@ -23,7 +23,18 @@ const VerificationCode = () => {
       });
         // Handle successful verification
         console.log('Verification successful', response.data.data);
-        navigate('/registration');
+        const basicInfo = localStorage.getItem('basicInfo');
+        const basicInfoDetails = localStorage.getItem('basicInfoDetails');
+
+        if(basicInfo === 'false'){
+          navigate('/registration');
+        }
+        else if(basicInfoDetails === 'false'){
+          navigate('/details');
+        }else{
+          navigate('/pleasewait');
+        }
+
         
       } catch (error) {
         // Handle errors

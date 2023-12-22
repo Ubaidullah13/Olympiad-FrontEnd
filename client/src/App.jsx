@@ -21,6 +21,7 @@ import Payments from './Pages/Payments';
 import CricketDescription from './Pages/Description';
 import VerificationCode from './Pages/VerificationCode';
 import ProtectedRoute from './Components/ProtectedRoute';
+import RPR from './Components/RPR';
 import Users from './Pages/RegPortal/Users';
 import AddSports from './Pages/RegPortal/AddSports';
 import AddComp from './Pages/RegPortal/AddComp';
@@ -91,19 +92,24 @@ const App = () => {
           <Route exact path ='/verifycode' element={<VerificationCode/>}>
           </Route>
 
-          <Route exact path ='/users' element={<Users />}>
+        {/* <Route exact path ='/users' element={<Users />}>
+        </Route> */}
+
+        <Route exact path ='/users' element={<RPR Component={Users }/>}>
+          </Route>
+
+
+        <Route exact path ='/addsports' element={<RPR Component={AddSports }/>}>
         </Route>
-        <Route exact path ='/addsports' element={<AddSports />}>
+        <Route exact path ='/addcomp' element={<RPR Component={AddComp} />}>
         </Route>
-        <Route exact path ='/addcomp' element={<AddComp />}>
-        </Route>
-        <Route exact path ='/challans' element={<Challans />}>
+        <Route exact path ='/challans' element={<RPR Component={Challans} />}>
         </Route>
 
-        <Route exact path ='/user/:id' element={<SingleUser />}>
+        <Route exact path ='/user/:id' element={<RPR Component={SingleUser} />}>
         </Route>
 
-        <Route exact path ='/challan/:id' element={<ChallanDetails />}>
+        <Route exact path ='/challan/:id' element={<RPR Component={ChallanDetails }/>}>
         </Route>
 
         <Route exact path ='/PleaseWait' element={<PleaseWait />}>

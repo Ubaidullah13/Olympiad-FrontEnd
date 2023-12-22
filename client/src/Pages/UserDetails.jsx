@@ -104,6 +104,7 @@ const UserDetails = () => {
         console.log(response.data);
         const accessToken = response.data.accessToken;
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('basicInfoDetails', true);
         navigate("/PleaseWait");
       } catch (err) {
         console.error(err);
