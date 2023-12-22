@@ -9,13 +9,10 @@ import { useNavigate } from "react-router-dom";
 const Challans = () => {
   const [challans, setChallans] = useState([]);
   const navigate = useNavigate();
-
-  const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
-
+  const token = localStorage.getItem("accessToken");
   const getChallans = async () => {
     try {
-      const response = await axios.get(`${API_URL}challan/getAllChallans`, {
+      const response = await axios.get(`${API_URL}/challan/getAllChallans`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

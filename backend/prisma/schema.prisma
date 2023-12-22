@@ -24,7 +24,7 @@ model User {
 }
 
 model Challan {
-  id                Int                  @id @default(autoincrement())
+  id                Int                  @id @default(autoincrement(2))
   userId            Int
   detail            Json?
   netTotal          Int
