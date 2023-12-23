@@ -8,6 +8,8 @@ import {
   unstable_ClassNameGenerator,
 } from "@mui/material";
 import CreateTeamAlertBox from "./CreateTeamAlertBox";
+import axios from "axios";
+import API_URL from "../config";
 
 const CreateTeamCard = ({
   id,
@@ -25,6 +27,9 @@ const CreateTeamCard = ({
   const [alertOpen, setAlertOpen] = useState(false);
   const [isCreateTeamDialogOpen, setCreateTeamDialogOpen] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
+  const [newTeamname, setNewTeamName] = useState("");
+  const [createTeamSportId, setCreateTeamSportId] = useState("");
+  const [teamCode, setTeamCode] = useState(code);
 
   const handleOpenCreateTeamDialog = () => {
     setCreateTeamDialogOpen(true);
@@ -34,20 +39,43 @@ const CreateTeamCard = ({
     setCreateTeamDialogOpen(false);
   };
 
-  const handleConfirmCreateTeam = () => {
+  const handleConfirmCreateTeam = async (e) => {
+    e.preventDefault();
     // Add logic for confirming and handling team creation
     // This might involve interacting with your backend or performing other actions
 
     // You can set the teamCode as needed in your logic
 
+    const data = {
+      sportId: parseInt(createTeamSportId),
+      teamName: newTeamname
+    }
+
+    try {
+      const response = await axios.post(`${API_URL}/sports/createTeam`, data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.accessToken}`
+        }
+      });
+      console.log(response);
+
+    }
+    catch(error) {
+      console.log(error)
+    }
+
+
+
     setIsCreated(true);
     handleCloseCreateTeamDialog();
   };
 
-  const handleCreateClick = () => {
+  const handleCreateClick = (e) => {
     // Display the AlertBox when the 'Create' button is clicked
+    e.preventDefault();
     if (!isCreated) {
       handleOpenCreateTeamDialog();
+      setCreateTeamSportId(e.target.getAttribute('data-sport-id'));
     }
   };
 
@@ -133,6 +161,7 @@ const CreateTeamCard = ({
         onConfirm={handleConfirmCreateTeam}
         genderVar={gender}
         sportsNameVar={name}
+        setNewTeamName={setNewTeamName}
       />
     </div>
   );

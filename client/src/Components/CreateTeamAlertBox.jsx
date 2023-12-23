@@ -5,8 +5,10 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
+import { useState } from 'react';
 
-const CreateTeamAlertBox = ({ open, onClose, onConfirm, genderVar, sportsNameVar }) => {
+const CreateTeamAlertBox = ({ open, onClose, onConfirm, genderVar, sportsNameVar, setNewTeamName }) => {
+  const [disableCofnirmButton, setDisableConfirmButton] = useState(false);
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" height='200px' fullWidth>
       <DialogContent>
@@ -18,6 +20,7 @@ const CreateTeamAlertBox = ({ open, onClose, onConfirm, genderVar, sportsNameVar
           placeholder="Team Name"
           fullWidth
           style={{ borderRadius: '20px', marginBottom: '10px' }}
+          onChange={(e) => setNewTeamName(e.target.value)}
         />
       </DialogContent>
       <DialogActions style={{ justifyContent: 'center' }}>
@@ -36,7 +39,11 @@ const CreateTeamAlertBox = ({ open, onClose, onConfirm, genderVar, sportsNameVar
             borderRadius: '20px',
             marginLeft: '10px'
           }}
-          onClick={onConfirm}
+          disabled={disableCofnirmButton}
+          onClick={(e) => {
+            onConfirm();
+          setDisableConfirmButton(true)
+        }}
         >
           Confirm
         </Button>
