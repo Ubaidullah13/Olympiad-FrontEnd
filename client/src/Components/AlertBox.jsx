@@ -3,8 +3,10 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
+import { useState } from 'react';
 
 const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
+  const [disableCofnirmButton, setDisableConfirmButton] = useState(false);
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" height='200px' fullWidth>
       <DialogContent>
@@ -26,7 +28,12 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
             borderRadius: '20px',
             marginLeft: '10px', // Adjusted spacing between buttons
           }}
-          onClick={onConfirm}
+          onClick={()=> {
+            setDisableConfirmButton(true);
+            onConfirm();
+          }
+        }
+        disabled={setDisableConfirmButton}
         >
           Confirm
         </Button>
