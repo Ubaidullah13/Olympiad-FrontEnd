@@ -20,12 +20,13 @@ const Dashboard2 = () => {
             Authorization: `Bearer ${localStorage.accessToken}`,
           },
         });
-        console.log(response);
+        // console.log(response.data.data);
+        SetCreateTeamData(response.data.data);
+        // console.log(CreateTeamData);
       } catch (error) {}
-      }
-      getTeamSports();
-    });
-    
+    };
+    getTeamSports();
+  });
 
   const [selectedHeader, setSelectedHeader] = useState("individual");
 
@@ -53,26 +54,26 @@ const Dashboard2 = () => {
     },
   ];
 
-  const CreateTeamData = [
-    {
-      gender: "Male",
-      sports: "Football",
-      title: "Football Team",
-      description: "Create a football team",
-      doneCount: 3,
-      leftCount: 5,
-      teamCode: 2230,
-    },
-    {
-      gender: "Female",
-      sports: "Basketball",
-      title: "Basketball Team",
-      description: "Create a basketball team",
-      doneCount: 2,
-      leftCount: 6,
-      teamCode: 2230,
-    },
-  ];
+  const [CreateTeamData, SetCreateTeamData] = useState([
+    // {
+    //   gender: "Male",
+    //   sports: "Football",
+    //   title: "Football Team",
+    //   description: "Create a football team",
+    //   doneCount: 3,
+    //   leftCount: 5,
+    //   teamCode: 2230,
+    // },
+    // {
+    //   gender: "Female",
+    //   sports: "Basketball",
+    //   title: "Basketball Team",
+    //   description: "Create a basketball team",
+    //   doneCount: 2,
+    //   leftCount: 6,
+    //   teamCode: 2230,
+    // },
+  ]);
   const cardData =
     selectedHeader === "individual"
       ? individualParticipationData

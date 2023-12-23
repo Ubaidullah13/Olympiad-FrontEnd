@@ -1,8 +1,27 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Button, Typography, Box } from '@mui/material';
-import CreateTeamAlertBox from './CreateTeamAlertBox';
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  Box,
+  unstable_ClassNameGenerator,
+} from "@mui/material";
+import CreateTeamAlertBox from "./CreateTeamAlertBox";
 
-const CreateTeamCard = ({ gender, sports, doneCount, leftCount, teamCode }) => {
+const CreateTeamCard = ({
+  id,
+  gender,
+  name,
+  description,
+  minPlayer,
+  maxPlayer,
+  teamCap,
+  details,
+  price,
+  hasApplied,
+  code,
+}) => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [isCreateTeamDialogOpen, setCreateTeamDialogOpen] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
@@ -34,35 +53,74 @@ const CreateTeamCard = ({ gender, sports, doneCount, leftCount, teamCode }) => {
 
   return (
     <div>
-      <Card sx={{ borderRadius: '20px', maxWidth: 300, margin: '30px', alignItems: 'center', backgroundColor: '#f5f5f5', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-        <CardContent sx={{ textAlign: 'center' }}>
+      <Card
+        sx={{
+          borderRadius: "20px",
+          maxWidth: 300,
+          margin: "30px",
+          alignItems: "center",
+          backgroundColor: "#f5f5f5",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <CardContent sx={{ textAlign: "center" }}>
           <Typography variant="h5" component="div">
-            {sports}
+            {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
-            PKR 700/-
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontSize: "1.1rem" }}
+          >
+            PKR {price}/-
           </Typography>
           {isCreated ? (
-            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1.1rem', margin: '10px 0' }}>
-              Team Code: {teamCode}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontSize: "1.1rem", margin: "10px 0" }}
+            >
+              Team Code: {code}
             </Typography>
           ) : (
             <Button
               variant="contained"
               color="primary"
-              sx={{ width: '60%', mt: 2, color: 'white', borderRadius: '20px', fontWeight: 'bold' }}
+              sx={{
+                width: "60%",
+                mt: 2,
+                color: "white",
+                borderRadius: "20px",
+                fontWeight: "bold",
+              }}
               onClick={handleCreateClick}
-              disabled={isCreated}
+              disabled={hasApplied}
+              data-sport-id={id}
             >
-              {isCreated ? `Team Code: ${teamCode}` : 'Create'}
+              {isCreated ? `Team Code: ${code}` : "Create"}
             </Button>
           )}
-          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left', fontSize: '1.1rem' }}>
-              {doneCount} done
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: "left", fontSize: "1.1rem" }}
+            >
+              {minPlayer} Minimum
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '1.1rem' }}>
-              {leftCount} left
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: "right", fontSize: "1.1rem" }}
+            >
+              {maxPlayer} Maximum
             </Typography>
           </Box>
         </CardContent>
@@ -74,7 +132,7 @@ const CreateTeamCard = ({ gender, sports, doneCount, leftCount, teamCode }) => {
         onClose={handleCloseCreateTeamDialog}
         onConfirm={handleConfirmCreateTeam}
         genderVar={gender}
-        sportsNameVar={sports}
+        sportsNameVar={name}
       />
     </div>
   );
