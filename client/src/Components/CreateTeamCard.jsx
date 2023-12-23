@@ -102,7 +102,7 @@ const CreateTeamCard = ({
           >
             PKR {price}/-
           </Typography>
-          {isCreated ? (
+          {code ? (
             <Typography
               variant="body2"
               color="text.secondary"
