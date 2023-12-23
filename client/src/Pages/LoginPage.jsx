@@ -52,29 +52,41 @@ const LoginPage = () => {
       console.log('Access token set in localStorage:', accessToken);
       console.log('UserID set in localStorage:', UserID);
 
-      try{
-        const response = await axios.get(`${API_URL}/auth/auth`,
-        {
-          headers: {
-          Authorization: `Bearer ${localStorage.accessToken}`,
-        }
-      })
-      console.log(response);
       setLoading(false);
-      if(response.data.data.isParticipant === true)
+      if(response.data.data.user.isParticipant === true)
       {
-        if (response.data.data.isValidated === false){
+        localStorage.setItem('isParticipant', true);
+        if (response.data.data.user.isValidated === false){
           navigate('/verifycode')
         }else{
-          navigate('/dashboard');
+          try{
+            const response = await axios.get(`${API_URL}/basic/basicDisplay`,
+            {
+              headers: {
+              Authorization: `Bearer ${localStorage.accessToken}`,
+            }
+          });
+
+
+          console.log("basic info response");
+          console.log(response);
+
+          if(response.data.data !== null && response.data.data.status === "verified"){
+            localStorage.setItem('basicInfo', true);
+            localStorage.setItem('basicInfoDetails', true);
+            navigate('/dashboard');
+          }else{
+            navigate('/PleaseWait');
+          }
+
+          }catch(error){
+            console.log(error);
+          }
         }
       }else{
         navigate('/users');
       }
-      }catch(error){
-        setLoading(false);
-        console.log(error);
-      }
+     
   } catch (error) {
       setLoading(false);
       alert('Invalid credentials! Please try again.');

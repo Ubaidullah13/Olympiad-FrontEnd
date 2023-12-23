@@ -17,8 +17,10 @@ const RPR = (props) => {
         if(!token){
             navigate('/login');
         }else{
-            if(localStorage.isParticipant === true)
+            console.log("isParticipant",localStorage.isParticipant);
+            if(localStorage.isParticipant)
             {
+                console.log("isParticipant",localStorage.isParticipant);
                 navigate('/dashboard');
             }
         } 

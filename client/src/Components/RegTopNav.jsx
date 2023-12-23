@@ -13,6 +13,7 @@ const RegTopNavBar = () => {
 
 
   const handleLogout = () => {
+    localStorage.clear();
     navigate('/login');
     setLoggedIn(false);
   };

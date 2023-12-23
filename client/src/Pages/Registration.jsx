@@ -54,8 +54,8 @@ const OlympiadRegistration = () => {
 
   const handleGenderChange = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value === "male" ? true : false });
-    // console.log(value);
+    console.log(value);
+    setData({ ...data, [name] : value === "male" ? true : false });
   }
 
   const handleButtonClick = async (e) => {
