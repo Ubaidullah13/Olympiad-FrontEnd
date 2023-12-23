@@ -25,7 +25,20 @@ const Dashboard2 = () => {
         // console.log(CreateTeamData);
       } catch (error) {}
     };
+
+    const getIndividualSports = async() => {
+      try {
+        const response = await axios.get(`${API_URL}/sports/genderSingleSports`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.accessToken}`,
+          },
+        });
+        setIndividualParticipationData(response.data.data);
+      }
+      catch (error) {}
+    };
     getTeamSports();
+    getIndividualSports();
   });
 
   const [selectedHeader, setSelectedHeader] = useState("individual");
@@ -33,7 +46,7 @@ const Dashboard2 = () => {
   const handleHeaderChange = (newHeader) => {
     setSelectedHeader(newHeader);
   };
-  const individualParticipationData = [
+  const [individualParticipationData, setIndividualParticipationData] = useState([
     {
       title: "Cricket",
       description: "PKR 700/-",
@@ -52,7 +65,7 @@ const Dashboard2 = () => {
       doneCount: 3,
       leftCount: 8,
     },
-  ];
+  ]);
 
   const [CreateTeamData, SetCreateTeamData] = useState([
     // {
