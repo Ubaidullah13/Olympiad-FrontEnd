@@ -15,10 +15,20 @@ import { jsPDF } from 'jspdf';
 import Table from "react-bootstrap/Table";
 
 const Payments = ({}) => {
+  const initialState = {
+    challanId: null,
+    paymentProof: null,
+  };
   const navigate = useNavigate();
   const [registrationFee, setRegistrationFee] = useState(0);
   const [paymentPic, setPaymentPic] = useState("");
   const [challans, setChallans] = useState([]);
+
+  const [pending, setPending] = useState(false);
+  const [rejected, setRejected] = useState(false);
+
+
+  const [challanData, setChallanData]= useState(initialState);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -88,12 +98,70 @@ const Payments = ({}) => {
     }
   };
 
+  const getChallans = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/challan/getBills`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(response.data.data);
+
+      setChallans(response.data.data);
+
+      // if the largest id challen status is Pending then getChallanDetails
+      if(response.data.data.length > 0){
+        if(response.data.data[response.data.data.length - 1].isPaid === "pending"){
+          setPending(true);
+        }
+        else if(response.data.data[response.data.data.length - 1].isPaid === "rejected"){
+          setRejected(true);
+        }
+
+        setChallanData({...challanData, challanId: response.data.data[response.data.data.length - 1].id});
+
+        const teamsArray = response.data.data[response.data.data.length - 1].detail.filter(
+          (obj) => obj.isIndividual === false && obj.id !== 0
+        );
+        const individualsArray = response.data.data[response.data.data.length - 1].detail.filter(
+          (obj) => obj.isIndividual === true && obj.id !== 0
+        );
+  
+        const regObject = response.data.data[response.data.data.length - 1].detail.find((obj) => obj.id === 0);
+  
+        setTeams(teamsArray);
+        setIndividuals(individualsArray);
+        if (regObject) {
+          setRegObj(regObject);
+        }
+  
+        setTotalPrice(response.data.data[response.data.data.length - 1].netTotal);
+        setPaymentPic(response.data.data[response.data.data.length - 1].paymentProof);
+
+        setLoading(false);
+
+      }else{
+        getChallanDetails();
+      }
+    
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    getChallanDetails();
+    getChallans();
   }, []);
 
   const handlePaymentPic = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert('File size should not exceed 10 MB');
+      return;
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -103,8 +171,31 @@ const Payments = ({}) => {
     }
   };
 
-  const handleButtonClick = () => {
-    navigate("/dashboard");
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    if (paymentPic === "") {
+      alert("Please attach the proof of payment");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("challanId", challanData.challanId);
+    formData.append("paymentProof", paymentPic);
+
+    axios.post(`${API_URL}/challan/updateChallan`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("Challan Updated Successfully");
+        navigate("/payments");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Updating Challan");
+      });
   };
 
   return (
@@ -134,6 +225,7 @@ const Payments = ({}) => {
               <p>HBL Nust Branch H-12, Islamabad</p>
             </div>
             <hr />
+            <form onSubmit={handleButtonClick}>
             <div className="mb-3">
               <h6>Attach the Proof of Payment</h6>
             </div>
@@ -144,6 +236,7 @@ const Payments = ({}) => {
                 backgroundSize: "cover",
               }}
             >
+
               <label htmlFor="file-upload" className="upload-label">
                 <input
                   id="file-upload-payment"
@@ -155,10 +248,12 @@ const Payments = ({}) => {
             </div>
             <button
               className="btn btnColor mt-3 left-align"
-              onClick={handleButtonClick}
+              {...(pending ? { disabled: true } : {}) }
+              {...(rejected ? { disabled: false } : {}) }
             >
-              Submit Challan
+              {pending ? "Already Submitted" : rejected ? "Update Challen" : "Submit Challen"}
             </button>
+            </form>
             <p className="mt-3">* Registration fees is not refundable</p>
           </div>
           <div className="col-md-6">
@@ -237,11 +332,9 @@ const Payments = ({}) => {
         <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Total</th>
+            <th>Challan ID</th>
             <th>Status</th>
+            <th>Total (Rs)</th>
           </tr>
         </thead>
         <tbody>
@@ -255,11 +348,9 @@ const Payments = ({}) => {
             challans.map((challan, index) => {
               return (
                 <tr>
-                  <td>{index + 1}</td>
-                  <td>{challan.user.name}</td>
-                  <td>{challan.user.email}</td>
-                  <td>{challan.netTotal}</td>
+                  <td>{challan.id}</td>
                   <td>{challan.isPaid}</td>
+                  <td>{challan.netTotal}</td>
                 </tr>
               );
             })
