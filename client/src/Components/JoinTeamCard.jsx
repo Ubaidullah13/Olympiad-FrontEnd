@@ -11,8 +11,10 @@ import AlertBox from "./AlertBox"; // Import the AlertBox component
 import GppBadOutlinedIcon from "@mui/icons-material/GppBadOutlined";
 import axios from "axios";
 import API_URL from "../config";
+import { useEffect } from "react";
 
 const JoinTeamCard = () => {
+  useEffect(() => {});
   const [isJoined, setIsJoined] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const [joinTeamCode, setJoinTeamCode] = useState("");

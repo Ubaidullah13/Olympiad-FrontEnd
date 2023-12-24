@@ -33,6 +33,7 @@ const CustomCard = ({
   };
 
   const handleConfirmApply = async (e) => {
+    e.target.style.backgroundColor = "grey";
     const data = {
       sportId: parseInt(appliedSportId),
     };
@@ -50,7 +51,8 @@ const CustomCard = ({
     } catch (error) {
       console.log(error);
     }
-    // setIsApplied(true);
+    e.target.style.backgroundColor = "blue";
+    setIsApplied(true);
     setAlertOpen(false);
   };
 

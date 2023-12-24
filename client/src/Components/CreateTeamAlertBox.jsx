@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const CreateTeamAlertBox = ({
   open,
@@ -15,12 +16,6 @@ const CreateTeamAlertBox = ({
   sportsNameVar,
   setNewTeamName,
 }) => {
-  const [disableCofnirmButton, setDisableConfirmButton] = useState(false);
-  const [disableCancelButton, setDisableCancelButton] = useState(false);
-  useEffect(() => {
-    setDisableCancelButton(false);
-    setDisableConfirmButton(false);
-  }, []);
   return (
     <Dialog
       open={open}
@@ -48,7 +43,6 @@ const CreateTeamAlertBox = ({
           variant="outlined"
           style={{ color: "blue", borderColor: "white", borderRadius: "20px" }}
           onClick={onClose}
-          disbaled={disableCancelButton}
         >
           Cancel
         </Button>
@@ -60,10 +54,7 @@ const CreateTeamAlertBox = ({
             borderRadius: "20px",
             marginLeft: "10px",
           }}
-          disabled={disableCofnirmButton}
           onClick={(e) => {
-            setDisableConfirmButton(true);
-            setDisableCancelButton(true);
             onConfirm(e);
           }}
         >

@@ -6,12 +6,6 @@ import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 
 const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
-  const [disableConfirmButton, setDisableConfirmButton] = useState(false);
-  const [disableCancelButton, setDisableCancelButton] = useState(false);
-  useEffect(() => {
-    setDisableCancelButton(false);
-    setDisableConfirmButton(false);
-  }, []);
   return (
     <Dialog
       open={open}
@@ -26,7 +20,6 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
           variant="outlined"
           style={{ color: "blue", borderColor: "white", borderRadius: "20px" }}
           onClick={onClose}
-          disabled={disableCancelButton}
         >
           Cancel
         </Button>
@@ -39,11 +32,8 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
             marginLeft: "10px", // Adjusted spacing between buttons
           }}
           onClick={(e) => {
-            setDisableConfirmButton(true);
-            setDisableCancelButton(true);
             onConfirm(e);
           }}
-          disabled={disableConfirmButton}
         >
           Confirm
         </Button>
