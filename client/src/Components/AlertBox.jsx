@@ -1,39 +1,49 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
+import React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
 
 const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
-  const [disableCofnirmButton, setDisableConfirmButton] = useState(false);
+  const [disableConfirmButton, setDisableConfirmButton] = useState(false);
+  const [disableCancelButton, setDisableCancelButton] = useState(false);
+  useEffect(() => {
+    setDisableCancelButton(false);
+    setDisableConfirmButton(false);
+  })
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" height='200px' fullWidth>
-      <DialogContent>
-        {dialogContent}
-      </DialogContent>
-      <DialogActions style={{ justifyContent: 'center' }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
+      height="200px"
+      fullWidth
+    >
+      <DialogContent>{dialogContent}</DialogContent>
+      <DialogActions style={{ justifyContent: "center" }}>
         <Button
           variant="outlined"
-          style={{ color: 'blue', borderColor: 'white', borderRadius: '20px' }}
+          style={{ color: "blue", borderColor: "white", borderRadius: "20px" }}
           onClick={onClose}
+          disabled={disableCancelButton}
         >
           Cancel
         </Button>
         <Button
           variant="contained"
           style={{
-            backgroundColor: 'blue',
-            color: 'white',
-            borderRadius: '20px',
-            marginLeft: '10px', // Adjusted spacing between buttons
+            backgroundColor: "blue",
+            color: "white",
+            borderRadius: "20px",
+            marginLeft: "10px", // Adjusted spacing between buttons
           }}
-          onClick={()=> {
+          onClick={(e) => {
             setDisableConfirmButton(true);
-            onConfirm();
-          }
-        }
-        disabled={setDisableConfirmButton}
+            setDisableCancelButton(true);
+            onConfirm(e);
+          }}
+          disabled={disableConfirmButton}
         >
           Confirm
         </Button>
@@ -43,7 +53,6 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
 };
 
 export default AlertBox;
-
 
 // import React from 'react';
 // import Dialog from '@mui/material/Dialog';
