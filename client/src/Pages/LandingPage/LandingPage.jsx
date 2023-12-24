@@ -44,7 +44,7 @@ const LandingPage = () => {
           <AboutUsSection />
           <Olympiad />
           <EC />
-          <Sponsors />
+          {/* <Sponsors /> */}
           <Contact />
         </div>
       )}
