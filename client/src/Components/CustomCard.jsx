@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Card, CardContent, Button, Typography, Box } from "@mui/material";
 import AlertBox from "./AlertBox"; // Import the AlertBox component
 import axios from "axios";
-import API_URL from '../config';
+import API_URL from "../config";
 import { useEffect } from "react";
-
 
 const CustomCard = ({
   id,
@@ -20,7 +19,7 @@ const CustomCard = ({
 }) => {
   useEffect(() => {
     setIsApplied(hasApplied);
-  }, [hasApplied])
+  }, [hasApplied]);
   const [isApplied, setIsApplied] = useState(hasApplied);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply in this sports?";
@@ -28,24 +27,27 @@ const CustomCard = ({
 
   const handleApplyClick = (e) => {
     e.preventDefault();
-    setAppliedSportId(e.target.getAttribute('data-sport-id'));
+    setAppliedSportId(e.target.getAttribute("data-sport-id"));
     // Display the AlertBox when the 'Apply' button is clicked
     setAlertOpen(true);
   };
 
   const handleConfirmApply = async (e) => {
     const data = {
-      sportId: parseInt(appliedSportId)
-    }
+      sportId: parseInt(appliedSportId),
+    };
     try {
-      const response = await axios.post(`${API_URL}/sports/applyIndividualSport`, data, {
-        headers: {
-          Authorization: `Bearer ${localStorage.accessToken}`
+      const response = await axios.post(
+        `${API_URL}/sports/applyIndividualSport`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.accessToken}`,
+          },
         }
-      })
+      );
       console.log(response);
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
     // setIsApplied(true);

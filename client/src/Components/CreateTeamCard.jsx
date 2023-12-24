@@ -46,25 +46,25 @@ const CreateTeamCard = ({
 
     // You can set the teamCode as needed in your logic
 
+    e.target.style.backgroundColor = "grey";
+
     const data = {
       sportId: parseInt(createTeamSportId),
-      teamName: newTeamname
-    }
+      teamName: newTeamname,
+    };
 
     try {
       const response = await axios.post(`${API_URL}/sports/createTeam`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.accessToken}`
-        }
+          Authorization: `Bearer ${localStorage.accessToken}`,
+        },
       });
       console.log(response);
-
-    }
-    catch(error) {
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
 
-
+    e.target.style.backgroundColor = "blue";
 
     setIsCreated(true);
     handleCloseCreateTeamDialog();
@@ -75,7 +75,7 @@ const CreateTeamCard = ({
     e.preventDefault();
     if (!isCreated) {
       handleOpenCreateTeamDialog();
-      setCreateTeamSportId(e.target.getAttribute('data-sport-id'));
+      setCreateTeamSportId(e.target.getAttribute("data-sport-id"));
     }
   };
 

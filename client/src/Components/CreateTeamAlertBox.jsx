@@ -17,6 +17,10 @@ const CreateTeamAlertBox = ({
 }) => {
   const [disableCofnirmButton, setDisableConfirmButton] = useState(false);
   const [disableCancelButton, setDisableCancelButton] = useState(false);
+  useEffect(() => {
+    setDisableCancelButton(false);
+    setDisableConfirmButton(false);
+  }, []);
   return (
     <Dialog
       open={open}

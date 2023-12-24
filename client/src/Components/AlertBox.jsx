@@ -11,7 +11,7 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
   useEffect(() => {
     setDisableCancelButton(false);
     setDisableConfirmButton(false);
-  })
+  }, []);
   return (
     <Dialog
       open={open}

@@ -26,16 +26,18 @@ const Dashboard2 = () => {
       } catch (error) {}
     };
 
-    const getIndividualSports = async() => {
+    const getIndividualSports = async () => {
       try {
-        const response = await axios.get(`${API_URL}/sports/genderSingleSports`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.accessToken}`,
-          },
-        });
+        const response = await axios.get(
+          `${API_URL}/sports/genderSingleSports`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.accessToken}`,
+            },
+          }
+        );
         setIndividualParticipationData(response.data.data);
-      }
-      catch (error) {}
+      } catch (error) {}
     };
     getTeamSports();
     getIndividualSports();
@@ -46,26 +48,27 @@ const Dashboard2 = () => {
   const handleHeaderChange = (newHeader) => {
     setSelectedHeader(newHeader);
   };
-  const [individualParticipationData, setIndividualParticipationData] = useState([
-    {
-      title: "Cricket",
-      description: "PKR 700/-",
-      doneCount: 3,
-      leftCount: 8,
-    },
-    {
-      title: "Badminton",
-      description: "PKR 700/-",
-      doneCount: 3,
-      leftCount: 8,
-    },
-    {
-      title: "Badminton",
-      description: "PKR 700/-",
-      doneCount: 3,
-      leftCount: 8,
-    },
-  ]);
+  const [individualParticipationData, setIndividualParticipationData] =
+    useState([
+      {
+        title: "Cricket",
+        description: "PKR 700/-",
+        doneCount: 3,
+        leftCount: 8,
+      },
+      {
+        title: "Badminton",
+        description: "PKR 700/-",
+        doneCount: 3,
+        leftCount: 8,
+      },
+      {
+        title: "Badminton",
+        description: "PKR 700/-",
+        doneCount: 3,
+        leftCount: 8,
+      },
+    ]);
 
   const [CreateTeamData, SetCreateTeamData] = useState([
     // {
