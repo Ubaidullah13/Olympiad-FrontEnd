@@ -168,6 +168,7 @@ const Payments = ({}) => {
         setPaymentPic(reader.result);
       };
       reader.readAsDataURL(file);
+      setChallanData(prevData => ({ ...prevData, paymentProof: file }));
     }
   };
 
@@ -178,11 +179,16 @@ const Payments = ({}) => {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("challanId", challanData.challanId);
-    formData.append("paymentProof", paymentPic);
+    if(pending || rejected){
 
-    axios.post(`${API_URL}/challan/updateChallan`, formData, {
+      const formData = new FormData();
+      formData.append("challanId", challanData.challanId);
+  
+      if (challanData.profilePhoto) {
+        formData.append("profilePhoto", challanData.profilePhoto);
+      }
+
+      axios.post(`${API_URL}/challan/updateChallan`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -196,6 +202,29 @@ const Payments = ({}) => {
         console.log(error);
         alert("Error Updating Challan");
       });
+    }else{
+      const formData2 = new FormData();
+  
+      if (challanData.profilePhoto) {
+        formData2.append("profilePhoto", challanData.profilePhoto);
+      }
+      axios.post(`${API_URL}/challan/generateChallan`, formData2, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("Challan Generated Successfully");
+        navigate("/payments");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Generating Challan");
+      });
+    }
+
+
   };
 
   return (
