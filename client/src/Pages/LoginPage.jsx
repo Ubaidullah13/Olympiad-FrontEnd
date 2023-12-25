@@ -54,9 +54,14 @@ const LoginPage = () => {
 
       if(response.data.data.user.isParticipant === true)
       {
+
+        localStorage.setItem('name', response.data.data.name)
+        if (response.data.data.isValidated === false){
+
         localStorage.setItem('isParticipant', true);
         if (response.data.data.user.isValidated === false){
           setLoading(false);
+
           navigate('/verifycode')
         }else{
           try{

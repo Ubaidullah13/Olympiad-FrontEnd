@@ -1,19 +1,57 @@
-import React, { useState } from 'react';
-import { Card, CardContent, Button, Typography, Box } from '@mui/material';
-import AlertBox from './AlertBox'; // Import the AlertBox component
+import React, { useState } from "react";
+import { Card, CardContent, Button, Typography, Box } from "@mui/material";
+import AlertBox from "./AlertBox"; // Import the AlertBox component
+import axios from "axios";
+import API_URL from "../config";
+import { useEffect } from "react";
 
-const CustomCard = ({ title, description, doneCount, leftCount }) => {
-  const [isApplied, setIsApplied] = useState(false);
+const CustomCard = ({
+  id,
+  name,
+  gender,
+  description,
+  minPlayer,
+  maxPlayer,
+  teamCap,
+  details,
+  price,
+  hasApplied,
+}) => {
+  useEffect(() => {
+    setIsApplied(hasApplied);
+  }, [hasApplied]);
+  const [isApplied, setIsApplied] = useState(hasApplied);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply in this sports?";
-  
-  const handleApplyClick = () => {
+  const [appliedSportId, setAppliedSportId] = useState("");
+
+  const handleApplyClick = (e) => {
+    e.preventDefault();
+    setAppliedSportId(e.target.getAttribute("data-sport-id"));
     // Display the AlertBox when the 'Apply' button is clicked
     setAlertOpen(true);
   };
 
-  const handleConfirmApply = () => {
-    // Additional logic or API calls can be added here.
+  const handleConfirmApply = async (e) => {
+    e.target.style.backgroundColor = "grey";
+    const data = {
+      sportId: parseInt(appliedSportId),
+    };
+    try {
+      const response = await axios.post(
+        `${API_URL}/sports/applyIndividualSport`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    e.target.style.backgroundColor = "blue";
     setIsApplied(true);
     setAlertOpen(false);
   };
@@ -25,29 +63,64 @@ const CustomCard = ({ title, description, doneCount, leftCount }) => {
 
   return (
     <div>
-      <Card sx={{ borderRadius: '20px', maxWidth: 300, margin: '30px', alignItems: 'center', backgroundColor: '#f5f5f5', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
-        <CardContent sx={{ textAlign: 'center' }}>
+      <Card
+        sx={{
+          borderRadius: "20px",
+          maxWidth: 300,
+          margin: "30px",
+          alignItems: "center",
+          backgroundColor: "#f5f5f5",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <CardContent sx={{ textAlign: "center" }}>
           <Typography variant="h5" component="div">
-            {title}
+            {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1.1rem', textAlign: 'center' }}>
-            {description}
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontSize: "1.1rem", textAlign: "center" }}
+          >
+            Rs. {price}/-
           </Typography>
           <Button
             variant="contained"
-            color={isApplied ? 'grey' : 'primary'}
-            sx={{ width: '60%', mt: 2, color: 'white', borderRadius: '20px', fontWeight: 'bold' }}
+            color={isApplied ? "grey" : "primary"}
+            sx={{
+              width: "60%",
+              mt: 2,
+              color: "white",
+              borderRadius: "20px",
+              fontWeight: "bold",
+            }}
             onClick={handleApplyClick}
             disabled={isApplied}
+            data-sport-id={id}
           >
-            {isApplied ? 'Applied' : 'Apply'}
+            {isApplied ? "Applied" : "Apply"}
           </Button>
-          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left', fontSize: '1.1rem' }}>
-              {doneCount} done
+          <Box
+            sx={{
+              mt: 2,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: "left", fontSize: "1.1rem" }}
+            >
+              {minPlayer} Minimum
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '1.1rem' }}>
-              {leftCount} left
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ textAlign: "right", fontSize: "1.1rem" }}
+            >
+              {maxPlayer} Maximum
             </Typography>
           </Box>
         </CardContent>
@@ -65,7 +138,6 @@ const CustomCard = ({ title, description, doneCount, leftCount }) => {
 };
 
 export default CustomCard;
-
 
 // import React, { useState } from 'react';
 // import { Card, CardContent, Button, Typography, Box } from '@mui/material';

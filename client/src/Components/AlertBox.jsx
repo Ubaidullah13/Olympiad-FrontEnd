@@ -1,19 +1,24 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
+import React from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import { useState, useEffect } from "react";
 
 const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" height='200px' fullWidth>
-      <DialogContent>
-        {dialogContent}
-      </DialogContent>
-      <DialogActions style={{ justifyContent: 'center' }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
+      height="200px"
+      fullWidth
+    >
+      <DialogContent>{dialogContent}</DialogContent>
+      <DialogActions style={{ justifyContent: "center" }}>
         <Button
           variant="outlined"
-          style={{ color: 'blue', borderColor: 'white', borderRadius: '20px' }}
+          style={{ color: "blue", borderColor: "white", borderRadius: "20px" }}
           onClick={onClose}
         >
           Cancel
@@ -21,12 +26,14 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
         <Button
           variant="contained"
           style={{
-            backgroundColor: 'blue',
-            color: 'white',
-            borderRadius: '20px',
-            marginLeft: '10px', // Adjusted spacing between buttons
+            backgroundColor: "blue",
+            color: "white",
+            borderRadius: "20px",
+            marginLeft: "10px", // Adjusted spacing between buttons
           }}
-          onClick={onConfirm}
+          onClick={(e) => {
+            onConfirm(e);
+          }}
         >
           Confirm
         </Button>
@@ -36,7 +43,6 @@ const AlertBox = ({ open, onClose, onConfirm, dialogContent }) => {
 };
 
 export default AlertBox;
-
 
 // import React from 'react';
 // import Dialog from '@mui/material/Dialog';
