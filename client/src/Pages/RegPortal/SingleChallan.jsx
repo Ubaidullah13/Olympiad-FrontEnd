@@ -35,13 +35,11 @@ const ChallanDetails = () => {
   if (parseInt(id) === 1) {
     navigate("/challans");
   }
+  const token = localStorage.getItem("accessToken");
   
   const setStatus = async()=>{
     try {
-      const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
-  
-      const {data} = await axios.post(`${API_URL}challan/setStatusChallan`,{
+      const {data} = await axios.post(`${API_URL}/challan/setStatusChallan`,{
         userId : parseInt(details.user.id),
         reason,
         isPaid : action,
@@ -64,9 +62,6 @@ const ChallanDetails = () => {
 
   const getChallanDetails = async () => {
     try {
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
-
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -75,7 +70,7 @@ const ChallanDetails = () => {
 
       // Assuming 'id' is defined elsewhere in your code
       const { data } = await axios.get(
-        `${API_URL}challan/getChallan/${id}`,
+        `${API_URL}/challan/getChallan/${id}`,
         config
       );
 

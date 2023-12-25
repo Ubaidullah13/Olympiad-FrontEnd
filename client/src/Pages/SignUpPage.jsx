@@ -15,6 +15,7 @@ import axios from 'axios';
 import Nav from '../Components/Navigation';
 
 import API_URL from '../config';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 // api link
@@ -32,6 +33,8 @@ const SignUpPage = () => {
   const [ wrongPassword, setWrongPassword ] = useState();
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordMatchError, setPasswordMatchError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
 
   const navigate = useNavigate();
   // Handle hide password for first password field
@@ -70,6 +73,7 @@ const SignUpPage = () => {
         setPasswordMatchError(true);}
       // console.log(data);
       e.preventDefault();
+      setLoading(true);
       const response = await axios.post(`${API_URL}/auth/register`, data);
       // console.log(response.data);
       console.log(response);
@@ -79,9 +83,12 @@ const SignUpPage = () => {
         console.log('Access token set in localStorage:', accessToken);
         localStorage.setItem('basicInfoDetails', false);
         localStorage.setItem('basicInfo', false);
+        localStorage.setItem('isParticipant', true);
+        setLoading(false);
       // console.log(response.data.accessToken)
       navigate('/verifycode');
   } catch (error) {
+    setLoading(false);
     if (error.response.data.data === null){
       alert(error.response.data.message)
     }else{
@@ -181,7 +188,11 @@ const SignUpPage = () => {
               <label htmlFor="terms" className="text-sm" style={{display:"inline-block"}}>  I agree to the <span><Link className="links" href="#" rel="noopener noreferrer" style={{fontWeight:"bold"}}>Terms and Conditions</Link></span> </label>
             </div>
             <br></br> */}
-
+{loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ) :(
             <button
               type="submit"
               className="button"
@@ -189,7 +200,8 @@ const SignUpPage = () => {
               style={{transform: 'scale(1.25)', paddingLeft:'40px', paddingRight:'40px', paddingTop:'20px', paddingBottom:'20px'}}
             >
               Create Account
-            </button>          
+            </button>
+        )}          
           </form>
           
           <p className="mt-4 text-sm" style={{fontWeight:'bold', textAlign:'center'}}>

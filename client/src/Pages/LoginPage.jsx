@@ -11,7 +11,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import CircularProgress from '@mui/material/CircularProgress'; 
 
 import Nav from '../Components/Navigation';
 
@@ -31,6 +31,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const [data, setData]= useState(initialState);
+  const [loading, setLoading] = useState(false);
   
 
   const handleInputChange = (e) => {
@@ -41,6 +42,7 @@ const LoginPage = () => {
   const handleButtonClick = async (e) => {
     try {
       e.preventDefault();
+      setLoading(true);
       const response = await axios.post(`${API_URL}/auth/login`, data);
       console.log(response);
       const accessToken = response.data.data.accessToken;
@@ -50,40 +52,49 @@ const LoginPage = () => {
       console.log('Access token set in localStorage:', accessToken);
       console.log('UserID set in localStorage:', UserID);
 
-      try{
-        const response = await axios.get(`${API_URL}/auth/auth`,
-        {
-          headers: {
-          Authorization: `Bearer ${localStorage.accessToken}`,
-        }
-      })
-      console.log(response);
-      if(response.data.data.isParticipant === true)
+      if(response.data.data.user.isParticipant === true)
       {
+
         localStorage.setItem('name', response.data.data.name)
         if (response.data.data.isValidated === false){
+
+        localStorage.setItem('isParticipant', true);
+        if (response.data.data.user.isValidated === false){
+          setLoading(false);
+
           navigate('/verifycode')
         }else{
-          navigate('/dashboard');
+          try{
+            const response = await axios.get(`${API_URL}/basic/basicDisplay`,
+            {
+              headers: {
+              Authorization: `Bearer ${localStorage.accessToken}`,
+            }
+          });
+
+
+          console.log("basic info response");
+          console.log(response);
+          setLoading(false);
+
+          if(response.data.data !== null && response.data.data.status === "verified"){
+            localStorage.setItem('basicInfo', true);
+            localStorage.setItem('basicInfoDetails', true);
+            navigate('/dashboard');
+          }else{
+            navigate('/PleaseWait');
+          }
+
+          }catch(error){
+            console.log(error);
+          }
         }
       }else{
         navigate('/users');
       }
-      // if (response.data.data.isValidated === false){
-      //   navigate('/verifycode')
-      // }
-      // else{
-      //   if (response.data.data.isParticipant === true){
-      //     navigate('/dashboard');
-      //   }
-      //   else{
-      //     navigate('/users');
-      //   }
-      // }
-      }catch(error){
-        console.log(error);
-      }
+     
   } catch (error) {
+      setLoading(false);
       alert('Invalid credentials! Please try again.');
   }
     
@@ -121,13 +132,19 @@ const LoginPage = () => {
               }}/>
             </div>
             <br></br>
+            {loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ) :(
             <button
               type="submit"
               className="button"
               style={{transform: 'scale(1.25)', paddingLeft:'40px', paddingRight:'40px', paddingTop:'20px', paddingBottom:'20px'}}
             >
               Login
-            </button>          
+            </button>
+        )}          
           </form>
          
           <p className="mt-4 text-sm" style={{fontWeight:'bold', textAlign : 'center'}}>

@@ -10,16 +10,15 @@ import Modal from "react-bootstrap/Modal";
 const initialState = {
   name: "",
   description: "",
-  minPlayer: 0,
-  maxPlayer: 0,
-  price: 0,
+  minPlayer: "",
+  maxPlayer: "",
+  price: "",
   gender: true,
   teamCap: 0,
 };
 
 const AddComp = () => {
-  const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImVtYWlsIjoid2FxYXNhbGkwMDEyMysxMjMyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzA3NzI4MCwiZXhwIjoxNzAzMjUwMDgwfQ.f5R3WitUx0Sqq6ucscyYPFQvqLvj_IJPI6DphzPEBd8";
+  const token = localStorage.getItem("accessToken");
 
   const [comps, setcomps] = useState([]);
   const [comp, setcomp] = useState(initialState);
@@ -35,7 +34,7 @@ const AddComp = () => {
 
   const getcomps = async () => {
     try {
-      const response = await axios.get(`${API_URL}competitions/AllSports`, {
+      const response = await axios.get(`${API_URL}/competitions/AllSports`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,6 +56,7 @@ const AddComp = () => {
       const intMaxPlayer = parseInt(comp.maxPlayer);
       const intPrice = parseInt(comp.price);
       const intTeamCap = parseInt(comp.teamCap);
+      const gender = comp.gender === "true" ? true : false;
   
       const updatedcomp = {
         ...comp,
@@ -64,11 +64,12 @@ const AddComp = () => {
         maxPlayer: intMaxPlayer,
         price: intPrice,
         teamCap: intTeamCap,
+        gender
       };
   
-      const response = await axios.post(`${API_URL}competitions/addSport`, updatedcomp, {
+      const response = await axios.post(`${API_URL}/competitions/addSport`, updatedcomp, {
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ3YXFhc2FsaTAwMTIzKzEyMzJAZ21haWwuY29tIiwiaWF0IjoxNzAyODk5NDY0LCJleHAiOjE3MDMwNzIyNjR9.t52Q-eg_4Qts-50Dm6Uluehm3VFvT87twtgk7RChNFo`,
+          Authorization: `Bearer ${token}	`,
         },
       });
   

@@ -13,34 +13,16 @@ const ProtectedRoute = (props) => {
 
     useEffect(() => {
 
-        async function fetchData() {
-            
-            try{
-                const response = await axios.get(`${API_URL}/auth/auth`,
-                {
-                headers: {
-                Authorization: `Bearer ${localStorage.accessToken}`,
-                }
-            })
-
-            if(response.data.data.isParticipant === false)
-            {
-                navigate('/users');
-            }
-            }catch(error){
-                console.log(error);
-                alert("Sorry! There is Network Error, Try Again Later");
-            }
-            
-          }
-
         let token = localStorage.getItem('accessToken');
-        // let basicInfo = localStorage.getItem('basicInfo');
-        // let basicInfoDetails = localStorage.getItem('basicInfoDetails');
+
         if(!token){
             navigate('/login');
         }else{
-            fetchData();
+            console.log("isParticipant",localStorage.isParticipant);
+            if(!localStorage.isParticipant)
+            {
+                navigate('/users');
+            }
         }        
     });
 

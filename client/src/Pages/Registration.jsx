@@ -16,8 +16,11 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import { useNavigate } from "react-router-dom";
 import olympiad from "../Images/logo/logo.png";
 
-import API_URL from "../config";
-import axios from "axios";
+
+import API_URL from '../config';
+import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const apiUrl = API_URL;
 
@@ -40,7 +43,10 @@ const OlympiadRegistration = () => {
   const [cnicFront, setCnicFront] = useState("");
   const [cnicBack, setCnicBack] = useState("");
 
-  const [data, setData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+  
+  const [data, setData]= useState(initialState);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,12 +56,14 @@ const OlympiadRegistration = () => {
 
   const handleGenderChange = (e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value === "male" ? true : false });
-    // console.log(value);
-  };
+
+    console.log(value);
+    setData({ ...data, [name] : value === "male" ? true : false });
+  }
 
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
 
@@ -91,10 +99,14 @@ const OlympiadRegistration = () => {
 
       console.log(response.data);
       const accessToken = response.data.data.accessToken;
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("basicInfo", true);
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('basicInfo', true);
+      setLoading(false);
+
       navigate("/details");
     } catch (err) {
+      setLoading(false);
       console.error(err);
       alert("Error occurred while uploading data. Please try again.");
     }
@@ -333,9 +345,21 @@ const OlympiadRegistration = () => {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn right-align btnColor">
-          Next step
-        </button>
+
+      </div>
+      {loading ? (
+          <div className="loader-container">
+            <CircularProgress />
+          </div>
+        ) :(
+      <button
+        type="submit"
+        className="btn right-align btnColor"
+      >
+        Next step
+      </button>
+        )}
+
       </form>
     </div>
   );
