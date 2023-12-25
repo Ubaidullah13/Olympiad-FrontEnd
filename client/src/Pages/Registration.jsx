@@ -345,9 +345,7 @@ const OlympiadRegistration = () => {
             </div>
           </div>
         </div>
-
-      </div>
-      {loading ? (
+        {loading ? (
           <div className="loader-container">
             <CircularProgress />
           </div>
@@ -360,8 +358,8 @@ const OlympiadRegistration = () => {
       </button>
         )}
 
-      </form>
-    </div>
+</form>
+      </div>
   );
 };
 
