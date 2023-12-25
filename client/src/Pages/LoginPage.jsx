@@ -52,11 +52,11 @@ const LoginPage = () => {
       console.log('Access token set in localStorage:', accessToken);
       console.log('UserID set in localStorage:', UserID);
 
-      setLoading(false);
       if(response.data.data.user.isParticipant === true)
       {
         localStorage.setItem('isParticipant', true);
         if (response.data.data.user.isValidated === false){
+          setLoading(false);
           navigate('/verifycode')
         }else{
           try{
@@ -70,6 +70,7 @@ const LoginPage = () => {
 
           console.log("basic info response");
           console.log(response);
+          setLoading(false);
 
           if(response.data.data !== null && response.data.data.status === "verified"){
             localStorage.setItem('basicInfo', true);
