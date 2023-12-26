@@ -8,6 +8,7 @@ import UserLayout from "../Components/UserLayout";
 
 import API_URL from "../config";
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const apiUrl = API_URL;
 
@@ -37,59 +38,23 @@ const Dashboard2 = () => {
           }
         );
         setIndividualParticipationData(response.data.data);
+        setLoading(false);
       } catch (error) {}
     };
     getTeamSports();
     getIndividualSports();
+ 
   });
 
   const [selectedHeader, setSelectedHeader] = useState("individual");
+  const [loading, setLoading] = useState(true);
 
   const handleHeaderChange = (newHeader) => {
     setSelectedHeader(newHeader);
   };
-  const [individualParticipationData, setIndividualParticipationData] =
-    useState([
-      {
-        title: "Cricket",
-        description: "PKR 700/-",
-        doneCount: 3,
-        leftCount: 8,
-      },
-      {
-        title: "Badminton",
-        description: "PKR 700/-",
-        doneCount: 3,
-        leftCount: 8,
-      },
-      {
-        title: "Badminton",
-        description: "PKR 700/-",
-        doneCount: 3,
-        leftCount: 8,
-      },
-    ]);
+  const [individualParticipationData, setIndividualParticipationData] = useState([]);
 
-  const [CreateTeamData, SetCreateTeamData] = useState([
-    // {
-    //   gender: "Male",
-    //   sports: "Football",
-    //   title: "Football Team",
-    //   description: "Create a football team",
-    //   doneCount: 3,
-    //   leftCount: 5,
-    //   teamCode: 2230,
-    // },
-    // {
-    //   gender: "Female",
-    //   sports: "Basketball",
-    //   title: "Basketball Team",
-    //   description: "Create a basketball team",
-    //   doneCount: 2,
-    //   leftCount: 6,
-    //   teamCode: 2230,
-    // },
-  ]);
+  const [CreateTeamData, SetCreateTeamData] = useState([]);
   const cardData =
     selectedHeader === "individual"
       ? individualParticipationData
@@ -104,7 +69,13 @@ const Dashboard2 = () => {
       >
         Sports
       </Typography>
-      {/* Content Container */}
+      {loading ? 
+      <>
+        <h6>Fetching Sports</h6>
+        <CircularProgress />
+      </>
+      : (
+
       <div style={{ flex: "1", padding: "20px", backgroundColor: "#f5f5f5" }}>
         <div style={{ display: "flex", justifyContent: "flex-start" }}>
           <div
@@ -177,6 +148,7 @@ const Dashboard2 = () => {
           </Grid>
         </div>
       </div>
+      )}
     </UserLayout>
   );
 };

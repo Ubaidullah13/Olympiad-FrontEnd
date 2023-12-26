@@ -24,7 +24,7 @@ const UserDetails = () => {
     stdFront: null,
     stdBack: null,
     cnic: "",
-    StudentOf: "",
+    studentOf: "",
     student_id: "",
     schoolName: "",
     ambassadorcode: "0000",
@@ -50,23 +50,38 @@ const UserDetails = () => {
   
     const handleStCardFrontChange = (event) => {
       const file = event.target.files[0];
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size should not exceed 10 MB");
+        return;
+      }
+
+
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setStCardFront(reader.result);
         };
         reader.readAsDataURL(file);
+        setData((prevData) => ({ ...prevData, stdFront: file }));
       }
     };
   
     const handleStCardBackChange = (event) => {
       const file = event.target.files[0];
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size should not exceed 10 MB");
+        return;
+      }
+
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setStCardBack(reader.result);
         };
         reader.readAsDataURL(file);
+        setData((prevData) => ({ ...prevData, stdBack: file }));
       }
     };
   
@@ -75,6 +90,7 @@ const UserDetails = () => {
       setSelectedValue(selected);
       setIsButtonDisabled(selected !== 'other');
       setShowComponent(selected !== 'other');
+      setData((prevData) => ({ ...prevData, studentOf: selected }));
     };
   
     const handleButtonClick = async (e) => {
@@ -82,6 +98,8 @@ const UserDetails = () => {
       setLoading(true);
     
       const formData = new FormData();
+
+      console.log(data);
     
       // Append text data to formData
       Object.keys(data).forEach(key => {
@@ -105,7 +123,7 @@ const UserDetails = () => {
         });
     
         console.log(response.data);
-        const accessToken = response.data.accessToken;
+        const accessToken = response.data.data.accessToken;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('basicInfoDetails', true);
         setLoading(false);
@@ -131,7 +149,7 @@ const UserDetails = () => {
       </div>
       <div className="row">
         <div className="col-md-4 mb-3 right-align-text">
-        <CustomRadioField type="University" name="StudentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
+        <CustomRadioField type="University" name="studentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
         </div>
         </div>
         {showComponent && (
@@ -179,13 +197,14 @@ const UserDetails = () => {
             style={{
               backgroundImage: `url(${stCardFront})`,
               backgroundSize: "cover",
+              borderColor: "var(--primary-dark)",
             }}
           >
           <label htmlFor="file-upload" className="upload-label">
             <input
               id="stcardFront"
               type="file"
-              accept="image/*"
+              accept="image/png, image/jpeg, image/jpg"
               onChange={handleStCardFrontChange}
               name="stdFront"
               />
@@ -202,13 +221,14 @@ const UserDetails = () => {
             style={{
               backgroundImage: `url(${stCardBack})`,
               backgroundSize: "cover",
+              borderColor: "var(--primary-dark)",
             }}
             >
             <label htmlFor="file-upload" className="upload-label">
               <input
                 id="stcardBack"
                 type="file"
-                accept="image/*"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={handleStCardBackChange}
                 name="stdBack"
               />

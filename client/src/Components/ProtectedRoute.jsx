@@ -18,13 +18,17 @@ const ProtectedRoute = (props) => {
         if(!token){
             navigate('/login');
         }else{
-            console.log("isParticipant",localStorage.isParticipant);
+            
             if(!localStorage.isParticipant)
             {
                 navigate('/users');
             }
+            if(localStorage.rejected === "true")
+            {
+                navigate('/regEdit');
+            }
         }        
-    });
+    }, []);
 
     return(
         <div>

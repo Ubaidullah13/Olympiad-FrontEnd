@@ -6,8 +6,8 @@ const CustomTextField = ({ type, iconType, label, handleInputChange, req='1', ..
     style: { borderRadius: '50px' },
   };
 
-  const labelStyles = label ? { position: 'relative', top: '-5px',left:'3px' } : {};
-  const iconStyles = label ? { position: 'relative', top: '5px', left:'2px' } : {};
+  const labelStyles = label ? { position: 'relative', top: '-5px',left:'3px', color: 'var(--primary-dark)'} : {};
+  const iconStyles = label ? { position: 'relative', top: '5px', left:'2px', color: 'var(--primary-dark)' } : {};
 
   const iconComponent =
     iconType && React.isValidElement(iconType) ? (

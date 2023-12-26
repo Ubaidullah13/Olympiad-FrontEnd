@@ -169,6 +169,7 @@ const OlympiadRegistration = () => {
             style={{
               backgroundImage: `url(${profilePic})`,
               backgroundSize: "cover",
+              borderColor: "var(--primary-dark)",
             }}
           ></div>
           <h4>Upload picture</h4>
@@ -180,6 +181,7 @@ const OlympiadRegistration = () => {
               type="file"
               accept="image/png, image/jpeg, image/jpg"
               onChange={handleProfilePicChange}
+              style={{borderColor: "var(--primary-dark)"}}
               required
             />
           </label>
@@ -237,7 +239,7 @@ const OlympiadRegistration = () => {
               style={{ marginTop: "15px" }}
               label="gender"
             >
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id="demo-simple-select-label" style={{color: 'var(--primary-dark)'}}>
                 <WcOutlinedIcon style={{ marginRight: "8px" }} />
                 Gender
               </InputLabel>
@@ -302,6 +304,7 @@ const OlympiadRegistration = () => {
               style={{
                 backgroundImage: `url(${cnicFront})`,
                 backgroundSize: "cover",
+                borderColor: "var(--primary-dark)",
               }}
             ></div>
             <div className="col-md-6 mb-3">
@@ -329,6 +332,7 @@ const OlympiadRegistration = () => {
               style={{
                 backgroundImage: `url(${cnicBack})`,
                 backgroundSize: "cover",
+                borderColor: "var(--primary-dark)",
               }}
             ></div>
             <div className="col-md-6 mb-3">

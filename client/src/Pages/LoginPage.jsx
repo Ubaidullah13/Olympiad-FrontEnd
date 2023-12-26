@@ -66,9 +66,8 @@ const LoginPage = () => {
                 }
               );
 
-              console.log("basic info response");
-              console.log(response);
               setLoading(false);
+              console.log(response);
 
               if (
                 response.data.data !== null &&
@@ -77,8 +76,13 @@ const LoginPage = () => {
                 localStorage.setItem("basicInfo", true);
                 localStorage.setItem("basicInfoDetails", true);
                 navigate("/dashboard");
-              } else {
-                navigate("/PleaseWait");
+              } else if (response.data.data !== null &&
+                response.data.data.status === "rejected"){
+                  localStorage.setItem("rejected", true);
+                  navigate("/regedit");
+                }              
+              else {
+                  navigate('/pleasewait');
               }
             } catch (error) {
               console.log(error);
@@ -124,7 +128,7 @@ const LoginPage = () => {
                 />
                 <TextField
                   label={
-                    <span>
+                    <span style={{color: 'var(--primary-dark)'}}>
                       <LockOutlinedIcon style={{ marginRight: "8px" }} />
                       Password
                     </span>

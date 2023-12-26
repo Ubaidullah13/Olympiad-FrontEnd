@@ -15,10 +15,13 @@ import API_URL from '../config';
 import axios from 'axios';
 import UserLayout from "../Components/UserLayout";
 
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Dashboard = () => {
+
+  const [loading, setLoading] = useState(true);
+
   useEffect (() => {
     const getBasicDisplay = async() => {
       try {
@@ -28,8 +31,8 @@ const Dashboard = () => {
       }})
       // console.log(response.data)
       setStatus(response.data.data.status)
-      console.log(response.data.data.accomodation)
       setIsApplied(response.data.data.accomodation)
+      setLoading(false);
     } catch (error) {
       console.log(error)
     }
@@ -48,8 +51,18 @@ const Dashboard = () => {
     setAlertOpen(true);
   };
 
-  const handleConfirmApply = () => {
-    // Additional logic or API calls can be added here.
+  const handleConfirmApply = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/basic/basicApplyAccomodation`, 
+      {headers: {
+      Authorization: `Bearer ${localStorage.accessToken}`,
+    }})
+    console.log(response)
+    //setIsApplied(response.data.data.accomodation)
+  } catch (error) {
+    alert("Network Error! Please try again later.")
+    console.log(error)
+  }
     setIsApplied(true);
     setAlertOpen(false);
   };
@@ -73,7 +86,7 @@ const Dashboard = () => {
     },
     {
       title: isApplied ? 'Applied' : 'Not applied',
-      description: 'Accomodation Status',
+      description: 'Accommodation Status',
       color: '#E7AEFF', // Specify the color for the third card
     },
   ];
@@ -112,6 +125,8 @@ const Dashboard = () => {
             <Typography variant="h4" component="div"  sx={{ fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               Dashboard
             </Typography>
+            {loading ? <CircularProgress /> : (
+            <>
             
             <Grid container spacing={2}>
               {statusCardData.map((card, index) => (
@@ -171,6 +186,8 @@ const Dashboard = () => {
         onConfirm={handleConfirmApply}
         dialogContent={customDialogContent}
       />
+      </>
+      )}
       </UserLayout>
     );
 };

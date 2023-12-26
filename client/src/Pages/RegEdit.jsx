@@ -17,6 +17,9 @@ import { useNavigate } from "react-router-dom";
 import UserLayout from "../Components/UserLayout";
 import API_URL from "../config";
 import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
+
+const apiUrl = API_URL;
 
 const RegEdit = () => {
   const initialState = {
@@ -29,7 +32,7 @@ const RegEdit = () => {
     guardianName: "",
     guardianNumber: "",
     schoolName: "",
-    gender: true,
+    gender: null,
     stdBack: null,
     stdFront: null,
     ambassadorcode: "",
@@ -48,23 +51,25 @@ const RegEdit = () => {
         const updatedInitialState = {
           ...initialState,
           name: localStorage.name,
-          cnicFront: response.data.data.cnicFront || null,
-          cnicBack: response.data.data.cnicBack || null,
+          cnicFront: response.data.data.cnicFront,
+          cnicBack: response.data.data.cnicBack,
           cnic: response.data.data.cnic || "",
           phoneno: response.data.data.phoneno || "",
           address: response.data.data.address || "",
           guardianName: response.data.data.guardianName || "",
           guardianNumber: response.data.data.guardianNumber || "",
           schoolName: response.data.data.schoolName || "",
-          gender: response.data.data.gender || true,
-          stdBack: response.data.data.stdBack || null,
-          stdFront: response.data.data.stdFront || null,
+          gender: response.data.data.gender,
+          stdBack: response.data.data.stdBack,
+          stdFront: response.data.data.stdFront,
           ambassadorcode: response.data.data.ambassadorcode || "",
           student_id: response.data.data.student_id || "",
         };
 
         setData(updatedInitialState);
+        setLoading(false);
       } catch (error) {
+        setLoading(true);
         console.log(error);
       }
     };
@@ -74,17 +79,21 @@ const RegEdit = () => {
 
   const navigate = useNavigate();
 
-  const [cnicFront, setCnicFront] = useState("");
-  const [cnicBack, setCnicBack] = useState("");
-  const [stCardFront, setStCardFront] = useState("");
-  const [stCardBack, setStCardBack] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const handleCNICfChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size should not exceed 10 MB");
+      return;
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCnicFront(reader.result);
+        setData((prevData) => ({ ...prevData, cnicFront: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -92,10 +101,16 @@ const RegEdit = () => {
 
   const handleCNICbChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size should not exceed 10 MB");
+      return;
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setCnicBack(reader.result);
+        setData((prevData) => ({ ...prevData, cnicBack: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -103,10 +118,17 @@ const RegEdit = () => {
 
   const handleSTfChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size should not exceed 10 MB");
+      return;
+    }
+
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setStCardFront(reader.result);
+        setData((prevData) => ({ ...prevData, stdFront: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -114,10 +136,16 @@ const RegEdit = () => {
 
   const handleSTbfChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("File size should not exceed 10 MB");
+      return;
+    }
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setStCardBack(reader.result);
+        setData((prevData) => ({ ...prevData, stdBack: reader.result }));
       };
       reader.readAsDataURL(file);
     }
@@ -128,32 +156,72 @@ const RegEdit = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    // console.log(data);
+  
   };
 
   const handleGenderChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value === "male" ? true : false });
-    // console.log(value);
+ 
   };
 
-  const User = {
-    file_upload_cnicb:
-      "https://templatearchive.com/wp-content/uploads/2018/05/Corporate-ID-1-e1526258858905.jpg",
-    file_upload_cnicf:
-      "https://templatearchive.com/wp-content/uploads/2018/05/Corporate-ID-1-e1526258858905.jpg",
-    stcardFront:
-      "https://templatearchive.com/wp-content/uploads/2018/05/Corporate-ID-1-e1526258858905.jpg",
-    stcardBack:
-      "https://templatearchive.com/wp-content/uploads/2018/05/Corporate-ID-1-e1526258858905.jpg",
-  };
+  const handleButtonClick = async (e) => {
+    setButtonLoading(true);
 
-  const handleButtonClick = () => {
-    navigate("/dashboard");
+    const formData = new FormData();
+
+    Object.keys(data).forEach((key) => {
+      if (key !== "cnicFront" && key !== "cnicBack" && key !== "stdFront" && key !== "stdBack") {
+        formData.append(key, data[key]);
+      }
+    });
+
+    if (data.cnicFront) {
+      formData.append("cnicFront", data.cnicFront);
+    }
+    if (data.cnicBack) {
+      formData.append("cnicBack", data.cnicBack);
+    }
+    if (data.stdFront) {
+      formData.append("stdFront", data.stdFront);
+    }
+    if (data.stdBack) {
+      formData.append("stdBack", data.stdBack);
+    }
+
+    try {
+      const response = await axios.post(
+        `${apiUrl}/basic/basicInfoUpdate`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      const accessToken = response.data.data.accessToken;
+
+      localStorage.setItem('accessToken', accessToken);
+      setButtonLoading(false);
+
+      navigate("/dashboard");
+    } catch (err) {
+      setButtonLoading(false);
+      console.error(err);
+      alert("Error occurred while Updating data. Please try again.");
+    }
+
   };
 
   return (
     <UserLayout>
+      {loading ? <h1>Fetching Your Profile ...</h1>
+    :
+      <>
+      <form onSubmit={handleButtonClick}>
       <div className="container mt-5">
         <h2 className="text-left">Profile</h2>
         <div className="row">
@@ -296,7 +364,7 @@ const RegEdit = () => {
             <div
               class="upload-box px-4"
               style={{
-                backgroundImage: `url(${cnicFront})`,
+                backgroundImage: `url(${data.cnicFront})`,
                 backgroundSize: "cover",
               }}
             ></div>
@@ -318,7 +386,7 @@ const RegEdit = () => {
             <div
               class="upload-box px-4"
               style={{
-                backgroundImage: `url(${cnicBack})`,
+                backgroundImage: `url(${data.cnicBack})`,
                 backgroundSize: "cover",
               }}
             ></div>
@@ -342,7 +410,7 @@ const RegEdit = () => {
             <div
               class="upload-box px-4"
               style={{
-                backgroundImage: `url(${stCardFront})`,
+                backgroundImage: `url(${data.stdFront})`,
                 backgroundSize: "cover",
               }}
             ></div>
@@ -364,7 +432,7 @@ const RegEdit = () => {
             <div
               class="upload-box px-4"
               style={{
-                backgroundImage: `url(${stCardBack})`,
+                backgroundImage: `url(${data.stdBack})`,
                 backgroundSize: "cover",
               }}
             ></div>
@@ -378,15 +446,18 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
+        {buttonLoading ? <CircularProgress /> : (
         <button
           type="submit"
           className="btn btn-primary right-align "
-          onClick={handleButtonClick}
         >
           Edit
         </button>
-        {/* </form> */}
+)}
       </div>
+      </form>
+      </>
+}
     </UserLayout>
   );
 };

@@ -6,14 +6,18 @@ import olympiad from '../Images/logo/logo.png';
 import axios from 'axios';
 import API_URL from "../config";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const VerificationCode = () => {
 
     const [otp, setOtp] = useState('');
 
+    const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
  
     const handleVerify = async () => {
+      setLoading(true);
       try {
         const response = await axios.post(`${API_URL}/auth/verifyEmail`, { code:otp },
         {
@@ -25,11 +29,12 @@ const VerificationCode = () => {
         console.log('Verification successful', response.data.data);
         const basicInfo = localStorage.getItem('basicInfo');
         const basicInfoDetails = localStorage.getItem('basicInfoDetails');
+        setLoading(false);
 
-        if(basicInfo === 'false'){
+        if(!basicInfo || basicInfo === "false"){
           navigate('/registration');
         }
-        else if(basicInfoDetails === 'false'){
+        else if(!basicInfoDetails || basicInfoDetails === "false"){
           navigate('/details');
         }else{
           navigate('/pleasewait');
@@ -38,6 +43,7 @@ const VerificationCode = () => {
         
       } catch (error) {
         // Handle errors
+        setLoading(false);
         alert(error.response.data.data);
       }
     };
@@ -60,7 +66,7 @@ const VerificationCode = () => {
         renderInput={(props) => <input {...props} className='otp-input' />}
       />
       <div className='btn-container mb-4'>
-        <button onClick={handleVerify}>Verify Code</button>
+        <button onClick={handleVerify}>{loading ? "Verifying" : "Verify Code"}</button>
       </div>
       </div>
     </div>

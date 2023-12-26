@@ -88,7 +88,21 @@ const SignUpPage = () => {
       // console.log(response.data.accessToken)
       navigate('/verifycode');
   } catch (error) {
+    localStorage.setItem('basicInfoDetails', false);
+    localStorage.setItem('basicInfo', false);
     setLoading(false);
+    if(error.response.data.data === "Error sending email"){
+      try{
+        const response = await axios.post(`${API_URL}/auth/login`, data);
+        const accessToken = response.data.data.accessToken;
+        const UserID = response.data.data.user.id;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("UserID", UserID);
+      }catch(error){
+        console.log(error);
+      }
+      navigate('/registration');
+    }
     if (error.response.data.data === null){
       alert(error.response.data.message)
     }else{

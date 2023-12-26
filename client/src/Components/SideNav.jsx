@@ -6,12 +6,13 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PaymentIcon from '@mui/icons-material/Payment';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import { useNavigate } from "react-router-dom";
 const drawerWidth = 240;
 const logoImagePath = `${process.env.PUBLIC_URL}/logo.png`;
 // const logoImagePath ='.../public/logo.png'; //modify this path accordingly
 
 const SideNav = () => {
+  const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(window.innerWidth >= 900);
 
   const handleDrawerToggle = () => {
@@ -57,6 +58,12 @@ const SideNav = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handleLogout = () => {
+    // clear localStorage
+    localStorage.clear();
+    navigate("/login")
+  }
 
   return (
     <div style={rootStyles}>
@@ -108,7 +115,7 @@ const SideNav = () => {
         </List>
         <Divider style={{ backgroundColor: 'lightgrey' }} />
         <List>
-          <ListItem button component="a" href="/login">
+          <ListItem button component="a" onClick={handleLogout}>
             <ListItemIcon>
               <ExitToAppIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>

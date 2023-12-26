@@ -14,6 +14,7 @@ import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import Table from "react-bootstrap/Table";
 
+
 const Payments = ({}) => {
   const initialState = {
     challanId: null,
@@ -26,13 +27,16 @@ const Payments = ({}) => {
 
   const [pending, setPending] = useState(false);
   const [rejected, setRejected] = useState(false);
-
+  const [verified, setVerified] = useState(false);
 
   const [challanData, setChallanData]= useState(initialState);
 
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [Loading, setLoading] = useState(true);
+  const [ignoreError, setIgnoreError] = useState(true);
+
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   const token = localStorage.getItem("accessToken");
 
@@ -64,12 +68,15 @@ const Payments = ({}) => {
       // Assuming 'id' is defined elsewhere in your code
       const { data } = await axios.get(`${API_URL}/challan/getBill`, config);
 
-      console.log(data);
-
       if (data.status != 200) {
         alert(data.message);
         return;
       }
+
+      setPaymentPic("");
+      setVerified(false);
+      setPending(false);
+      setRejected(false);
 
       const teamsArray = data.data.details.filter(
         (obj) => obj.isIndividual === false && obj.id !== 0
@@ -93,12 +100,22 @@ const Payments = ({}) => {
       setTotalPrice(data.data.totalPrice);
 
       setLoading(false);
+      
     } catch (error) {
-      console.log(error);
+      console.log(ignoreError);
+      if(ignoreError){
+        return;
+      }else{
+        alert("No Challan Found! Join sport or competition first");
+        navigate("/dashboard");
+        console.log(error);
+      }
+
     }
   };
 
   const getChallans = async () => {
+    
     try {
       const response = await axios.get(`${API_URL}/challan/getBills`, {
         headers: {
@@ -112,11 +129,15 @@ const Payments = ({}) => {
 
       // if the largest id challen status is Pending then getChallanDetails
       if(response.data.data.length > 0){
+        
         if(response.data.data[response.data.data.length - 1].isPaid === "pending"){
           setPending(true);
         }
         else if(response.data.data[response.data.data.length - 1].isPaid === "rejected"){
           setRejected(true);
+        }
+        else if(response.data.data[response.data.data.length - 1].isPaid === "verified"){
+          setVerified(true);
         }
 
         setChallanData({...challanData, challanId: response.data.data[response.data.data.length - 1].id});
@@ -139,9 +160,12 @@ const Payments = ({}) => {
         setTotalPrice(response.data.data[response.data.data.length - 1].netTotal);
         setPaymentPic(response.data.data[response.data.data.length - 1].paymentProof);
 
+        await getChallanDetails();
+
         setLoading(false);
 
       }else{
+        setIgnoreError(false);
         getChallanDetails();
       }
     
@@ -179,34 +203,37 @@ const Payments = ({}) => {
       return;
     }
 
+    setButtonLoading(true);
+
     if(pending || rejected){
 
       const formData = new FormData();
       formData.append("challanId", challanData.challanId);
   
-      if (challanData.profilePhoto) {
-        formData.append("profilePhoto", challanData.profilePhoto);
+      if (challanData.paymentProof) {
+        formData.append("paymentProof", challanData.paymentProof);
       }
 
       axios.post(`${API_URL}/challan/updateChallan`, formData, {
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log(response);
+        setButtonLoading(false);
         alert("Challan Updated Successfully");
         navigate("/payments");
       })
       .catch((error) => {
-        console.log(error);
+        setButtonLoading(false);
         alert("Error Updating Challan");
       });
     }else{
       const formData2 = new FormData();
   
-      if (challanData.profilePhoto) {
-        formData2.append("profilePhoto", challanData.profilePhoto);
+      if (challanData.paymentProof) {
+        formData2.append("paymentProof", challanData.paymentProof);
       }
       axios.post(`${API_URL}/challan/generateChallan`, formData2, {
         headers: {
@@ -214,13 +241,13 @@ const Payments = ({}) => {
         },
       })
       .then((response) => {
-        console.log(response);
-        alert("Challan Generated Successfully");
+        setButtonLoading(false);
+        alert("Challan Uploaded Successfully");
         navigate("/payments");
       })
       .catch((error) => {
-        console.log(error);
-        alert("Error Generating Challan");
+        setButtonLoading(false);
+        alert("Network Error Uploading Challan");
       });
     }
 
@@ -231,6 +258,7 @@ const Payments = ({}) => {
     <UserLayout>
       {Loading ? (
         <>
+        <h1>Generating Challan</h1>
           <CircularProgress />
         </>
       ) : (
@@ -275,13 +303,16 @@ const Payments = ({}) => {
                 />
               </label>
             </div>
+            {buttonLoading ? <CircularProgress /> : (
             <button
               className="btn btnColor mt-3 left-align"
               {...(pending ? { disabled: true } : {}) }
               {...(rejected ? { disabled: false } : {}) }
+              {...(verified ? { disabled: true } : {})}
             >
               {pending ? "Already Submitted" : rejected ? "Update Challen" : "Submit Challen"}
             </button>
+            )}
             </form>
             <p className="mt-3">* Registration fees is not refundable</p>
           </div>
