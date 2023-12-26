@@ -38,13 +38,57 @@ const Dashboard = () => {
     }
     }
 
+    const getIndiSports = async() => {
+      try {
+        const responseSingle = await axios.get(`${API_URL}/sports/genderSingleSports`, 
+        {headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }})
+
+      const individualSports = []
+      responseSingle.data.data.forEach((sport) => {
+        if(sport.hasApplied) {
+          individualSports.push(sport)
+        }
+      })
+      setIndieSports(individualSports)
+      
+    } catch (error) {
+      console.log(error)
+    }
+    }
+
+    const getTeamSports = async() => {
+      try{
+        const responseTeam = await axios.get(`${API_URL}/sports/genderTeamSports`, 
+        {headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }})
+      
+      const teamSports = []
+      responseTeam.data.data.forEach((sport) => {
+        if(sport.hasApplied) {
+          teamSports.push(sport)
+        }
+      })
+      setTeamSports(teamSports)
+
+      }catch (error) {
+        console.log(error)
+      }
+    }
+
     getBasicDisplay();
+    getIndiSports();
+    getTeamSports();
   })
 
   const [status, setStatus] = useState("Pending");
   const [isApplied, setIsApplied] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply for accommodation?"
+  const [indieSports, setIndieSports] = useState([]);
+  const [teamSports, setTeamSports] = useState([]);
   
   const handleApplyClick = () => {
     // Display the AlertBox when the 'Apply' button is clicked

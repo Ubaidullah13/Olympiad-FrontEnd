@@ -34,7 +34,7 @@ const Payments = ({}) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [Loading, setLoading] = useState(true);
-  const [ignoreError, setIgnoreError] = useState(true);
+  // const [ignoreError, setIgnoreError] = useState(true);
 
   const [buttonLoading, setButtonLoading] = useState(false);
 
@@ -102,14 +102,14 @@ const Payments = ({}) => {
       setLoading(false);
       
     } catch (error) {
-      console.log(ignoreError);
-      if(ignoreError){
-        return;
-      }else{
+      // console.log(ignoreError);
+      // if(ignoreError){
+      //   return;
+      // }else{
         alert("No Challan Found! Join sport or competition first");
         navigate("/dashboard");
         console.log(error);
-      }
+      // }
 
     }
   };
@@ -128,7 +128,7 @@ const Payments = ({}) => {
       setChallans(response.data.data);
 
       // if the largest id challen status is Pending then getChallanDetails
-      if(response.data.data.length > 0){
+      if(response.data.data.length > 0 && (response.data.data[response.data.data.length - 1].isPaid === "pending" || response.data.data[response.data.data.length - 1].isPaid === "rejected")){
         
         if(response.data.data[response.data.data.length - 1].isPaid === "pending"){
           setPending(true);
@@ -160,12 +160,12 @@ const Payments = ({}) => {
         setTotalPrice(response.data.data[response.data.data.length - 1].netTotal);
         setPaymentPic(response.data.data[response.data.data.length - 1].paymentProof);
 
-        await getChallanDetails();
+        // await getChallanDetails();
 
         setLoading(false);
 
       }else{
-        setIgnoreError(false);
+        // setIgnoreError(false);
         getChallanDetails();
       }
     
