@@ -54,17 +54,18 @@ const CricketDescription = ({ data }) => {
               <b>Team Members</b>
             </Typography>
             {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  marginBottom: '10px',
-                  marginBottom: '10px',
-                }}
-              >
-               
-              </div>
+              // make a row with contain user name
+              <Row key={index} style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px', marginBottom: '10px' }}>
+                <Col style={{ flex: 1, display: 'flex' }}>
+                  <Col style={{ marginRight: '10px' }}>
+                    <Typography variant="subtitle1" align="left">{member.name}</Typography>
+                  </Col>
+                  <Col>
+                  <Typography variant="subtitle1" align="left">{member.name}</Typography>
+                    {/* <Typography variant="body2" align="left">{member.role}</Typography> */}
+                  </Col>
+                </Col>
+              </Row>
             ))}
           </div>
           <Button

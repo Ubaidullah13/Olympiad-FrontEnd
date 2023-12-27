@@ -58,6 +58,27 @@ const Dashboard = () => {
     }
     }
 
+    const getIndiComp = async() => {
+      try {
+        const responseSingleComp = await axios.get(`${API_URL}/competitions/genderSingleSports`, 
+        {headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }})
+
+      const individualComp = []
+      responseSingleComp.data.data.forEach((sport) => {
+        if(sport.hasApplied) {
+          individualComp.push(sport)
+        }
+      })
+      console.log(individualComp)
+      setIndieComp(individualComp)
+      
+    } catch (error) {
+      console.log(error)
+    }
+    }
+
     const getTeamSports = async() => {
       try{
         const responseTeam = await axios.get(`${API_URL}/sports/genderTeamSports`, 
@@ -78,9 +99,31 @@ const Dashboard = () => {
       }
     }
 
+    const getTeamComp = async() => {
+      try{
+        const responseTeamComp = await axios.get(`${API_URL}/competitions/genderTeamSports`, 
+        {headers: {
+        Authorization: `Bearer ${localStorage.accessToken}`,
+      }})
+      
+      const teamComp = []
+      responseTeamComp.data.data.forEach((sport) => {
+        if(sport.hasApplied) {
+          teamSports.push(sport)
+        }
+      })
+      setTeamComp(teamComp)
+
+      }catch (error) {
+        console.log(error)
+      }
+    }
+
     getBasicDisplay();
     getIndiSports();
     getTeamSports();
+    getIndiComp();
+    getTeamComp();
   })
 
   const [status, setStatus] = useState("Pending");
@@ -88,7 +131,9 @@ const Dashboard = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply for accommodation?"
   const [indieSports, setIndieSports] = useState([]);
+  const [indieComp, setIndieComp] = useState([]);
   const [teamSports, setTeamSports] = useState([]);
+  const [teamComp, setTeamComp] = useState([]);
   
   const handleApplyClick = () => {
     // Display the AlertBox when the 'Apply' button is clicked
@@ -135,32 +180,10 @@ const Dashboard = () => {
     },
   ];
 
-    const cardData = [
-      {
-        title: 'Badminton',
-        description: 'PKR 700/-',
-        doneCount: 3,
-        leftCount: 8,
-      },
-      {
-        title: 'Badminton',
-        description: 'PKR 700/-',
-        doneCount: 3,
-        leftCount: 8,
-      },
-      {
-        title: 'Badminton',
-        description: 'PKR 700/-',
-        doneCount: 3,
-        leftCount: 8,
-      },
-      {
-        title: 'Badminton',
-        description: 'PKR 700/-',
-        doneCount: 3,
-        leftCount: 8,
-      },
-    ];
+    // combine indieSports and teamSPorts and assign data to CardData
+    const cardDataSports = [...indieSports, ...teamSports];
+    const cardDataComp = [...indieComp, ...teamComp];
+
 
 
     return (
@@ -203,25 +226,37 @@ const Dashboard = () => {
             <Typography variant="h5" component="div" sx={{ fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               My Sports
             </Typography>
+            {cardDataSports.length === 0 ? 
+            <Typography variant="p" component="div" sx={{ mt: 2, fontFamily: 'LemonMilkBold' }}>
+                You have not applied for any sports yet.
+            </Typography> 
+            :
             <Grid container spacing={2}>
-              {cardData.map((card, index) => (
+              {cardDataSports.map((card, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                   <OpenCard {...card} />
                 </Grid>
               ))}
             </Grid>
+            }
   
             {/* My Competitions Cards Section */}
             <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               My Competitions
             </Typography>
+            {cardDataComp.length === 0 ? 
+            <Typography variant="p" component="div" sx={{ mt: 2, fontFamily: 'LemonMilkBold' }}>
+                You have not applied for any competitions yet.
+            </Typography> 
+            :
             <Grid container spacing={2}>
-              {cardData.map((card, index) => (
+              {cardDataComp.map((card, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                   <OpenCard {...card} />
                 </Grid>
               ))}
             </Grid>
+            }
             
             {/* AlertBox component */}
       <AlertBox

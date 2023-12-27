@@ -190,7 +190,7 @@ const RegEdit = () => {
     }
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${apiUrl}/basic/basicInfoUpdate`,
         formData,
         {

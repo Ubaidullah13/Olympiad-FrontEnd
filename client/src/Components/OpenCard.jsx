@@ -3,7 +3,7 @@ import { Card, CardContent, Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import AlertBox from './AlertBox'; // Import the AlertBox component
 
-const OpenCard = ({ title, description, doneCount, leftCount }) => {
+const OpenCard = ({ name, price, minPlayer, maxPlayer, description }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply in this sports?";
@@ -11,7 +11,7 @@ const OpenCard = ({ title, description, doneCount, leftCount }) => {
 
   const handleOpenClick = () => {
     // Direct to '/description' route when the 'Open' button is clicked
-    navigate('/description');
+    // navigate('/description');
   };
 
   const handleConfirmApply = () => {
@@ -30,12 +30,15 @@ const OpenCard = ({ title, description, doneCount, leftCount }) => {
       <Card sx={{ borderRadius: '20px', maxWidth: 300, margin: '30px', alignItems: 'center', backgroundColor: '#f5f5f5', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
         <CardContent sx={{ textAlign: 'center' }}>
           <Typography variant="h5" component="div">
-            {title}
+            {name}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ fontSize: '1.1rem' }}>
+            Rs. {price}
+          </Typography>
+          <Typography variant="p" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
             {description}
           </Typography>
-          <Button
+          {/* <Button
             variant="contained"
             color={isOpened ? 'grey' : 'primary'}
             sx={{ width: '60%', mt: 2, color: 'white', borderRadius: '20px', fontWeight: 'bold' }}
@@ -43,13 +46,13 @@ const OpenCard = ({ title, description, doneCount, leftCount }) => {
             disabled={isOpened}
           >
             {isOpened ? 'Open' : 'Open'}
-          </Button>
+          </Button> */}
           <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left', fontSize: '1.1rem' }}>
-              {doneCount} done
+              {minPlayer} Minimum
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '1.1rem' }}>
-              {leftCount} left
+              {maxPlayer} Maximum
             </Typography>
           </Box>
         </CardContent>

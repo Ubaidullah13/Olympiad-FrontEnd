@@ -57,7 +57,7 @@ const SignUpPage = () => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
 
-  const labelStyles = { position: 'relative', top: '-2px', left: '2px' };
+  const labelStyles = { position: 'relative', top: '-2px', left: '2px', color: 'var(--primary-dark)' };
   const lockIconStyles = { position: 'relative', top: '5x', left: '2px' };
   const visibilityIconStyles = { position: 'relative', right: '10px' };
 
