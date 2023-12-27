@@ -75,7 +75,7 @@ const RegEdit = () => {
     };
 
     getBasicDisplay();
-  });
+  }, []);
 
   const navigate = useNavigate();
 
@@ -166,6 +166,7 @@ const RegEdit = () => {
   };
 
   const handleButtonClick = async (e) => {
+    e.preventDefault();
     setButtonLoading(true);
 
     const formData = new FormData();
@@ -173,6 +174,7 @@ const RegEdit = () => {
     Object.keys(data).forEach((key) => {
       if (key !== "cnicFront" && key !== "cnicBack" && key !== "stdFront" && key !== "stdBack") {
         formData.append(key, data[key]);
+        console.log(data[key]);
       }
     });
 
@@ -201,10 +203,7 @@ const RegEdit = () => {
         }
       );
 
-      console.log(response.data);
-      const accessToken = response.data.data.accessToken;
-
-      localStorage.setItem('accessToken', accessToken);
+      // console.log(response.data);
       setButtonLoading(false);
 
       navigate("/dashboard");
