@@ -141,13 +141,14 @@ const Dashboard = () => {
   };
 
   const handleConfirmApply = async () => {
+    const token = localStorage.accessToken;
+
     try {
-      const response = await axios.post(`${API_URL}/basic/basicApplyAccomodation`, 
+      const response = await axios.post(`${API_URL}/basic/basicApplyAccomodation`, {},
       {headers: {
-      Authorization: `Bearer ${localStorage.accessToken}`,
+      Authorization: `Bearer ${token}`,
     }})
     console.log(response)
-    //setIsApplied(response.data.data.accomodation)
   } catch (error) {
     alert("Network Error! Please try again later.")
     console.log(error)

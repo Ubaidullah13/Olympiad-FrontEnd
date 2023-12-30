@@ -22,27 +22,34 @@
 
 @font-face {
   font-family: 'LemonMilkBold';
-  src: local('LemonMilkBold'), url(./Styles/fonts/LEMONMILK-Bold.otf) format('otf');
+  src: local('LemonMilkBold'), url(./Styles/fonts/LEMONMILK-Bold.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'LemonMilkLight';
-  src: local('LemonMilkLight'), url(./Styles/fonts/LEMONMILK-Light.otf) format('otf');
+  src: local('LemonMilkLight'), url(./Styles/fonts/LEMONMILK-Light.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'LemonMilkMedium';
-  src: local('LemonMilkMedium'), url(./Styles/fonts/LEMONMILK-Medium.otf) format('otf');
+  src: local('LemonMilkMedium'), url(./Styles/fonts/LEMONMILK-Medium.otf) format('opentype');
 }
 
 @font-face {
   font-family: 'LemonMilkRegular';
-  src: local('LemonMilkRegular'), url(./Styles/fonts/LEMONMILK-Regular.otf) format('otf');
+  src: local('LemonMilkRegular'), url(./Styles/fonts/LEMONMILK-Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
 }
 
 
 *{
-  font-family: 'LemonMilkRegular' !important;  
+  font-family: 'Open Sans' !important;  
   scroll-behavior: smooth !important;
 }
 
