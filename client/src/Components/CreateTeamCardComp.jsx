@@ -53,6 +53,8 @@ const CreateTeamCard = ({
       teamName: newTeamname,
     };
 
+    console.log(data);
+
     try {
       const response = await axios.post(`${API_URL}/competitions/createTeam`, data, {
         headers: {
@@ -141,14 +143,14 @@ const CreateTeamCard = ({
               color="text.secondary"
               sx={{ textAlign: "left", fontSize: "1.1rem" }}
             >
-              {minPlayer} Minimum
+              {minPlayer} Min
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
               sx={{ textAlign: "right", fontSize: "1.1rem" }}
             >
-              {maxPlayer} Maximum
+              {maxPlayer} Max
             </Typography>
           </Box>
         </CardContent>

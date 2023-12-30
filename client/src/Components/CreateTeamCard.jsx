@@ -141,14 +141,14 @@ const CreateTeamCard = ({
               color="text.secondary"
               sx={{ textAlign: "left", fontSize: "1.1rem" }}
             >
-              {minPlayer} Minimum
+              {minPlayer} Min
             </Typography>
             <Typography
               variant="body2"
               color="text.secondary"
               sx={{ textAlign: "right", fontSize: "1.1rem" }}
             >
-              {maxPlayer} Maximum
+              {maxPlayer} Max
             </Typography>
           </Box>
         </CardContent>
