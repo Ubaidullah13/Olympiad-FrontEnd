@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import CustomCard from '../Components/CustomCardComp';
 import { Grid, Typography } from '@mui/material';
-import JoinTeamCard from '../Components/JoinTeamCard';
+import JoinTeamCard from '../Components/JoinTeamCardComp';
 import CreateTeamCard from '../Components/CreateTeamCardComp';
 import UserLayout from "../Components/UserLayout";
 
@@ -96,7 +96,7 @@ const Competitions = () => {
         
       {loading ? 
       <>
-        <h6>Fetching Sports</h6>
+        <h6>Fetching Competitions</h6>
         <CircularProgress />
       </>
       : (

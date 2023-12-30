@@ -66,7 +66,7 @@ const CreateTeamCard = ({
 
     e.target.style.backgroundColor = "blue";
 
-    setIsCreated(true);
+    setIsCreated(true); 
     handleCloseCreateTeamDialog();
   };
 
