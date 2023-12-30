@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import CustomCard from '../Components/CustomCard';
+import CustomCard from '../Components/CustomCardComp';
 import { Grid, Typography } from '@mui/material';
 import JoinTeamCard from '../Components/JoinTeamCard';
-import CreateTeamCard from '../Components/CreateTeamCard';
+import CreateTeamCard from '../Components/CreateTeamCardComp';
 import UserLayout from "../Components/UserLayout";
 
 
