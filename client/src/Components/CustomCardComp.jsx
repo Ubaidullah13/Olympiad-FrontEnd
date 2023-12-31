@@ -39,7 +39,7 @@ const CustomCard = ({
     };
     try {
       const response = await axios.post(
-        `${API_URL}/sports/applyIndividualSport`,
+        `${API_URL}/competitions/applyIndividualSport`,
         data,
         {
           headers: {

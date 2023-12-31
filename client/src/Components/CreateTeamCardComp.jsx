@@ -53,8 +53,10 @@ const CreateTeamCard = ({
       teamName: newTeamname,
     };
 
+    console.log(data);
+
     try {
-      const response = await axios.post(`${API_URL}/sports/createTeam`, data, {
+      const response = await axios.post(`${API_URL}/competitions/createTeam`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.accessToken}`,
         },
@@ -66,7 +68,7 @@ const CreateTeamCard = ({
 
     e.target.style.backgroundColor = "blue";
 
-    setIsCreated(true);
+    setIsCreated(true); 
     handleCloseCreateTeamDialog();
   };
 
