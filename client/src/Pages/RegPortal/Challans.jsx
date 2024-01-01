@@ -5,10 +5,12 @@ import axios from "axios";
 import API_URL from "../../config";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Challans = () => {
   const [challans, setChallans] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("accessToken");
   const getChallans = async () => {
     try {
@@ -17,7 +19,7 @@ const Challans = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      setLoading(false)
       setChallans(response.data.data);
     } catch (error) {
       console.log(error);
@@ -35,6 +37,7 @@ const Challans = () => {
       >
         Challans
       </Typography>
+      {loading && <CircularProgress />}
       <Table striped bordered hover>
         <thead>
           <tr>

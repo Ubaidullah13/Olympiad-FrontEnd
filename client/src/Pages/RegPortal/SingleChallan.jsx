@@ -178,16 +178,27 @@ const ChallanDetails = () => {
 
                       {regObj !== null ? (
                         <>
-                        <div className="row mb-3 regFee">
-                          <div className="col">
-                            <h6 className="regFee">Registration Fee</h6>
-                          </div>
-                          <div className="col endAlign">
-                            <p>Rs {regObj.price}</p>
-                          </div>
-                        </div>
-                        <hr/>
-                        </>
+                        <h6 className="text-muted head regFee">Registration</h6>
+                       <div className="row">
+                         <div className="col">
+                           <b>Base Fee</b>
+                         </div>
+                         <div className="col endAlign">
+                           <p>Rs {regObj.price.base}</p>
+                         </div>
+                       </div>
+                       { regObj.price.social ?
+                       <div className="row mb-3">
+                         <div className="col">
+                           <b>Socials Fee</b>
+                         </div>
+                         <div className="col endAlign">
+                           <p>Rs {regObj.price.social}</p>
+                         </div>
+                       </div>
+                       : <></>
+                     }
+                       </>
                       ) : (
                         <></>
                       )}

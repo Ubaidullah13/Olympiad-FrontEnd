@@ -5,10 +5,11 @@ import axios from "axios";
 import API_URL from "../../config";
 import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
-
+import CircularProgress from '@mui/material/CircularProgress';
 const Users = () => {
   const token = localStorage.getItem("accessToken");
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const getUsers = async () => {
     try {
@@ -19,6 +20,7 @@ const Users = () => {
       });
 
       setUsers(response.data.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -35,6 +37,7 @@ const Users = () => {
       >
         Participants
       </Typography>
+      {loading && <CircularProgress />}
       <Table striped bordered hover>
         <thead>
           <tr>

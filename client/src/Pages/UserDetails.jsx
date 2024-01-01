@@ -18,6 +18,7 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import API_URL from '../config';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
+import CustomSocialsField from '../Components/CustomSocialsField';
 const UserDetails = () => {
 
   const initialState = { 
@@ -27,6 +28,7 @@ const UserDetails = () => {
     studentOf: "",
     student_id: "",
     schoolName: "",
+    socials: "",
     ambassadorcode: "0000",
   };
 
@@ -92,6 +94,11 @@ const UserDetails = () => {
       setShowComponent(selected !== 'other');
       setData((prevData) => ({ ...prevData, studentOf: selected }));
     };
+
+  const handleSocialsChange = (event) => {
+      const selected = event.target.value;
+      setData((prevData) => ({ ...prevData, socials: selected }));
+    };
   
     const handleButtonClick = async (e) => {
       e.preventDefault();
@@ -147,6 +154,10 @@ const UserDetails = () => {
             <p>Fill the form given below.</p>
           </div>
       </div>
+      <div className="col-md-4 mb-3 right-align-text">
+        <CustomSocialsField type="socials" name="socials" label="Are you attending?" handleChange={handleSocialsChange} required/>
+        </div>
+        <br/>
       <div className="row">
         <div className="col-md-4 mb-3 right-align-text">
         <CustomRadioField type="University" name="studentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
@@ -182,6 +193,7 @@ const UserDetails = () => {
             req="0"
             name="ambassadorcode"
             onChange={handleInputChange}
+            helperText={"Type 0000 if you don't have any code"}
           />
         </div>
       </div>

@@ -27,17 +27,38 @@ const VerificationCode = () => {
       });
         // Handle successful verification
         console.log('Verification successful', response.data.data);
-        const basicInfo = localStorage.getItem('basicInfo');
-        const basicInfoDetails = localStorage.getItem('basicInfoDetails');
-        setLoading(false);
+        try {
+          const response = await axios.get(
+            `${API_URL}/basic/basicDisplay`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.accessToken}`,
+              },
+            }
+          );
 
-        if(!basicInfo || basicInfo === "false"){
+          setLoading(false);
+
+        if(response.data.data == null){
           navigate('/registration');
-        }
-        else if(!basicInfoDetails || basicInfoDetails === "false"){
-          navigate('/details');
-        }else{
-          navigate('/pleasewait');
+          }
+          else if (
+            response.data.data !== null &&
+            response.data.data.status === "verified"
+          ) {
+            localStorage.setItem("basicInfo", true);
+            localStorage.setItem("basicInfoDetails", true);
+            navigate("/dashboard");
+          } else if (response.data.data !== null &&
+            response.data.data.status === "rejected"){
+              localStorage.setItem("rejected", true);
+              navigate("/regedit");
+            }              
+          else {
+              navigate('/pleasewait');
+          }
+        } catch (error) {
+          console.log(error);
         }
 
         

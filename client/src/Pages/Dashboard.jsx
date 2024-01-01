@@ -174,11 +174,11 @@ const Dashboard = () => {
       description: 'Challan Status',
       color : '#FFB1B1',
     },
-    {
-      title: isApplied ? 'Applied' : 'Not applied',
-      description: 'Accommodation Status',
-      color: '#E7AEFF', // Specify the color for the third card
-    },
+    // {
+    //   title: isApplied ? 'Applied' : 'Not applied',
+    //   description: 'Accommodation Status',
+    //   color: '#E7AEFF', // Specify the color for the third card
+    // },
   ];
 
     // combine indieSports and teamSPorts and assign data to CardData
@@ -203,7 +203,7 @@ const Dashboard = () => {
                 </Grid>
               ))}
             </Grid>
-            <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
+            {/* <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               Accommodation
             </Typography>
             <Typography variant="p" component="div">
@@ -219,7 +219,7 @@ const Dashboard = () => {
             disabled={isApplied}
           >
             {isApplied ? 'Applied' : 'Apply for Accommodation'}
-            </Button>
+            </Button> */}
             <br></br>
             <br></br>
   

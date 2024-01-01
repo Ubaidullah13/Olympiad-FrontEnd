@@ -54,6 +54,7 @@ const OlympiadRegistration = () => {
     // console.log(data);
   };
 
+
   const handleGenderChange = (e) => {
     const { name, value } = e.target;
 
@@ -202,6 +203,7 @@ const OlympiadRegistration = () => {
               label="Phone Number"
               name="phoneno"
               onChange={handleInputChange}
+              helperText={'Please enter exactly 11 digits for your phone number'}
             />
 
             <CustomTextField
@@ -218,9 +220,10 @@ const OlympiadRegistration = () => {
             <CustomTextField
               type="number"
               iconType={<CreditCardOutlinedIcon />}
-              label="cnic"
+              label="CNIC (without dashes)"
               name="cnic"
               onChange={handleInputChange}
+              helperText={'Please enter CNIC without dashes'}
             />
           </div>
         </div>
