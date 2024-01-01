@@ -75,7 +75,7 @@ const VerificationCode = () => {
         <div className="Mycard">
         <img src={olympiad} alt="olympiad logo" width={200} className="mx-auto"/>
       <h2>Verification</h2>
-      <p>Enter Code send to you on your email</p>
+      <p>Enter Code sent to you on your email</p>
       <OtpInput
         value={otp}
         onChange={setOtp}

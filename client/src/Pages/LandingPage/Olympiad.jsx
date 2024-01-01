@@ -18,7 +18,7 @@ const Olympiad = () => {
       <div id="Olympiad">
         <div className="row align-items-start">
           <div className="col-lg-6 col-md-6 mt-4 pt-2 mt-sm-0 opt-sm-0">
-            <div className="section-title ml-lg-5">
+            <div className="section-title ml-lg-5 text-justify">
               <h2 className="font-weight-normal mb-3" id="about-us-title">
                 What is Olympiad?
               </h2>
@@ -38,7 +38,7 @@ const Olympiad = () => {
 
         <div className="col-lg-6 col-md-6 col-12">
         <div className="video-container" onClick={handleVideoClick}>
-            <video loop playsInline className="w-100" style={{ border: "none" }}>
+            <video loop className="w-100" style={{ border: "none" }} autoplay>
               <source src="intro.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>

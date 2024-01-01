@@ -16,10 +16,10 @@ const EC = () => {
         <div className="pr-5 pl-5 pt-0 pb-0">
           <div className="text-center">
             <h2 className="section-heading text-uppercase text-center">
-              Organizing Committee
+            Executive committee
             </h2>
             <h3 className="section-subheading text-muted">
-              A team behind all this
+            Superheros
             </h3>
           </div>
 
@@ -33,7 +33,7 @@ const EC = () => {
                 />
                 <h4>Araheem Abaid</h4>
                 <p className="text-muted text-center">
-                  President
+                 Convener
                 </p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
@@ -51,7 +51,7 @@ const EC = () => {
                   alt="..."
                 />
                 <h4>Zafar Azhar</h4>
-                <p className="text-muted text-center">VP Operations</p>
+                <p className="text-muted text-center">Deputy convener Operations</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -62,7 +62,7 @@ const EC = () => {
               <div className="team-member">
                 <img className="mx-auto rounded-circle" src={Nimrah} alt="..." />
                 <h4>Nimrah Abaidullah</h4>
-                <p className="text-muted text-center">VP Coordinations</p>
+                <p className="text-muted text-center">Deputy convener Coordinations</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -77,7 +77,7 @@ const EC = () => {
                   alt="..."
                 />
                 <h4>Akbar KhanZada</h4>
-                <p className="text-muted text-center">VP Resources</p>
+                <p className="text-muted text-center">Deputy convener Resources</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -87,7 +87,7 @@ const EC = () => {
               <div className="team-member">
                 <img className="mx-auto rounded-circle" src={Ahmad} alt="..." />
                 <h4>Ahmad Ayub</h4>
-                <p className="text-muted text-center">VP Outreach</p>
+                <p className="text-muted text-center">Deputy convener Outreach</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -98,7 +98,7 @@ const EC = () => {
               <div className="team-member">
                 <img className="mx-auto rounded-circle" src={Ateeq} alt="..." />
                 <h4>Abdullah Bin Ateeq</h4>
-                <p className="text-muted text-center">VP Media</p>
+                <p className="text-muted text-center">Deputy convener Media</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -109,7 +109,7 @@ const EC = () => {
               <div className="team-member">
                 <img className="mx-auto rounded-circle" src={Khizer} alt="..." />
                 <h4>Syed Khizer Hayat</h4>
-                <p className="text-muted text-center">Chief executive quality assurance</p>
+                <p className="text-muted text-center">Deputy convener quality assurance</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}

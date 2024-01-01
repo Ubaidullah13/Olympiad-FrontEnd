@@ -55,7 +55,7 @@ const AboutUsSection = () => {
         </div>
 
         <div className="col-lg-6 col-md-6 col-12 order-1 order-md-2">
-          <div className="section-title ml-lg-5">
+          <div className="section-title ml-lg-5 text-justify">
             <h2 className="font-weight-normal mb-3" id="about-us-title">Olympiad NUST 24</h2>
             <h5 className="title mb-4">
             Igniting Innovation, Celebrating Excellence – A Journey Beyond Boundaries.
