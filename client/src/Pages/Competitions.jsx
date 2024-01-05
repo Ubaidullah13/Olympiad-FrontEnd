@@ -45,7 +45,7 @@ const Competitions = () => {
     getTeamSports();
     getIndividualSports();
  
-  }, []);
+  });
 
 
   const [selectedHeader, setSelectedHeader] = useState('individual');

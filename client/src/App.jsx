@@ -29,6 +29,8 @@ import Challans from './Pages/RegPortal/Challans';
 import SingleUser from './Pages/RegPortal/SingleUser';
 import ChallanDetails from './Pages/RegPortal/SingleChallan';
 import PleaseWait from "./Pages/PleaseWait";
+import ForgetPass from "./Pages/ForgetPass";
+import MailSent from "./Pages/MailSent";
 
 
 const App = () => {
@@ -113,6 +115,12 @@ const App = () => {
         </Route>
 
         <Route exact path ='/PleaseWait' element={<PleaseWait />}>
+        </Route>
+
+        <Route exact path ='/ForgetPass' element={<ForgetPass />}>
+        </Route>
+
+        <Route exact path ='/MailSent' element={<MailSent />}>
         </Route>
 
 

@@ -219,6 +219,7 @@ const UserDetails = () => {
               accept="image/png, image/jpeg, image/jpg"
               onChange={handleStCardFrontChange}
               name="stdFront"
+              required
               />
           </label>
               </div>
@@ -243,6 +244,7 @@ const UserDetails = () => {
                 accept="image/png, image/jpeg, image/jpg"
                 onChange={handleStCardBackChange}
                 name="stdBack"
+                required
               />
             </label>
           </div>

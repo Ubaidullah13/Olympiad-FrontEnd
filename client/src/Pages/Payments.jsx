@@ -53,7 +53,7 @@ const Payments = ({}) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         pdf.addImage(imgData, 'PNG', 0, 0);
-        pdf.save("download.pdf"); 
+        pdf.save("Olympiad Receipt.pdf"); 
       });
   }
   
@@ -397,7 +397,7 @@ const Payments = ({}) => {
                 </h3>
               </div>
             </div>
-              <button className="btn btn-link left-align" onClick={downloadPDF}>
+              <button className="btn btn-link left-align download-button" onClick={downloadPDF}>
                 <DownloadForOfflineOutlinedIcon /> Download receipt
               </button>
           </div>

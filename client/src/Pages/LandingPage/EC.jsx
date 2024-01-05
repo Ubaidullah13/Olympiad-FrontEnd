@@ -33,7 +33,7 @@ const EC = () => {
                 />
                 <h4>Araheem Abaid</h4>
                 <p className="text-muted text-center">
-                 Convener
+                 President
                 </p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
@@ -45,13 +45,24 @@ const EC = () => {
           <div className="row">
             <div className="col-lg-4">
               <div className="team-member">
+                <img className="mx-auto rounded-circle" src={Khizer} alt="..." />
+                <h4>Syed Khizer Hayat</h4>
+                <p className="text-muted text-center">Chief Executive Quality Assurance</p>
+                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
+              </div>
+            </div>
+
+            <div className="col-lg-4">
+              <div className="team-member">
                 <img
                   className="mx-auto rounded-circle"
                   src={Zafar}
                   alt="..."
                 />
                 <h4>Zafar Azhar</h4>
-                <p className="text-muted text-center">Deputy convener Operations</p>
+                <p className="text-muted text-center">Vice President Operations</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
@@ -61,11 +72,32 @@ const EC = () => {
             <div className="col-lg-4">
               <div className="team-member">
                 <img className="mx-auto rounded-circle" src={Nimrah} alt="..." />
-                <h4>Nimrah Abaidullah</h4>
-                <p className="text-muted text-center">Deputy convener Coordinations</p>
+                <h4>Nimra Abaidullah</h4>
+                <p className="text-muted text-center">Vice President Coordinations</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
+              </div>
+            </div>
+            <div className="col-lg-4">
+              <div className="team-member">
+                <img className="mx-auto rounded-circle" src={Ahmad} alt="..." />
+                <h4>Ahmad Ayub</h4>
+                <p className="text-muted text-center">Vice President Outreach</p>
+                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i className="fab fa-twitter"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i className="fab fa-facebook-f"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
+              </div>
+            </div>
+
+            <div className="col-lg-4">
+              <div className="team-member">
+                <img className="mx-auto rounded-circle" src={Ateeq} alt="..." />
+                <h4>Abdullah Bin Ateeq</h4>
+                <p className="text-muted text-center">Vice President Media</p>
+                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
+                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
               </div>
             </div>
 
@@ -77,39 +109,7 @@ const EC = () => {
                   alt="..."
                 />
                 <h4>Akbar KhanZada</h4>
-                <p className="text-muted text-center">Deputy convener Resources</p>
-                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="team-member">
-                <img className="mx-auto rounded-circle" src={Ahmad} alt="..." />
-                <h4>Ahmad Ayub</h4>
-                <p className="text-muted text-center">Deputy convener Outreach</p>
-                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i className="fab fa-twitter"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
-              </div>
-            </div>
-
-            <div className="col-lg-4">
-              <div className="team-member">
-                <img className="mx-auto rounded-circle" src={Ateeq} alt="..." />
-                <h4>Abdullah Bin Ateeq</h4>
-                <p className="text-muted text-center">Deputy convener Media</p>
-                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
-              </div>
-            </div>
-
-            <div className="col-lg-4">
-              <div className="team-member">
-                <img className="mx-auto rounded-circle" src={Khizer} alt="..." />
-                <h4>Syed Khizer Hayat</h4>
-                <p className="text-muted text-center">Deputy convener quality assurance</p>
+                <p className="text-muted text-center">Vice President Resources</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}

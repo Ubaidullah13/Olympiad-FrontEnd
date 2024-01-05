@@ -187,14 +187,11 @@ const SignUpPage = () => {
                   ),
                 }}
               />
-              {wrongPassword && (
-                <>
-                <Typography className='text-left text-muted'>Password must have at least 1 uppercase letter.</Typography>
-                <Typography className='text-muted text-left'>Password must have at least 3 numbers.</Typography>
-                <Typography className='text-muted text-left'>Password must have at least 1 special character.</Typography>
-                </>
-              )
-              }
+              <Typography className='text-left text-muted' sx={{fontSize: "0.8rem"}}>Password must have at least 1 uppercase letter.</Typography>
+              <Typography className='text-muted text-left' sx={{fontSize: "0.8rem"}}>Password must have at least 3 numbers.</Typography>
+              <Typography className='text-muted text-left' sx={{fontSize: "0.8rem"}}>Password must have at least 1 special character.</Typography>
+
+              
             </div>
             <br></br>
             {/* <div className="mb-4">

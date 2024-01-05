@@ -48,6 +48,7 @@ const RegEdit = () => {
           },
         });
         console.log(response.data);
+        setStatus(response.data.data.status);
         const updatedInitialState = {
           ...initialState,
           name: localStorage.name,
@@ -81,6 +82,7 @@ const RegEdit = () => {
 
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
+  const [status, setStatus] = useState("rejected");
 
   const handleCNICfChange = (event) => {
     const file = event.target.files[0];
@@ -223,6 +225,7 @@ const RegEdit = () => {
       <form onSubmit={handleButtonClick}>
       <div className="container mt-5">
         <h2 className="text-left">Profile</h2>
+        <p>Status: {status}</p>
         <div className="row">
           <div className="col-md-4 mb-3">
             {/* <label className="bold-label" htmlFor="name"> Name </label> */}
@@ -445,6 +448,8 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
+        {status === "rejected" && (
+          <>
         {buttonLoading ? <CircularProgress /> : (
         <button
           type="submit"
@@ -452,7 +457,7 @@ const RegEdit = () => {
         >
           Edit
         </button>
-)}
+)}</>)}
       </div>
       </form>
       </>

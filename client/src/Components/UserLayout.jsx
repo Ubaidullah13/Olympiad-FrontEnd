@@ -21,6 +21,7 @@ const UserLayout = ({ children }) => {
             position: "sticky",
             top: "64px",
             height: "calc(100vh - 64px)",
+            zIndex: '999999',
           }}
           className="SideNavBarFlex"
         >

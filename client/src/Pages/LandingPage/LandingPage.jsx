@@ -8,6 +8,8 @@ import EC from './EC';
 import Sponsors from './Sponsors';
 import Nav from './Nav';
 import Olympiad from './Olympiad';
+import Comp from './Comp';
+import Sports from './Sports';
 
 const LandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,9 +44,11 @@ const LandingPage = () => {
           <Nav />
           <Banner />
           <AboutUsSection />
+          <Sports />
+          <Comp />
           <Olympiad />
           <EC />
-          {/* <Sponsors /> */}
+          <Sponsors />
           <Contact />
         </div>
       )}

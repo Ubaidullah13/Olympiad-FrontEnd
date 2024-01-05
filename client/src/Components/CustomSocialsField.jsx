@@ -23,6 +23,7 @@ const CustomSocialsField = ({ type, label,handleChange }) => {
         name="uni"
         onChange={handleChange}
         column
+        required
       >
         {Options.map((option) => (
           <FormControlLabel

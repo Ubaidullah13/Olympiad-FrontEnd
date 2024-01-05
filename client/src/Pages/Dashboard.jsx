@@ -109,7 +109,7 @@ const Dashboard = () => {
       const teamComp = []
       responseTeamComp.data.data.forEach((sport) => {
         if(sport.hasApplied) {
-          teamSports.push(sport)
+          teamComp.push(sport)
         }
       })
       setTeamComp(teamComp)
@@ -174,11 +174,11 @@ const Dashboard = () => {
       description: 'Challan Status',
       color : '#FFB1B1',
     },
-    // {
-    //   title: isApplied ? 'Applied' : 'Not applied',
-    //   description: 'Accommodation Status',
-    //   color: '#E7AEFF', // Specify the color for the third card
-    // },
+    {
+      title: isApplied ? 'Applied' : 'Not applied',
+      description: 'Accommodation Status',
+      color: '#E7AEFF', // Specify the color for the third card
+    },
   ];
 
     // combine indieSports and teamSPorts and assign data to CardData
@@ -193,6 +193,9 @@ const Dashboard = () => {
             <Typography variant="h4" component="div"  sx={{ fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               Dashboard
             </Typography>
+            
+            <p className='text-muted'>Note: We will try to minimize clashes but the organizers will not be responsible if any participant misses their competition or sport due to clashes</p>
+            
             {loading ? <CircularProgress /> : (
             <>
             
@@ -203,7 +206,7 @@ const Dashboard = () => {
                 </Grid>
               ))}
             </Grid>
-            {/* <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
+             <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 'bold', fontFamily: 'LemonMilkBold' }}>
               Accommodation
             </Typography>
             <Typography variant="p" component="div">
@@ -219,7 +222,7 @@ const Dashboard = () => {
             disabled={isApplied}
           >
             {isApplied ? 'Applied' : 'Apply for Accommodation'}
-            </Button> */}
+            </Button>
             <br></br>
             <br></br>
   

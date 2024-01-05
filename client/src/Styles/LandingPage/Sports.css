@@ -1,0 +1,21 @@
+#sports {
+    list-style: none;
+  }
+
+  
+  #sports > li {
+    &::before {
+      content: "🔵";
+      transform: scale(0.2);
+      display: inline-block;
+      animation: pulse infinite alternate 0.9s;
+    }
+    
+  }
+  
+  @keyframes pulse {
+    to {
+      transform: scale(0.69);
+    }
+  }
+  

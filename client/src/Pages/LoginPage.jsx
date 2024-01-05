@@ -38,6 +38,7 @@ const LoginPage = () => {
   const handleButtonClick = async (e) => {
     try {
       e.preventDefault();
+      localStorage.clear();
       setLoading(true);
       const response = await axios.post(`${API_URL}/auth/login`, data);
       console.log(response);
@@ -180,6 +181,22 @@ const LoginPage = () => {
                 </button>
               )}
             </form>
+
+            <p
+              className="mt-4 text-sm"
+              style={{ fontWeight: "normal", textAlign: "center" }}
+            >
+              <span>
+                <Link
+                  className="links"
+                  href="/ForgetPass"
+                  rel="noopener noreferrer"
+                  style={{textDecoration: 'none'}}
+                >
+                  Forget Password
+                </Link>
+              </span>
+            </p>
 
             <p
               className="mt-4 text-sm"
