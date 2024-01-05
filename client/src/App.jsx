@@ -101,10 +101,10 @@ const App = () => {
           </Route>
 
 
-        <Route exact path ='/addsports' element={<RPR Component={AddSports }/>}>
+        {/* <Route exact path ='/addsports' element={<RPR Component={AddSports }/>}>
         </Route>
         <Route exact path ='/addcomp' element={<RPR Component={AddComp} />}>
-        </Route>
+        </Route> */}
         <Route exact path ='/challans' element={<RPR Component={Challans} />}>
         </Route>
 

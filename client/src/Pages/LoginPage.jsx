@@ -182,7 +182,7 @@ const LoginPage = () => {
               )}
             </form>
 
-            <p
+            {/* <p
               className="mt-4 text-sm"
               style={{ fontWeight: "normal", textAlign: "center" }}
             >
@@ -196,7 +196,7 @@ const LoginPage = () => {
                   Forget Password
                 </Link>
               </span>
-            </p>
+            </p> */}
 
             <p
               className="mt-4 text-sm"

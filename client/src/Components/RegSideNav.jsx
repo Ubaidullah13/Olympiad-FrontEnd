@@ -87,18 +87,18 @@ const RegSideNav = () => {
             </ListItemIcon>
             <ListItemText primary="Users" style={listItemTextStyles} />
           </ListItem>
-          <ListItem button component="a" href="/addsports">
+          {/* <ListItem button component="a" href="/addsports">
             <ListItemIcon>
               <SportsIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>
             <ListItemText primary="Add Sports" style={listItemTextStyles} />
-          </ListItem>
-          <ListItem button component="a" href="/addcomp">
+          </ListItem> */}
+          {/* <ListItem button component="a" href="/addcomp">
             <ListItemIcon>
               <EmojiEventsIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>
             <ListItemText primary="Add Competitions" style={listItemTextStyles} />
-          </ListItem>
+          </ListItem> */}
           <ListItem button component="a" href="/challans">
             <ListItemIcon>
               <PaymentIcon style={{ color: 'lightgrey' }} />
