@@ -51,6 +51,7 @@ const UserDetails = () => {
   const [showPreviewCnicB, setShowPreviewCnicB] = useState(false);
   const [showPreviewStF, setShowPreviewStF] = useState(false);
   const [showPreviewStB, setShowPreviewStB] = useState(false);
+  const [stOf, SetStOf] = useState("");
 
   const togglePreviewCnicF = () => {
     setShowPreviewCnicF(!showPreviewCnicF);
@@ -106,6 +107,7 @@ const UserDetails = () => {
 
       if (data && data.status === 200 && data.data) {
         const { basicInfo } = data.data;
+        SetStOf(basicInfo.studentOf);
 
         if (basicInfo) {
           setCnicFront(basicInfo.cnicFront || ""); // Update state with API values
@@ -231,6 +233,7 @@ const UserDetails = () => {
               />
             </div>
           </div>
+          { stOf !== "other" &&
           <div className="row">
             <div className="col-md-4 mb-3">
               <CustomTextField
@@ -257,6 +260,7 @@ const UserDetails = () => {
               />
             </div>
           </div>
+        }
 
           <div className="row">
             <div className="col-md-6 mb-3">
@@ -330,6 +334,7 @@ const UserDetails = () => {
                     )}
             </div>
           </div>
+          { stOf !== "other" &&
           <div className="row">
             <div className="col-md-6 mb-3">
               <div className="col-md-6 mb-3">
@@ -402,6 +407,7 @@ const UserDetails = () => {
                     )}
             </div>
           </div>
+}
 
           <div className="row pt-5">
             <div className="col">
