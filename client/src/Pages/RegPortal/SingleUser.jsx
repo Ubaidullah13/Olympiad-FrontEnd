@@ -47,6 +47,28 @@ const UserDetails = () => {
   const [stCardFront, setStCardFront] = useState("");
   const [stCardBack, setStCardBack] = useState("");
 
+  const [showPreviewCnicF, setShowPreviewCnicF] = useState(false);
+  const [showPreviewCnicB, setShowPreviewCnicB] = useState(false);
+  const [showPreviewStF, setShowPreviewStF] = useState(false);
+  const [showPreviewStB, setShowPreviewStB] = useState(false);
+
+  const togglePreviewCnicF = () => {
+    setShowPreviewCnicF(!showPreviewCnicF);
+  };
+
+  const togglePreviewCnicB = () => {
+    setShowPreviewCnicB(!showPreviewCnicB);
+  };
+
+  const togglePreviewStF = () => {
+    setShowPreviewStF(!showPreviewStF);
+  };
+
+  const togglePreviewStB = () => {
+    setShowPreviewStB(!showPreviewStB);
+  };
+
+
   const setStatus = async () => {
     try {
       const { data } = await axios.post(
@@ -245,11 +267,32 @@ const UserDetails = () => {
               </div>
               <div
                 class="upload-box px-4"
+                onClick={togglePreviewCnicF}
                 style={{
                   backgroundImage: `url(${cnicFront})`,
                   backgroundSize: "cover",
                 }}
               ></div>
+              {showPreviewCnicF && (
+                      <div
+                        className="modal"
+                        style={{ display: "block", padding: "50px" }}
+                      >
+                        <span
+                          onClick={togglePreviewCnicF}
+                          className="btn btn-danger"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Close
+                        </span>
+                        <img
+                          onClick={togglePreviewCnicF}
+                          src={cnicFront}
+                          alt="Full Size"
+                          style={{ width: "100%" /* Style as needed */ }}
+                        />
+                      </div>
+                    )}
             </div>
             <div className="col-md-6 mb-3">
               <div className="col-md-6 mb-3">
@@ -259,11 +302,32 @@ const UserDetails = () => {
               </div>
               <div
                 class="upload-box px-4"
+                onClick={togglePreviewCnicB}
                 style={{
                   backgroundImage: `url(${cnicBack})`,
                   backgroundSize: "cover",
                 }}
               ></div>
+              {showPreviewCnicB && (
+                      <div
+                        className="modal"
+                        style={{ display: "block", padding: "50px" }}
+                      >
+                        <span
+                          onClick={togglePreviewCnicB}
+                          className="btn btn-danger"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Close
+                        </span>
+                        <img
+                          onClick={togglePreviewCnicB}
+                          src={cnicBack}
+                          alt="Full Size"
+                          style={{ width: "100%" /* Style as needed */ }}
+                        />
+                      </div>
+                    )}
             </div>
           </div>
           <div className="row">
@@ -275,11 +339,32 @@ const UserDetails = () => {
               </div>
               <div
                 class="upload-box px-4"
+                onClick={togglePreviewStF}
                 style={{
                   backgroundImage: `url(${stCardFront})`,
                   backgroundSize: "cover",
                 }}
               ></div>
+              {showPreviewStF && (
+                      <div
+                        className="modal"
+                        style={{ display: "block", padding: "50px" }}
+                      >
+                        <span
+                          onClick={togglePreviewStF}
+                          className="btn btn-danger"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Close
+                        </span>
+                        <img
+                          onClick={togglePreviewStF}
+                          src={stCardFront}
+                          alt="Full Size"
+                          style={{ width: "100%" /* Style as needed */ }}
+                        />
+                      </div>
+                    )}
             </div>
             <div className="col-md-6 mb-3">
               <div className="col-md-6 mb-3">
@@ -289,11 +374,32 @@ const UserDetails = () => {
               </div>
               <div
                 class="upload-box px-4"
+                onClick={togglePreviewStB}
                 style={{
                   backgroundImage: `url(${stCardBack})`,
                   backgroundSize: "cover",
                 }}
               ></div>
+              {showPreviewStB && (
+                      <div
+                        className="modal"
+                        style={{ display: "block", padding: "50px" }}
+                      >
+                        <span
+                          onClick={togglePreviewStB}
+                          className="btn btn-danger"
+                          style={{ cursor: "pointer" }}
+                        >
+                          Close
+                        </span>
+                        <img
+                          onClick={togglePreviewStB}
+                          src={stCardBack}
+                          alt="Full Size"
+                          style={{ width: "100%" /* Style as needed */ }}
+                        />
+                      </div>
+                    )}
             </div>
           </div>
 

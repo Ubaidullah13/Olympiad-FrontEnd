@@ -20,6 +20,7 @@ const RegLayout = ({children}) => {
       position: 'sticky',
       top: '64px',
       height: 'calc(100vh - 64px)',
+      zIndex: '10',
     }}
 
     className="SideNavBarFlex"
