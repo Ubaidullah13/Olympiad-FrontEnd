@@ -25,6 +25,7 @@ const PleaseWait = () => {
       <div className='mb-4'>
         <button className="btnColor btn" onClick={home}>Go to Home Page</button>
       </div>
+      {/* <p className="text-muted">If you haven't submitted your basic info, <a href="/registration">Click Here</a></p> */}
       </div>
       </div>
         </>

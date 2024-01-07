@@ -69,6 +69,8 @@ const LoginPage = () => {
 
               setLoading(false);
               console.log(response);
+              console.log(response.data.data);
+              console.log(response.data.data === null);
 
               if (
                 response.data.data !== null &&
@@ -81,7 +83,17 @@ const LoginPage = () => {
                 response.data.data.status === "rejected"){
                   localStorage.setItem("rejected", true);
                   navigate("/regedit");
-                }              
+                }
+                else if (response.data.data === null) {
+                  localStorage.setItem("basicInfo", false);
+                  localStorage.setItem("basicInfoDetails", false);
+                  navigate("/registration");
+                }
+                else if(response.data.data !== null && response.data.data.studentOf === null){
+                  localStorage.setItem("basicInfo", true);
+                  localStorage.setItem("basicInfoDetails", false);
+                  navigate("/details");
+                }           
               else {
                   navigate('/pleasewait');
               }
@@ -95,7 +107,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       setLoading(false);
-      alert("Invalid credentials! Please try again.");
+      alert("Network Error or Credentials Invalid, Please try again.");
     }
   };
 
