@@ -8,6 +8,7 @@ import Araheem from "../../Images/EC/Araheem.jpg";
 import Ateeq from "../../Images/EC/ateeq.jpeg";
 import Zafar from "../../Images/EC/Zafar.jpg";
 import Khizer from "../../Images/EC/Khizer.png";
+import Naurang from "../../Images/EC/Naurang.jpeg";
 
 const EC = () => {
   return (
@@ -23,7 +24,7 @@ const EC = () => {
             </h3>
           </div>
 
-          <div className="row" style={{ justifyContent: "center" }}>
+          {/* <div className="row" style={{ justifyContent: "center" }}>
             <div className="col-lg-4">
               <div className="team-member">
                 <img
@@ -35,12 +36,10 @@ const EC = () => {
                 <p className="text-muted text-center">
                  President
                 </p>
-                {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                            <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in"></i></a> */}
+                
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="row">
             <div className="col-lg-4">
@@ -58,10 +57,10 @@ const EC = () => {
               <div className="team-member">
                 <img
                   className="mx-auto rounded-circle"
-                  src={Zafar}
+                  src={Naurang}
                   alt="..."
                 />
-                <h4>Zafar Azhar</h4>
+                <h4>Naurang Jahania Gardezi</h4>
                 <p className="text-muted text-center">Vice President Operations</p>
                 {/* <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-twitter"></i></a>
                             <a className="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i className="fab fa-facebook-f"></i></a>

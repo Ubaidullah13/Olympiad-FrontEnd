@@ -124,7 +124,7 @@ const Dashboard = () => {
     getTeamSports();
     getIndiComp();
     getTeamComp();
-  })
+  }, [])
 
   const [status, setStatus] = useState("Pending");
   const [isApplied, setIsApplied] = useState(false);

@@ -67,7 +67,7 @@ const CreateTeamCard = ({
     e.target.style.backgroundColor = "blue";
 
     setIsCreated(true);
-    handleCloseCreateTeamDialog();
+    handleCloseCreateTeamDialog(); 
   };
 
   const handleCreateClick = (e) => {
