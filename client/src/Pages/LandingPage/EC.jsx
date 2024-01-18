@@ -20,7 +20,7 @@ const EC = () => {
             Executive committee
             </h2>
             <h3 className="section-subheading text-muted">
-            Superheros
+            Superheroes
             </h3>
           </div>
 
