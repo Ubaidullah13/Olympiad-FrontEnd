@@ -53,8 +53,8 @@ const UserDetails = () => {
     const handleStCardFrontChange = (event) => {
       const file = event.target.files[0];
 
-      if (file.size > 10 * 1024 * 1024) {
-        alert("File size should not exceed 10 MB");
+      if (file.size > 500 * 1024) {
+        alert("File size should not exceed 500 KB");
         return;
       }
 
@@ -72,8 +72,8 @@ const UserDetails = () => {
     const handleStCardBackChange = (event) => {
       const file = event.target.files[0];
 
-      if (file.size > 10 * 1024 * 1024) {
-        alert("File size should not exceed 10 MB");
+      if (file.size > 500 * 1024) {
+        alert("File size should not exceed 500 KB");
         return;
       }
 
@@ -138,7 +138,7 @@ const UserDetails = () => {
       } catch (err) {
         setLoading(false);
         console.error(err);
-        alert(err.response.data.data);
+        alert("Image Size is too large or Network Error");
       }
     };
 
