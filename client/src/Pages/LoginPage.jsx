@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Styles/SignUpPage.css"; // Import the CSS file
 import CustomTextField from "../Components/CustomTextField";
 import { TextField } from "@mui/material";
@@ -16,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Nav from "../Components/Navigation";
 
 import API_URL from "../config";
+import getSingleImage from "../image.js"
 
 const apiUrl = API_URL;
 
@@ -29,6 +30,7 @@ const LoginPage = () => {
 
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [img, setImg] = useState("gjh");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -150,6 +152,7 @@ const LoginPage = () => {
   return (
     <>
       <Nav />
+      <img src={img}/>
       <div className="Mycontainer">
         {/* Left side */}
         <div className="left-side">
