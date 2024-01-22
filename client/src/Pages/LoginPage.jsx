@@ -41,13 +41,13 @@ const LoginPage = () => {
       localStorage.clear();
       setLoading(true);
       const response = await axios.post(`${API_URL}/auth/login`, data);
-      console.log(response);
+      //console.log(response);
       const accessToken = response.data.data.accessToken;
       const UserID = response.data.data.user.id;
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("UserID", UserID);
-      console.log("Access token set in localStorage:", accessToken);
-      console.log("UserID set in localStorage:", UserID);
+      // console.log("Access token set in localStorage:", accessToken);
+      // console.log("UserID set in localStorage:", UserID);
 
       if (response.data.data.user.isParticipant === true) {
         localStorage.setItem("name", response.data.data.user.name);
@@ -68,9 +68,9 @@ const LoginPage = () => {
               );
 
               setLoading(false);
-              console.log(response);
-              console.log(response.data.data);
-              console.log(response.data.data === null);
+              // console.log(response);
+              // console.log(response.data.data);
+              // console.log(response.data.data === null);
 
               if (
                 response.data.data !== null &&

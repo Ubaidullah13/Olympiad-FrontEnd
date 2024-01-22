@@ -14,6 +14,7 @@ const RPR = (props) => {
         let token = localStorage.getItem('accessToken');
         // let basicInfo = localStorage.getItem('basicInfo');
         // let basicInfoDetails = localStorage.getItem('basicInfoDetails');
+        console.log("token",token);
         if(!token){
             navigate('/login');
         }else{
