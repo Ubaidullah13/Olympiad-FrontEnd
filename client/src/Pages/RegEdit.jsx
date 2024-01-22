@@ -65,6 +65,7 @@ const RegEdit = () => {
           stdFront: response.data.data.stdFront,
           ambassadorcode: response.data.data.ambassadorcode || "",
           student_id: response.data.data.student_id || "",
+          studentOf: response.data.data.studentOf || "",
         };
 
         setData(updatedInitialState);
@@ -87,8 +88,8 @@ const RegEdit = () => {
   const handleCNICfChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File size should not exceed 10 MB");
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
       return;
     }
 
@@ -104,8 +105,8 @@ const RegEdit = () => {
   const handleCNICbChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File size should not exceed 10 MB");
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
       return;
     }
 
@@ -121,8 +122,8 @@ const RegEdit = () => {
   const handleSTfChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File size should not exceed 10 MB");
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
       return;
     }
 
@@ -139,8 +140,8 @@ const RegEdit = () => {
   const handleSTbfChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File size should not exceed 10 MB");
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
       return;
     }
 
@@ -193,11 +194,25 @@ const RegEdit = () => {
       formData.append("stdBack", data.stdBack);
     }
 
+    // axios.put(`${apiUrl}/basic/basicInfoUpdate`,formData,
+    //   {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //       },
+    //     }
+    //   ).then((response) => {
+    //     console.log(response.data);
+    //     setButtonLoading(false);
+    //     // navigate("/dashboard");
+    //   }).catch((error) => {
+    //     console.log(error);
+    //     alert("Error occurred while Updating data. Please try again.");
+    //   });
+
     try {
-      const response = await axios.put(
-        `${apiUrl}/basic/basicInfoUpdate`,
-        formData,
-        {
+      const response = await axios.post(`${apiUrl}/basic/basicInfoUpdate`,formData,
+      {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -207,12 +222,13 @@ const RegEdit = () => {
 
       // console.log(response.data);
       setButtonLoading(false);
-
-      navigate("/dashboard");
+      console.log(response.data);
+      // navigate("/dashboard");
     } catch (err) {
       setButtonLoading(false);
-      console.error(err);
+      console.log(err);
       alert("Error occurred while Updating data. Please try again.");
+      // window.location.reload();
     }
 
   };
@@ -237,6 +253,7 @@ const RegEdit = () => {
               name="name"
               value={data.name}
               onChange={handleInputChange}
+              disabled
             />
           </div>
           <div className="col-md-4 mb-3">
@@ -323,6 +340,7 @@ const RegEdit = () => {
             />
           </div>
         </div>
+        {data.studentOf !== "other" ? 
         <div className="row">
           <div className="col-md-4 mb-3">
             <CustomTextField
@@ -355,7 +373,7 @@ const RegEdit = () => {
             />
           </div>
         </div>
-
+        : <></>}
         <div className="row">
           <div className="col-md-6 mb-3">
             <div className="col-md-6 mb-3">
@@ -402,6 +420,7 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
+        {data.studentOf !== "other" ? 
         <div className="row">
           <div className="col-md-6 mb-3">
             <div className="col-md-6 mb-3">
@@ -448,6 +467,7 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
+        : <></>}
         {status === "rejected" && (
           <>
         {buttonLoading ? <CircularProgress /> : (

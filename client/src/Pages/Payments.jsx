@@ -170,6 +170,7 @@ const Payments = ({}) => {
       }
     
     } catch (error) {
+      getChallanDetails();
       console.log(error);
     }
   };
@@ -181,8 +182,8 @@ const Payments = ({}) => {
   const handlePaymentPic = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert('File size should not exceed 10 MB');
+    if (file.size > 1024 * 1024) {
+      alert('File size should not exceed 1 MB');
       return;
     }
 
@@ -223,11 +224,14 @@ const Payments = ({}) => {
       .then((response) => {
         setButtonLoading(false);
         alert("Challan Updated Successfully");
-        navigate("/payments");
+        window.location.reload();
       })
       .catch((error) => {
         setButtonLoading(false);
-        alert("Error Updating Challan");
+        console.log(error);
+        // refresh page
+        window.location.reload();
+        //alert("Error Updating Challan");
       });
     }else{
       const formData2 = new FormData();
@@ -243,11 +247,13 @@ const Payments = ({}) => {
       .then((response) => {
         setButtonLoading(false);
         alert("Challan Uploaded Successfully");
-        navigate("/payments");
+        window.location.reload();
       })
       .catch((error) => {
         setButtonLoading(false);
+        console.error(error);
         alert("Network Error Uploading Challan");
+        window.location.reload();
       });
     }
 

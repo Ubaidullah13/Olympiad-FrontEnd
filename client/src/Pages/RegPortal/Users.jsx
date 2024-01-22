@@ -69,7 +69,7 @@ const Users = () => {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isVerified ? "Verified" : "Unverified"}</td>
+                <td>{user.isValidated ? "Verified" : "Unverified"}</td>
                 <td>{user.basicInfo.phoneno}</td>
                 <td>{user.basicInfo.gender ? "male" : "female"}</td>
                 <td>{user.basicInfo.status}</td>

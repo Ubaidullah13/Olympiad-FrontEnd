@@ -103,11 +103,17 @@ const SignUpPage = () => {
       }
       navigate('/registration');
     }
+    // console.log(error.response.data.data[0]);
     if (error.response.data.data === null){
       alert(error.response.data.message)
     }else{
       setWrongPassword(true);
-      alert(error.response.data.data)
+      // console.log("Here");
+      if(error.response.data.data[0] === "name must be a trimmed string"){
+        alert("Name should not end at space")
+      }else{
+        alert(error.response.data.data)
+      }
       // console.error('Error:', error.response.data.data);
   }}
   };
