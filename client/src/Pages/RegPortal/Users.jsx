@@ -71,6 +71,7 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
+
           {users.length === 0 ? (
             <tr>
               <td className="text-center" colSpan={8}>
@@ -101,6 +102,34 @@ const Users = () => {
               );
             })
           )}
+
+       /* {users.length === 0 ? (
+          <tr>
+            <td className="text-center" colSpan={8}>
+              No entries Found
+            </td>
+          </tr>
+        ) : (
+          users.map((user) => {
+            return user.basicInfo === null ? (
+              <>
+               
+              </>
+            ) : (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.isValidated ? "Verified" : "Unverified"}</td>
+                <td>{user.basicInfo.phoneno}</td>
+                <td>{user.basicInfo.gender ? "male" : "female"}</td>
+                <td>{user.basicInfo.status}</td>
+                <td><button onClick={()=>navigate(`/user/${user.id}`)}>View</button></td>
+              </tr>
+            );
+          })
+        )}*/
+
         </tbody>
       </Table>
       <Typography>Page: {currentPage}</Typography>

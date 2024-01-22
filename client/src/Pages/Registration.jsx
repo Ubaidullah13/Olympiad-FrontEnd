@@ -116,8 +116,8 @@ const OlympiadRegistration = () => {
   const handleProfilePicChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert("File size should not exceed 10 MB");
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
       return;
     }
 
@@ -133,6 +133,13 @@ const OlympiadRegistration = () => {
 
   const handleCnicFrontChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
+      return;
+    }
+
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -145,6 +152,13 @@ const OlympiadRegistration = () => {
 
   const handleCnicBackChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
+      return;
+    }
+
+    
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
