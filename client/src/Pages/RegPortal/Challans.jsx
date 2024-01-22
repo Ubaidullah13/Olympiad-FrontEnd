@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, Typography } from "@mui/material";
 import RegLayout from "../../Components/RegLayout";
 import axios from "axios";
@@ -22,6 +22,7 @@ const Challans = () => {
         },
       });
       setLoading(false);
+      console.log(response.data.data);
       setChallans(response.data.data);
     } catch (error) {
       console.log(error);
@@ -38,7 +39,11 @@ const Challans = () => {
     pages.push(i);
   }
 
-  getChallans();
+  useEffect(() => {
+    getChallans();
+  }, []);
+
+  // getChallans();
 
   return (
     <RegLayout>
@@ -47,13 +52,15 @@ const Challans = () => {
         component="div"
         sx={{ fontWeight: "bold", fontFamily: "LemonMilkBold" }}
       >
-        Challans
+        Challans 
       </Typography>
+      <p>Total Challans: {challans.length}</p>
       {loading && <CircularProgress />}
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
+            {/* <th>#</th> */}
+            <th>Challan ID</th>
             <th>Name</th>
             <th>Email</th>
             <th>Total</th>
@@ -74,7 +81,8 @@ const Challans = () => {
               .map((challan, index) => {
                 return (
                   <tr>
-                    <td>{index + 1}</td>
+                    {/* <td>{index + 1}</td> */}
+                    <td>{challan.id}</td>
                     <td>{challan.user.name}</td>
                     <td>{challan.user.email}</td>
                     <td>{challan.netTotal}</td>

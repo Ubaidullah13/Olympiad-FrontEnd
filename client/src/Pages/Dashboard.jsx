@@ -29,7 +29,7 @@ const Dashboard = () => {
         {headers: {
         Authorization: `Bearer ${localStorage.accessToken}`,
       }})
-      // console.log(response.data)
+       console.log(response.data)
       setStatus(response.data.data.status)
       setIsApplied(response.data.data.accomodation)
       setLoading(false);
@@ -148,7 +148,7 @@ const Dashboard = () => {
       {headers: {
       Authorization: `Bearer ${token}`,
     }})
-    console.log(response)
+    // console.log(response)
   } catch (error) {
     alert("Network Error! Please try again later.")
     console.log(error)
@@ -169,11 +169,11 @@ const Dashboard = () => {
       description: 'Account Verification',
       color: '#FFD2B1', 
     },
-    {
-      title: 'pending',
-      description: 'Challan Status',
-      color : '#FFB1B1',
-    },
+    // {
+    //   title: 'pending',
+    //   description: 'Challan Status',
+    //   color : '#FFB1B1',
+    // },
     {
       title: isApplied ? 'Applied' : 'Not applied',
       description: 'Accommodation Status',

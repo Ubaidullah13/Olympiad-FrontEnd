@@ -56,6 +56,7 @@ const Users = () => {
       >
         Participants
       </Typography>
+      <p>Total Participants with Infos: {users.length}</p>
       {loading && <CircularProgress />}
       <Table striped bordered hover>
         <thead>
@@ -89,7 +90,7 @@ const Users = () => {
                   <td>{user.id}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>{user.isVerified ? "Verified" : "Unverified"}</td>
+                  <td>{user.isValidated ? "Verified" : "Unverified"}</td>
                   <td>{user.basicInfo.phoneno}</td>
                   <td>{user.basicInfo.gender ? "male" : "female"}</td>
                   <td>{user.basicInfo.status}</td>
@@ -103,7 +104,7 @@ const Users = () => {
             })
           )}
 
-       /* {users.length === 0 ? (
+       {/* {users.length === 0 ? (
           <tr>
             <td className="text-center" colSpan={8}>
               No entries Found
@@ -128,7 +129,7 @@ const Users = () => {
               </tr>
             );
           })
-        )}*/
+        )} */}
 
         </tbody>
       </Table>

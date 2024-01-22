@@ -21,7 +21,7 @@ const MailSent = () => {
         <div className="Mycard">
         <img src={olympiad} alt="olympiad logo" width={200} className="mx-auto"/>
       <h2>Email Sent</h2>
-      <p>Check Your Email!</p>
+      <p>A link to reset your password has been sent to your email</p>
       <div className='mb-4'>
         <button className="btnColor btn" onClick={home}>Go to Home Page</button>
       </div>

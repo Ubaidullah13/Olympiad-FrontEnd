@@ -30,6 +30,7 @@ import SingleUser from './Pages/RegPortal/SingleUser';
 import ChallanDetails from './Pages/RegPortal/SingleChallan';
 import PleaseWait from "./Pages/PleaseWait";
 import ForgetPass from "./Pages/ForgetPass";
+import ResetPass from "./Pages/ResetPass";
 import MailSent from "./Pages/MailSent";
 
 
@@ -118,6 +119,9 @@ const App = () => {
         </Route>
 
         <Route exact path ='/ForgetPass' element={<ForgetPass />}>
+        </Route>
+
+        <Route exact path ='/ResetPass' element={<ResetPass />}>
         </Route>
 
         <Route exact path ='/MailSent' element={<MailSent />}>
