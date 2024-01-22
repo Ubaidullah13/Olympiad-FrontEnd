@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import olympiad from '../Images/logo/logo.png';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -12,22 +12,35 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { TextField } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import API_URL from '../config';
 
 const ResetPass = () => {
 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
+    const { token } = useParams();
+
     // clear local storage
     localStorage.clear();
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) =>{
         e.preventDefault();
         setLoading(true);
         const pass = e.target[0].value;
-        console.log(pass);
-        setLoading(false);
-        navigate('/login');
+        try{
+          const response = await axios.post(`${API_URL}/auth/updatePassword`, {password: pass}, {headers: {
+            Authorization: `Bearer ${token}`,
+            }});
+          setLoading(false);
+          console.log(response);
+          alert("Password Updated Successfully");
+          navigate('/login');
+        }catch(error){
+            alert("Minimum 6 characters required");
+            setLoading(false);
+            console.log(error);
+        }
     }
 
     const [showPassword, setShowPassword] = useState(false);

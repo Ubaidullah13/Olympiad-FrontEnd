@@ -81,7 +81,7 @@ const RegSideNav = () => {
             <ListItemText primary="    " />
           </ListItem>
           <Divider style={{ backgroundColor: 'lightgrey' }} />
-          <ListItem button component="a" href="/users">
+          <ListItem button component="a" href="/dashboard">
             <ListItemIcon>
               <DashboardIcon style={{ color: 'lightgrey' }} />
             </ListItemIcon>

@@ -6,19 +6,38 @@ import olympiad from '../Images/logo/logo.png';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { CircularProgress } from "@mui/material";
+import API_URL from '../config';
+
+// const initialState = {
+//   email: "",
+//   url: window.location.href,
+// };
 
 const ForgetPass = () => {
 
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    // const [data, setData] = useState(initialState);
 
-    const onSubmit = (e) => {
+    // current url of the page
+    const url = window.location.href;
+
+    const onSubmit = async (e) =>{
         e.preventDefault();
         setLoading(true);
-        const email = e.target[0].value;
-        console.log(email);
-        setLoading(false);
-        navigate('/mailsent');
+        
+        // console.log(data);
+        try{
+          const response = await axios.post(`${API_URL}/auth/forgotPassword`, {email: e.target[0].value, url: url});
+          console.log(response);
+          setLoading(false);
+          navigate('/mailsent');
+        }catch(error){
+          alert("Invalid Email");
+          setLoading(false);
+          console.log(error);
+        }
+
     }
 
     return(
@@ -36,9 +55,11 @@ const ForgetPass = () => {
       <div className='mb-4'>
         {loading ? <CircularProgress /> : 
         <button className="btnColor btn">Send Email</button>
+        // href of go back to login page
     }
       </div>
       </form>
+      <a href="/login" className="text-muted">Go Back</a>
       </div>
       </div>
         </>

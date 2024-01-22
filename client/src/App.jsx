@@ -98,8 +98,8 @@ const App = () => {
         {/* <Route exact path ='/users' element={<Users />}>
         </Route> */}
 
-        <Route exact path ='/users' element={<RPR Component={Users }/>}>
-          </Route>
+        {/* <Route exact path ='/users' element={<RPR Component={Users }/>}>
+          </Route> */}
 
 
         {/* <Route exact path ='/addsports' element={<RPR Component={AddSports }/>}>
@@ -121,7 +121,7 @@ const App = () => {
         <Route exact path ='/ForgetPass' element={<ForgetPass />}>
         </Route>
 
-        <Route exact path ='/ResetPass' element={<ResetPass />}>
+        <Route exact path ='/ForgetPass/:token' element={<ResetPass />}>
         </Route>
 
         <Route exact path ='/MailSent' element={<MailSent />}>
