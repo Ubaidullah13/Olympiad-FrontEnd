@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import API_URL from '../config';
+import Users from '../Pages/RegPortal/Users';
 
 const apiUrl = API_URL;
 
@@ -17,24 +18,31 @@ const ProtectedRoute = (props) => {
 
         if(!token){
             navigate('/login');
-        }else{
-            
-            if(!localStorage.isParticipant)
-            {
-                navigate('/users');
-            }
-            if(localStorage.rejected === "true")
-            {
-                navigate('/regEdit');
-            }
-        }        
+            return;
+        }
+
+        if(localStorage.rejected === "true")
+        {
+            navigate('/regEdit');
+            return;
+        }       
     }, []);
 
-    return(
-        <div>
-            <Component />
-        </div>
-    );
+    if(localStorage.isParticipant)
+    {
+        return(
+            <div>
+                <Component />
+            </div>
+        );
+    }
+    else{
+        return(
+            <div>
+                <Users />
+            </div>
+        );
+    }
 }
 
 export default ProtectedRoute;

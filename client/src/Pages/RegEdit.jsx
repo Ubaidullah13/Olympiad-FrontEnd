@@ -21,23 +21,33 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const apiUrl = API_URL;
 
+const initialState = {
+  name: "",
+  cnicFront: null,
+  cnicBack: null,
+  cnic: "",
+  phoneno: "",
+  address: "",
+  guardianName: "",
+  guardianNumber: "",
+  schoolName: "",
+  stdBack: null,
+  stdFront: null,
+  ambassadorcode: "",
+  student_id: "",
+};
+
 const RegEdit = () => {
-  const initialState = {
-    name: "",
-    cnicFront: null,
-    cnicBack: null,
-    cnic: "",
-    phoneno: "",
-    address: "",
-    guardianName: "",
-    guardianNumber: "",
-    schoolName: "",
-    gender: null,
-    stdBack: null,
-    stdFront: null,
-    ambassadorcode: "",
-    student_id: "",
-  };
+
+  const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [status, setStatus] = useState("rejected");
+  const [data, setData] = useState(initialState);
+  const [updatedForm, setUpdatedForm] = useState([]);
+  const [cnicFront, setCnicFront] = useState(null);
+  const [cnicBack, setCnicBack] = useState(null);
+  const [stdFront, setStdFront] = useState(null);
+  const [stdBack, setStdBack] = useState(null);
 
   useEffect(() => {
     const getBasicDisplay = async () => {
@@ -60,7 +70,6 @@ const RegEdit = () => {
           guardianName: response.data.data.guardianName || "",
           guardianNumber: response.data.data.guardianNumber || "",
           schoolName: response.data.data.schoolName || "",
-          gender: response.data.data.gender,
           stdBack: response.data.data.stdBack,
           stdFront: response.data.data.stdFront,
           ambassadorcode: response.data.data.ambassadorcode || "",
@@ -80,10 +89,7 @@ const RegEdit = () => {
   }, []);
 
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(true);
-  const [buttonLoading, setButtonLoading] = useState(false);
-  const [status, setStatus] = useState("rejected");
+ 
 
   const handleCNICfChange = (event) => {
     const file = event.target.files[0];
@@ -97,8 +103,13 @@ const RegEdit = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setData((prevData) => ({ ...prevData, cnicFront: reader.result }));
+        if (!updatedForm.includes("cnicFront")){
+          setUpdatedForm([...updatedForm, "cnicFront"]);
+        }
       };
       reader.readAsDataURL(file);
+      setCnicFront(file);
+
     }
   };
 
@@ -114,8 +125,13 @@ const RegEdit = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setData((prevData) => ({ ...prevData, cnicBack: reader.result }));
+        // setUpdatedForm([...updatedForm, "cnicBack"]);
+        if (!updatedForm.includes("cnicBack")){
+          setUpdatedForm([...updatedForm, "cnicBack"]);
+        }
       };
       reader.readAsDataURL(file);
+      setCnicBack(file);
     }
   };
 
@@ -132,8 +148,12 @@ const RegEdit = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setData((prevData) => ({ ...prevData, stdFront: reader.result }));
+        if (!updatedForm.includes("stdFront")){
+          setUpdatedForm([...updatedForm, "stdFront"]);
+        }
       };
       reader.readAsDataURL(file);
+      setStdFront(file);
     }
   };
 
@@ -149,67 +169,54 @@ const RegEdit = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setData((prevData) => ({ ...prevData, stdBack: reader.result }));
+        if (!updatedForm.includes("stdBack")){
+          setUpdatedForm([...updatedForm, "stdBack"]);
+        }
       };
       reader.readAsDataURL(file);
+      setStdBack(file);
     }
   };
-
-  const [data, setData] = useState(initialState);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-  
+
+    // if updatedForm already has the name, then don't add it again
+    if (updatedForm.includes(name)) return;
+
+    setUpdatedForm([...updatedForm, name]);
+    
+    // formData.append(name, value);
   };
 
-  const handleGenderChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value === "male" ? true : false });
- 
-  };
 
   const handleButtonClick = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     setButtonLoading(true);
 
     const formData = new FormData();
 
-    Object.keys(data).forEach((key) => {
+    updatedForm.forEach((key) => {
       if (key !== "cnicFront" && key !== "cnicBack" && key !== "stdFront" && key !== "stdBack") {
         formData.append(key, data[key]);
-        console.log(data[key]);
       }
     });
 
-    if (data.cnicFront) {
-      formData.append("cnicFront", data.cnicFront);
+    if (updatedForm.includes("cnicFront") && cnicFront) {
+      formData.append("cnicFront", cnicFront);
     }
-    if (data.cnicBack) {
-      formData.append("cnicBack", data.cnicBack);
+    if (updatedForm.includes("cnicBack") && cnicBack) {
+      formData.append("cnicBack", cnicBack);
     }
-    if (data.stdFront) {
-      formData.append("stdFront", data.stdFront);
+    if (updatedForm.includes("stdFront") && stdFront) {
+      formData.append("stdFront", stdFront);
     }
-    if (data.stdBack) {
-      formData.append("stdBack", data.stdBack);
+    if (updatedForm.includes("stdBack") && stdBack) {
+      formData.append("stdBack", stdBack);
     }
 
-    // axios.put(`${apiUrl}/basic/basicInfoUpdate`,formData,
-    //   {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //       },
-    //     }
-    //   ).then((response) => {
-    //     console.log(response.data);
-    //     setButtonLoading(false);
-    //     // navigate("/dashboard");
-    //   }).catch((error) => {
-    //     console.log(error);
-    //     alert("Error occurred while Updating data. Please try again.");
-    //   });
-
+    
     try {
       const response = await axios.post(`${apiUrl}/basic/basicInfoUpdate`,formData,
       {
@@ -217,13 +224,13 @@ const RegEdit = () => {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        }
+      }
       );
 
       // console.log(response.data);
       setButtonLoading(false);
-      console.log(response.data);
-      // navigate("/dashboard");
+      alert("Data Updated Successfully");
+      
     } catch (err) {
       setButtonLoading(false);
       console.log(err);
@@ -242,6 +249,15 @@ const RegEdit = () => {
       <div className="container mt-5">
         <h2 className="text-left">Profile</h2>
         <p>Status: {status}</p>
+        {status==="pending" ? 
+        <p className="text-muted">Verification requires 4-5 days. Registration team will email you once process of verification is completed</p>
+        : <></>}
+        {status==="rejected" ? 
+        <p className="text-muted">Update your profile and submit it for review</p>
+        : <></>}
+        {status==="ban" ? 
+        <p className="text-muted">Update your profile and submit it for review</p>
+        : <></>}
         <div className="row">
           <div className="col-md-4 mb-3">
             {/* <label className="bold-label" htmlFor="name"> Name </label> */}
@@ -260,7 +276,7 @@ const RegEdit = () => {
             {/* <label className="bold-label" htmlFor="phone">Phone Number</label>
             <input type="tel" className="form-control form-input" id="phone" placeholder="(123) 456-7890" required /> */}
             <CustomTextField
-              type="Phone"
+              type="number"
               iconType={<PhoneAndroidOutlinedIcon />}
               label="Phone"
               name="phoneno"
@@ -272,7 +288,7 @@ const RegEdit = () => {
             {/* <label className="bold-label" htmlFor="cnic">CNIC</label>
             <input type="text" className="form-control form-input" id="cnic" placeholder="1234-567890-1" required /> */}
             <CustomTextField
-              type="CNIC"
+              type="number"
               iconType={<CreditCardOutlinedIcon />}
               label="CNIC"
               name="cnic"
@@ -288,7 +304,7 @@ const RegEdit = () => {
     <option value="male">Male</option>
     <option value="female">Female</option>
   </select>      */}
-            <FormControl
+            {/* <FormControl
               fullWidth
               variant="outlined"
               margin="normal"
@@ -304,9 +320,9 @@ const RegEdit = () => {
                 name="gender"
                 onChange={handleGenderChange}
               />
-            </FormControl>
+            </FormControl> */}
           </div>
-          <div className="col-md-8 mb-3">
+          <div className="col-md-12 mb-3">
             <CustomTextField
               type="Address"
               iconType={<HomeOutlinedIcon />}
@@ -323,7 +339,7 @@ const RegEdit = () => {
             <CustomTextField
               type="Person"
               iconType={<AccountCircleOutlinedIcon />}
-              label="Guardian Name"
+              label="Father / Guardian Name"
               name="guardianName"
               value={data.guardianName}
               onChange={handleInputChange}
@@ -331,9 +347,9 @@ const RegEdit = () => {
           </div>
           <div className="col-md-4 mb-3">
             <CustomTextField
-              type="Phone"
+              type="number"
               iconType={<PhoneAndroidOutlinedIcon />}
-              label="Guardian Contact No."
+              label="Father / Guardian Contact No."
               name="guardianNumber"
               value={data.guardianNumber}
               onChange={handleInputChange}
@@ -344,7 +360,7 @@ const RegEdit = () => {
         <div className="row">
           <div className="col-md-4 mb-3">
             <CustomTextField
-              type="stId"
+              type="number"
               iconType={<AccountCircleOutlinedIcon />}
               label="Student ID"
               name="student_id"
@@ -364,7 +380,7 @@ const RegEdit = () => {
           </div>
           <div className="col-md-4 mb-3">
             <CustomTextField
-              type="ambassadorCode"
+              type="number"
               iconType={<AccountCircleOutlinedIcon />}
               label="Ambassador Code"
               name="ambassadorcode"
@@ -382,7 +398,7 @@ const RegEdit = () => {
               </label>
             </div>
             <div
-              class="upload-box px-4"
+              className="upload-box px-4"
               style={{
                 backgroundImage: `url(${data.cnicFront})`,
                 backgroundSize: "cover",
@@ -404,7 +420,7 @@ const RegEdit = () => {
               </label>
             </div>
             <div
-              class="upload-box px-4"
+              className="upload-box px-4"
               style={{
                 backgroundImage: `url(${data.cnicBack})`,
                 backgroundSize: "cover",
@@ -429,7 +445,7 @@ const RegEdit = () => {
               </label>
             </div>
             <div
-              class="upload-box px-4"
+              className="upload-box px-4"
               style={{
                 backgroundImage: `url(${data.stdFront})`,
                 backgroundSize: "cover",
@@ -451,7 +467,7 @@ const RegEdit = () => {
               </label>
             </div>
             <div
-              class="upload-box px-4"
+              className="upload-box px-4"
               style={{
                 backgroundImage: `url(${data.stdBack})`,
                 backgroundSize: "cover",
@@ -468,7 +484,7 @@ const RegEdit = () => {
           </div>
         </div>
         : <></>}
-        {status === "rejected" && (
+        {status !== "verified" && (
           <>
         {buttonLoading ? <CircularProgress /> : (
         <button

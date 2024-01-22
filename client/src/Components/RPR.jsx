@@ -11,20 +11,20 @@ const RPR = (props) => {
     console.log(Component.name);
     const navigate = useNavigate();
 
+    useEffect(() => {
         let token = localStorage.getItem('accessToken');
         // let basicInfo = localStorage.getItem('basicInfo');
         // let basicInfoDetails = localStorage.getItem('basicInfoDetails');
         console.log("token",token);
         if(!token){
             navigate('/login');
-        }else{
-            console.log("isParticipant",localStorage.isParticipant);
-            if(localStorage.isParticipant)
-            {
-                console.log("isParticipant",localStorage.isParticipant);
-                navigate('/dashboard');
-            }
-        } 
+        }
+
+        if(localStorage.isParticipant)
+        {
+            navigate('/dashboard');
+        }
+    }, []);
 
     return(
         <div>

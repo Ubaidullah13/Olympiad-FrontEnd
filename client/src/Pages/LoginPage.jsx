@@ -68,43 +68,73 @@ const LoginPage = () => {
               );
 
               setLoading(false);
-              // console.log(response);
-              // console.log(response.data.data);
-              // console.log(response.data.data === null);
 
-              if (
-                response.data.data !== null &&
-                response.data.data.status === "verified"
-              ) {
-                localStorage.setItem("basicInfo", true);
-                localStorage.setItem("basicInfoDetails", true);
-                navigate("/dashboard");
-              } else if (response.data.data !== null &&
-                response.data.data.status === "rejected"){
+              if(response.data.data !== null){
+                if(response.data.data.status === "verified")
+                {
+                  localStorage.setItem("basicInfo", true);
+                  localStorage.setItem("basicInfoDetails", true);
+                }
+                if(response.data.data.status !== "verified")
+                {
                   localStorage.setItem("rejected", true);
                   navigate("/regedit");
+                  return;
                 }
-                else if (response.data.data === null) {
-                  localStorage.setItem("basicInfo", false);
-                  localStorage.setItem("basicInfoDetails", false);
-                  navigate("/registration");
-                }
-                else if(response.data.data !== null && response.data.data.studentOf === null){
+                if(response.data.data.studentOf === null)
+                {
                   localStorage.setItem("basicInfo", true);
                   localStorage.setItem("basicInfoDetails", false);
                   navigate("/details");
-                }           
-              else {
-                  navigate('/pleasewait');
+                  return;
+                }
+
+              }else{
+                localStorage.setItem("basicInfo", false);
+                localStorage.setItem("basicInfoDetails", false);
+                navigate("/registration");
+                return;
               }
+              // if (
+              //   response.data.data !== null &&
+              //   response.data.data.status === "verified"
+              // ) {
+              //   localStorage.setItem("basicInfo", true);
+              //   localStorage.setItem("basicInfoDetails", true);
+              //   //navigate("/dashboard");
+              // } else if (response.data.data !== null &&
+              //   response.data.data.status === "rejected"){
+              //     localStorage.setItem("rejected", true);
+              //     navigate("/regedit");
+              //     return;
+              //   }
+              //   else if (response.data.data === null) {
+              //     localStorage.setItem("basicInfo", false);
+              //     localStorage.setItem("basicInfoDetails", false);
+              //     navigate("/registration");
+              //     return;
+              //   }
+              //   else if(response.data.data !== null && response.data.data.studentOf === null){
+              //     localStorage.setItem("basicInfo", true);
+              //     localStorage.setItem("basicInfoDetails", false);
+              //     navigate("/details");
+              //     return;
+              //   }           
+              // else if(response.data.data.status === "pending") {
+              //     localStorage.setItem("rejected", true);
+              //     navigate('/regedit');
+              //     return;
+              // }else{
+              //     navigate("/pleaseWait");
+              //     return;
+              // }
             } catch (error) {
               console.log(error);
             }
           }
         
-      } else {
-        navigate("/users");
       }
+      navigate("/dashboard"); 
     } catch (error) {
       setLoading(false);
       alert("Network Error or Credentials Invalid, Please try again.");
