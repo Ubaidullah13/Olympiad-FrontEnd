@@ -26,10 +26,16 @@ const Users = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
+      if(error.response.data.message === "Unauthorized")
+      {
+        alert("Session Expired! Please Login Again");
+        localStorage.clear();
+        navigate('/login');
+      }
     }
   };
 
-  const postsPerPage = 10;
+  const postsPerPage = 50;
   const lastPostIndex = postsPerPage * currentPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 

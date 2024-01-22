@@ -34,6 +34,7 @@ const Payments = ({}) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [Loading, setLoading] = useState(true);
+
   // const [ignoreError, setIgnoreError] = useState(true);
 
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -106,7 +107,7 @@ const Payments = ({}) => {
       // if(ignoreError){
       //   return;
       // }else{
-        alert("No Challan Found! Join sport or competition first");
+        alert("No New Challan Found! Please join a sport or competition before looking for new Challan. All previous Challans have already been confirmed.");
         navigate("/dashboard");
         console.log(error);
       // }
@@ -164,7 +165,8 @@ const Payments = ({}) => {
 
         setLoading(false);
 
-      }else{
+      }
+      else{
         // setIgnoreError(false);
         getChallanDetails();
       }
@@ -227,7 +229,7 @@ const Payments = ({}) => {
       })
       .catch((error) => {
         setButtonLoading(false);
-        alert("Error Updating Challan");
+        alert("Error Updating Challan! Upload file again");
       });
     }else{
       const formData2 = new FormData();
@@ -316,6 +318,7 @@ const Payments = ({}) => {
             </form>
             <p className="mt-3">* Registration fees is not refundable</p>
           </div>
+          
           <div className="col-md-6">
             {/* Summary/Details section */}
             <div className="ps-5" id="Details">

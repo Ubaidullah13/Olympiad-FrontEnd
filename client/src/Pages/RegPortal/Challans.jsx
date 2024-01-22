@@ -28,7 +28,7 @@ const Challans = () => {
     }
   };
 
-  const postsPerPage = 10;
+  const postsPerPage = 50;
   const lastPostIndex = postsPerPage * currentPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
 
