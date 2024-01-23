@@ -43,8 +43,19 @@ const Dashboard2 = () => {
     };
     getTeamSports();
     getIndividualSports();
+    // console.log("Initial call to Dashboard2");
+
+    // Set up the interval
+    const intervalId = setInterval(() => {
+        getTeamSports();
+        getIndividualSports();
+       // console.log("Dashboard2 - Interval call");
+    }, 5000); // 5000 milliseconds = 5 seconds
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
  
-  });
+  }, []);
 
   const [selectedHeader, setSelectedHeader] = useState("individual");
   const [loading, setLoading] = useState(true);
