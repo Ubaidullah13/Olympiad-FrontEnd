@@ -87,7 +87,7 @@ const UserDetails = () => {
       );
 
       if (data.status === 200) {
-        return navigate("/users");
+        return navigate("/dashboard");
       }
     } catch (error) {
       console.log(error);
