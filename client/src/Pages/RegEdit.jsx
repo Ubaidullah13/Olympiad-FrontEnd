@@ -234,7 +234,7 @@ const RegEdit = () => {
     } catch (err) {
       setButtonLoading(false);
       console.log(err);
-      alert("Error occurred while Updating data. Please try again.");
+      // alert("Error occurred while Updating data. Please try again.");
       // window.location.reload();
     }
 
