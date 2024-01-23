@@ -192,7 +192,7 @@ const RegEdit = () => {
 
 
   const handleButtonClick = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     setButtonLoading(true);
 
     const formData = new FormData();
@@ -235,7 +235,7 @@ const RegEdit = () => {
       setButtonLoading(false);
       console.log(err);
       // alert("Error occurred while Updating data. Please try again.");
-      // window.location.reload();
+      window.location.reload();
     }
 
   };
