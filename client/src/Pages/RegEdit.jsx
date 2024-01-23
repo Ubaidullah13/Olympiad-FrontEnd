@@ -230,6 +230,7 @@ const RegEdit = () => {
       // console.log(response.data);
       setButtonLoading(false);
       alert("Data Updated Successfully");
+      window.location.reload();
       
     } catch (err) {
       setButtonLoading(false);
