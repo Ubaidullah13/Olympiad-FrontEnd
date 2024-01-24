@@ -19,6 +19,7 @@ function SecuritySheet() {
       image: "www.example.com",
       name: "saadashraf87",
       email: "saad.ashraf.9094@gmail.com",
+      cnic: "4240120129765",
       isVerified: true,
       basicInfo: {
         phoneno: "03218953225",
@@ -31,6 +32,7 @@ function SecuritySheet() {
       image: "www.example.com",
       name: "hamza90",
       email: "hamza@gmail.com",
+      cnic: "4240120129765",
       isVerified: false,
       basicInfo: {
         phoneno: "03156844761",
@@ -39,10 +41,11 @@ function SecuritySheet() {
       },
     },
     {
-      id: 1,
+      id: 3,
       image: "www.example.com",
       name: "saadashraf87",
       email: "saad.ashraf.9094@gmail.com",
+      cnic: "4240120129765",
       isVerified: true,
       basicInfo: {
         phoneno: "03218953225",
@@ -51,10 +54,11 @@ function SecuritySheet() {
       },
     },
     {
-      id: 2,
+      id: 4,
       image: "www.example.com",
       name: "hamza90",
       email: "hamza@gmail.com",
+      cnic: "4240120129765",
       isVerified: false,
       basicInfo: {
         phoneno: "03156844761",
@@ -89,13 +93,10 @@ function SecuritySheet() {
           <tr>
             <th>User ID</th>
             <th>Image</th>
-            <th>Name</th>
+            <th>UserName</th>
+            <th>CNIC No.</th>
+            <th>Phone No.</th>
             <th>Email</th>
-            <th>Email status</th>
-            <th>Phone</th>
-            <th>Gender</th>
-            <th>Status</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -127,16 +128,9 @@ function SecuritySheet() {
                     />
                   </td>
                   <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isVerified ? "Verified" : "Unverified"}</td>
+                  <td>{user.cnic}</td>
                   <td>{user.basicInfo.phoneno}</td>
-                  <td>{user.basicInfo.gender ? "male" : "female"}</td>
-                  <td>{user.basicInfo.status}</td>
-                  <td>
-                    <button onClick={() => navigate(`/user/${user.id}`)}>
-                      View
-                    </button>
-                  </td>
+                  <td>{user.email}</td>
                 </tr>
               );
             })

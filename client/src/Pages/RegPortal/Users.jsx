@@ -26,11 +26,10 @@ const Users = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      if(error.response.data.message === "Unauthorized")
-      {
+      if (error.response.data.message === "Unauthorized") {
         alert("Session Expired! Please Login Again");
         localStorage.clear();
-        navigate('/login');
+        navigate("/login");
       }
     }
   };
@@ -76,7 +75,6 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-
           {users.length === 0 ? (
             <tr>
               <td className="text-center" colSpan={8}>
@@ -107,7 +105,6 @@ const Users = () => {
               );
             })
           )}
-
         </tbody>
       </Table>
       <Typography>Page: {currentPage}</Typography>
