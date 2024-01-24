@@ -12,7 +12,6 @@ function SecuritySheet() {
   const token = localStorage.getItem("accessToken");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -68,16 +67,6 @@ function SecuritySheet() {
     },
   ]);
 
-  const postsPerPage = 10;
-  const lastPostIndex = postsPerPage * currentPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-
-  let pages = [];
-
-  for (let i = 1; i <= Math.ceil(users.length / postsPerPage); i++) {
-    pages.push(i);
-  }
-
   return (
     <RegLayout>
       <Typography
@@ -107,7 +96,7 @@ function SecuritySheet() {
               </td>
             </tr>
           ) : (
-            users.slice(firstPostIndex, lastPostIndex).map((user) => {
+            users.map((user) => {
               return user.basicInfo === null ? (
                 <>
                   {/* You can use React.Fragment or an empty div to wrap the content */}
@@ -137,12 +126,6 @@ function SecuritySheet() {
           )}
         </tbody>
       </Table>
-      <Typography>Page: {currentPage}</Typography>
-      <Pagination
-        count={pages.length}
-        page={currentPage}
-        onChange={(e, value) => setCurrentPage(value)}
-      />
     </RegLayout>
   );
 }
