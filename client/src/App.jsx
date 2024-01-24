@@ -32,6 +32,7 @@ import ForgetPass from "./Pages/ForgetPass";
 import ResetPass from "./Pages/ResetPass";
 import MailSent from "./Pages/MailSent";
 import SecuritySheet from "./Pages/RegPortal/SecuritySheet";
+import MasterSheet from "./Pages/RegPortal/MasterSheet";
 
 const App = () => {
   const dummyData = {
@@ -142,6 +143,12 @@ const App = () => {
             exact
             path="/security"
             element={<RPR Component={SecuritySheet} />}
+          ></Route>
+
+          <Route
+            exact
+            path="/master"
+            element={<RPR Component={MasterSheet} />}
           ></Route>
 
           <Route
