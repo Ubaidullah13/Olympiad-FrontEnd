@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { List, ListItem, ListItemIcon, ListItemText, Divider, IconButton } from '@mui/material';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import SportsIcon from '@mui/icons-material/Sports';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import PaymentIcon from '@mui/icons-material/Payment';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import MenuIcon from '@mui/icons-material/Menu';
+import React, { useState, useEffect } from "react";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  IconButton,
+} from "@mui/material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import SportsIcon from "@mui/icons-material/Sports";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import PaymentIcon from "@mui/icons-material/Payment";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 const drawerWidth = 240;
 const logoImagePath = `${process.env.PUBLIC_URL}/logo.png`;
@@ -19,17 +27,17 @@ const RegSideNav = () => {
   };
 
   const rootStyles = {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#01463D',
-    overflowY: 'auto',
-    paddingTop: '64px',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    height: "100vh",
+    backgroundColor: "#01463D",
+    overflowY: "auto",
+    paddingTop: "64px",
   };
 
   const drawerStyles = {
@@ -38,7 +46,7 @@ const RegSideNav = () => {
   };
 
   const listItemTextStyles = {
-    color: 'lightgrey',
+    color: "lightgrey",
   };
 
   useEffect(() => {
@@ -50,11 +58,11 @@ const RegSideNav = () => {
     handleResize();
 
     // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Remove event listener on component unmount
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -64,26 +72,37 @@ const RegSideNav = () => {
         color="inherit"
         aria-label="open drawer"
         onClick={handleDrawerToggle}
-        sx={{ display: { xs: 'block', md: 'none', color: 'white' }, zIndex:1 }}
+        sx={{ display: { xs: "block", md: "none", color: "white" }, zIndex: 1 }}
       >
         <MenuIcon />
       </IconButton>
-      <nav style={{ ...drawerStyles, display: isDrawerOpen ? 'block' : 'none' }} aria-label="mailbox folders">
-        <div style={{ display: 'flex', alignItems: 'center', marginLeft: '40px' }}>
+      <nav
+        style={{ ...drawerStyles, display: isDrawerOpen ? "block" : "none" }}
+        aria-label="mailbox folders"
+      >
+        <div
+          style={{ display: "flex", alignItems: "center", marginLeft: "40px" }}
+        >
           <img
             src={logoImagePath}
             alt="Logo"
-            style={{ width: '150px', height: '150px', objectFit: 'contain', marginRight: '0 auto', zIndex:2 }}
+            style={{
+              width: "150px",
+              height: "150px",
+              objectFit: "contain",
+              marginRight: "0 auto",
+              zIndex: 2,
+            }}
           />
         </div>
         <List>
           <ListItem>
             <ListItemText primary="    " />
           </ListItem>
-          <Divider style={{ backgroundColor: 'lightgrey' }} />
+          <Divider style={{ backgroundColor: "lightgrey" }} />
           <ListItem button component="a" href="/dashboard">
             <ListItemIcon>
-              <DashboardIcon style={{ color: 'lightgrey' }} />
+              <DashboardIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Users" style={listItemTextStyles} />
           </ListItem>
@@ -101,16 +120,22 @@ const RegSideNav = () => {
           </ListItem> */}
           <ListItem button component="a" href="/challans">
             <ListItemIcon>
-              <PaymentIcon style={{ color: 'lightgrey' }} />
+              <PaymentIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Challans" style={listItemTextStyles} />
           </ListItem>
+          <ListItem button component="a" href="/security">
+            <ListItemIcon>
+              <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
+            </ListItemIcon>
+            <ListItemText primary="Security Sheet" style={listItemTextStyles} />
+          </ListItem>
         </List>
-        <Divider style={{ backgroundColor: 'lightgrey' }} />
+        <Divider style={{ backgroundColor: "lightgrey" }} />
         <List>
           <ListItem button component="a" href="/login">
             <ListItemIcon>
-              <ExitToAppIcon style={{ color: 'lightgrey' }} />
+              <ExitToAppIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Logout" style={listItemTextStyles} />
           </ListItem>
