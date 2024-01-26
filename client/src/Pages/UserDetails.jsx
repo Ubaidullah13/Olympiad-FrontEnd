@@ -155,7 +155,7 @@ const UserDetails = () => {
           </div>
       </div>
       <div className="col-md-4 mb-3 right-align-text">
-        <CustomSocialsField type="socials" name="socials" label="Are you attending?" handleChange={handleSocialsChange} required/>
+        <CustomSocialsField type="socials" name="socials" label="Which socials would you like to participate in?" handleChange={handleSocialsChange} required/>
         </div>
         <br/>
       <div className="row">
@@ -163,7 +163,7 @@ const UserDetails = () => {
         <CustomRadioField type="University" name="studentOf" label="You are a Student of?" handleChange={handleRadioChange} required/>
         </div>
         </div>
-        {showComponent && (
+        {/* {showComponent && ( */}
         <div>
         {/* <StudentDetails/> */}
         <div className="row">
@@ -251,7 +251,7 @@ const UserDetails = () => {
         </div>
       </div>
         </div>
-      )}
+      
       {loading ? (
           <div className="loader-container">
             <CircularProgress />
