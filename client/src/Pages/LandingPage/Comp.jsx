@@ -20,6 +20,7 @@ const Comp = () => {
     "Robo Wars",
     "Flight Wars",
     "Einsteins Enigma",
+    "Cultural competition"
   ];
 
   return (
@@ -57,7 +58,7 @@ const Comp = () => {
             </div>
             <div className="col-lg-3">
               <ul id="sports" style={{ lineHeight: "2rem" }}>
-                {sports.slice(12, 15).map((sport, index) => (
+                {sports.slice(12, 16).map((sport, index) => (
                   <li key={index}>{sport}</li>
                 ))}
               </ul>
