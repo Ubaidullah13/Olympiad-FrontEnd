@@ -283,7 +283,7 @@ const Payments = ({}) => {
               </p>
               <hr />
               <h6>HBL Bank</h6>
-              <p>IBAN: PK34 HABB 02297901278603</p>
+              <p>Account Number: 22927902044001</p>
               <p>Title of Acct: Nust Olympiad</p>
               <p>HBL Nust Branch H-12, Islamabad</p>
             </div>
