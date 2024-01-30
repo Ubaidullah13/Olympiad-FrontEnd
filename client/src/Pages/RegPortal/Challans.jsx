@@ -7,8 +7,11 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const Challans = () => {
+  const [search, setSearch] = useState("");
   const [challans, setChallans] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -56,6 +59,14 @@ const Challans = () => {
       </Typography>
       <p>Total Challans: {challans.length}</p>
       {loading && <CircularProgress />}
+      <Form>
+        <InputGroup>
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search By Name or Email or Status"
+          ></Form.Control>
+        </InputGroup>
+      </Form>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -78,6 +89,12 @@ const Challans = () => {
           ) : (
             challans
               .slice(firstPostIndex, lastPostIndex)
+              .filter((challan) => {
+                return search.toLowerCase() === ""
+                  ? challan
+                  : challan.user.name.toLowerCase().includes(search.toLowerCase()) ||
+                  challan.user.email.toLowerCase().includes(search.toLowerCase()) || challan.isPaid.toLowerCase().includes(search.toLowerCase());
+              })
               .map((challan, index) => {
                 return (
                   <tr>

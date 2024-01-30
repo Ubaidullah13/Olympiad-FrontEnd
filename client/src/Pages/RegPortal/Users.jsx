@@ -69,7 +69,7 @@ const Users = () => {
         <InputGroup>
           <Form.Control
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search"
+            placeholder="Search By Name or Email or Status"
           ></Form.Control>
         </InputGroup>
       </Form>
@@ -100,7 +100,7 @@ const Users = () => {
                 return search.toLowerCase() === ""
                   ? user
                   : user.name.toLowerCase().includes(search.toLowerCase()) ||
-                      user.email.toLowerCase().includes(search.toLowerCase());
+                      user.email.toLowerCase().includes(search.toLowerCase()) || user.basicInfo.status.toLowerCase().includes(search.toLowerCase());
               })
               .map((user) => {
                 return user.basicInfo === null ? (
