@@ -210,7 +210,7 @@ const Dashboard = () => {
               Accommodation
             </Typography>
             <Typography variant="p" component="div">
-              Apply with just one click and our team will contact you through email.
+            Accommodation is on first come first serve basis. By clicking the following button your request for accommodation will be saved which will be reviewed after the registration process ends. Our team will contact you through email with a separate challan for accommodation charges once your request is approved.
             </Typography>
   
             
