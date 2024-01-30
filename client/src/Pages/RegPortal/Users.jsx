@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { FormControl, Grid, Typography } from "@mui/material";
 import RegLayout from "../../Components/RegLayout";
 import axios from "axios";
 import API_URL from "../../config";
@@ -7,8 +7,12 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 const Users = () => {
+  const [search, setSearch] = useState("");
+
   const token = localStorage.getItem("accessToken");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,11 +30,10 @@ const Users = () => {
       setLoading(false);
     } catch (error) {
       console.log(error);
-      if(error.response.data.message === "Unauthorized")
-      {
+      if (error.response.data.message === "Unauthorized") {
         alert("Session Expired! Please Login Again");
         localStorage.clear();
-        navigate('/login');
+        navigate("/login");
       }
     }
   };
@@ -62,6 +65,14 @@ const Users = () => {
       </Typography>
       <p>Total Participants with Infos: {users.length}</p>
       {loading && <CircularProgress />}
+      <Form>
+        <InputGroup>
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search By Name or Email or Status"
+          ></Form.Control>
+        </InputGroup>
+      </Form>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -76,7 +87,6 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-
           {users.length === 0 ? (
             <tr>
               <td className="text-center" colSpan={8}>
@@ -84,30 +94,37 @@ const Users = () => {
               </td>
             </tr>
           ) : (
-            users.slice(firstPostIndex, lastPostIndex).map((user) => {
-              return user.basicInfo === null ? (
-                <>
-                  {/* You can use React.Fragment or an empty div to wrap the content */}
-                </>
-              ) : (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isValidated ? "Verified" : "Unverified"}</td>
-                  <td>{user.basicInfo.phoneno}</td>
-                  <td>{user.basicInfo.gender ? "male" : "female"}</td>
-                  <td>{user.basicInfo.status}</td>
-                  <td>
-                    <button onClick={() => navigate(`/user/${user.id}`)}>
-                      View
-                    </button>
-                  </td>
-                </tr>
-              );
-            })
+            users
+              .slice(firstPostIndex, lastPostIndex)
+              .filter((user) => {
+                return search.toLowerCase() === ""
+                  ? user
+                  : user.name.toLowerCase().includes(search.toLowerCase()) ||
+                      user.email.toLowerCase().includes(search.toLowerCase()) || user.basicInfo.status.toLowerCase().includes(search.toLowerCase());
+              })
+              .map((user) => {
+                return user.basicInfo === null ? (
+                  <>
+                    {/* You can use React.Fragment or an empty div to wrap the content */}
+                  </>
+                ) : (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>{user.isValidated ? "Verified" : "Unverified"}</td>
+                    <td>{user.basicInfo.phoneno}</td>
+                    <td>{user.basicInfo.gender ? "male" : "female"}</td>
+                    <td>{user.basicInfo.status}</td>
+                    <td>
+                      <button onClick={() => navigate(`/user/${user.id}`)}>
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
           )}
-
         </tbody>
       </Table>
       <Typography>Page: {currentPage}</Typography>
