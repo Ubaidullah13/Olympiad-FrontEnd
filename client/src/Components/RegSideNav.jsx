@@ -124,7 +124,7 @@ const RegSideNav = () => {
             </ListItemIcon>
             <ListItemText primary="Challans" style={listItemTextStyles} />
           </ListItem>
-          <ListItem button component="a" href="/security">
+          {/* <ListItem button component="a" href="/security">
             <ListItemIcon>
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
@@ -141,7 +141,7 @@ const RegSideNav = () => {
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Sports Sheet" style={listItemTextStyles} />
-          </ListItem>
+          </ListItem> */}
         </List>
         <Divider style={{ backgroundColor: "lightgrey" }} />
         <List>
