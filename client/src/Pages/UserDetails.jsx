@@ -134,7 +134,8 @@ const UserDetails = () => {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('basicInfoDetails', true);
         setLoading(false);
-        navigate("/PleaseWait");
+        // navigate("/PleaseWait");
+        navigate("/dashboard"); 
       } catch (err) {
         setLoading(false);
         console.error(err);

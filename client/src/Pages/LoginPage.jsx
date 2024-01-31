@@ -72,6 +72,13 @@ const LoginPage = () => {
               setLoading(false);
 
               if(response.data.data !== null){
+                if(response.data.data.studentOf === null)
+                {
+                  localStorage.setItem("basicInfo", true);
+                  localStorage.setItem("basicInfoDetails", false);
+                  navigate("/details");
+                  return;
+                }
                 if(response.data.data.status === "verified")
                 {
                   localStorage.setItem("basicInfo", true);
@@ -83,14 +90,6 @@ const LoginPage = () => {
                   navigate("/regedit");
                   return;
                 }
-                if(response.data.data.studentOf === null)
-                {
-                  localStorage.setItem("basicInfo", true);
-                  localStorage.setItem("basicInfoDetails", false);
-                  navigate("/details");
-                  return;
-                }
-
               }else{
                 localStorage.setItem("basicInfo", false);
                 localStorage.setItem("basicInfoDetails", false);
