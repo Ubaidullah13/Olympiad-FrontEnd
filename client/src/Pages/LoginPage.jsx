@@ -84,7 +84,7 @@ const LoginPage = () => {
                   localStorage.setItem("basicInfo", true);
                   localStorage.setItem("basicInfoDetails", true);
                 }
-                if(response.data.data.status !== "verified")
+                if(response.data.data.status === "rejected")
                 {
                   localStorage.setItem("rejected", true);
                   navigate("/regedit");

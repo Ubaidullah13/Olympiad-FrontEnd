@@ -381,7 +381,6 @@ const RegEdit = () => {
           </div>
           <div className="col-md-4 mb-3">
             <CustomTextField
-              type="number"
               iconType={<AccountCircleOutlinedIcon />}
               label="Ambassador Code"
               name="ambassadorcode"
