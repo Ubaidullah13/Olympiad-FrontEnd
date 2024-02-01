@@ -8,7 +8,7 @@ const Navigation = () => {
     return(
         <>
         <nav className={`navbar nav2 navbar-expand-lg pl-5 pr-5 `} style={{ backgroundColor: 'transparent' }}>
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="https://olympiad.nust.edu.pk">
             <img src={logo} alt="logo" classNameName="logo"  width={100} />
         </a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2" aria-controls="navbarSupportedContent2" aria-expanded="false" aria-label="Toggle navigation">

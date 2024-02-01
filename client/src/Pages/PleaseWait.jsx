@@ -11,9 +11,9 @@ const PleaseWait = () => {
 
     const navigate = useNavigate();
 
-    const home = () => {
-        navigate('/');
-    }
+    // const home = () => {
+    //     navigate('/');
+    // }
 
     return(
         <>
@@ -23,7 +23,7 @@ const PleaseWait = () => {
       <h2>Thank You</h2>
       <p>Your form has been submitted for review. It will take 5-7 working days for verification.</p>
       <div className='mb-4'>
-        <button className="btnColor btn" onClick={home}>Go to Home Page</button>
+      <a href="https://olympiad.nust.edu.pk"> <button className="btnColor btn">Go to Home Page</button></a>
       </div>
       {/* <p className="text-muted">If you haven't submitted your basic info, <a href="/registration">Click Here</a></p> */}
       </div>

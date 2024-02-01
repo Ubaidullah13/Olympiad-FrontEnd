@@ -11,9 +11,9 @@ const MailSent = () => {
 
     const navigate = useNavigate();
 
-    const home = () => {
-        navigate('/');
-    }
+    // const home = () => {
+    //     navigate('https://olympiad.nust.edu.pk');
+    // }
 
     return(
         <>
@@ -23,7 +23,7 @@ const MailSent = () => {
       <h2>Email Sent</h2>
       <p>A link to reset your password has been sent to your email</p>
       <div className='mb-4'>
-        <button className="btnColor btn" onClick={home}>Go to Home Page</button>
+        <a href="https://olympiad.nust.edu.pk"><button className="btnColor btn">Go to Home Page</button></a>
       </div>
       </div>
       </div>

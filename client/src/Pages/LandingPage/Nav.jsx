@@ -28,7 +28,7 @@ const Nav = () => {
     return(
         <>
         <nav className={`navbar navbar-expand-lg pl-5 pr-5  ${shrink ? 'navbar-shrink' : ''}`} style={{ backgroundColor: shrink ? 'var(--background-light)' : 'transparent' }}>
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="https://olympiad.nust.edu.pk">
             <img src={logo} alt="logo" classNameName="logo"  width={shrink ? 80 : 120} />
         </a>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
