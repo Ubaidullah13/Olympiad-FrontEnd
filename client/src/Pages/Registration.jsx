@@ -116,8 +116,22 @@ const OlympiadRegistration = () => {
   const handleProfilePicChange = (event) => {
     const file = event.target.files[0];
 
+    if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+      alert("Invalid file type. Please select an image (PNG, JPEG, JPG).");
+      document.getElementById("file_upload_pfp").value = "";
+      return;
+    }
+
     if (file.size > 500 * 1024) {
       alert("File size should not exceed 500 KB");
+      document.getElementById("file_upload_pfp").value = "";
+      return;
+    }
+
+
+    if (!file) {
+      alert("No file selected.");
+      document.getElementById("file_upload_pfp").value = "";
       return;
     }
 
@@ -126,6 +140,12 @@ const OlympiadRegistration = () => {
       reader.onloadend = () => {
         setProfilePic(reader.result);
       };
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+        alert("An error occurred while reading the file.");
+        document.getElementById("file_upload_pfp").value = "";
+        return;
+      };
       reader.readAsDataURL(file);
       setData((prevData) => ({ ...prevData, profilePhoto: file }));
     }
@@ -133,17 +153,36 @@ const OlympiadRegistration = () => {
 
   const handleCnicFrontChange = (event) => {
     const file = event.target.files[0];
-
-    if (file.size > 500 * 1024) {
-      alert("File size should not exceed 500 KB");
+    
+    if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+      alert("Invalid file type. Please select an image (PNG, JPEG, JPG).");
+      document.getElementById("file_upload_cnicf").value = "";
       return;
     }
 
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
+      document.getElementById("file_upload_cnicf").value = "";
+      return;
+    }
+
+
+    if (!file) {
+      alert("No file selected.");
+      document.getElementById("file_upload_cnicf").value = "";
+      return;
+    }
 
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setCnicFront(reader.result);
+      };
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+        alert("An error occurred while reading the file.");
+        document.getElementById("file_upload_cnicf").value = "";
+        return;
       };
       reader.readAsDataURL(file);
       setData((prevData) => ({ ...prevData, cnicFront: file }));
@@ -153,16 +192,35 @@ const OlympiadRegistration = () => {
   const handleCnicBackChange = (event) => {
     const file = event.target.files[0];
 
-    if (file.size > 500 * 1024) {
-      alert("File size should not exceed 500 KB");
+    if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+      alert("Invalid file type. Please select an image (PNG, JPEG, JPG).");
+      document.getElementById("file_upload_cnicb").value = "";
       return;
     }
 
+    if (file.size > 500 * 1024) {
+      alert("File size should not exceed 500 KB");
+      document.getElementById("file_upload_cnicb").value = "";
+      return;
+    }
+
+
+    if (!file) {
+      alert("No file selected.");
+      document.getElementById("file_upload_cnicb").value = "";
+      return;
+    }
     
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setCnicBack(reader.result);
+      };
+      reader.onerror = (error) => {
+        console.error("Error reading file:", error);
+        alert("An error occurred while reading the file.");
+        document.getElementById("file_upload_cnicb").value = "";
+        return;
       };
       reader.readAsDataURL(file);
       setData((prevData) => ({ ...prevData, cnicBack: file }));

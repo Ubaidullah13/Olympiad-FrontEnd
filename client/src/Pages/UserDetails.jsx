@@ -53,8 +53,22 @@ const UserDetails = () => {
     const handleStCardFrontChange = (event) => {
       const file = event.target.files[0];
 
+      if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+        alert("Invalid file type. Please select an image (PNG, JPEG, JPG).");
+        document.getElementById("stcardFront").value = "";
+        return;
+      }
+  
       if (file.size > 500 * 1024) {
         alert("File size should not exceed 500 KB");
+        document.getElementById("stcardFront").value = "";
+        return;
+      }
+  
+  
+      if (!file) {
+        alert("No file selected.");
+        document.getElementById("stcardFront").value = "";
         return;
       }
 
@@ -64,6 +78,12 @@ const UserDetails = () => {
         reader.onloadend = () => {
           setStCardFront(reader.result);
         };
+        reader.onerror = (error) => {
+          console.error("Error reading file:", error);
+          alert("An error occurred while reading the file.");
+          document.getElementById("stcardFront").value = "";
+          return;
+        };
         reader.readAsDataURL(file);
         setData((prevData) => ({ ...prevData, stdFront: file }));
       }
@@ -72,8 +92,22 @@ const UserDetails = () => {
     const handleStCardBackChange = (event) => {
       const file = event.target.files[0];
 
+      if (!["image/png", "image/jpeg", "image/jpg"].includes(file.type)) {
+        alert("Invalid file type. Please select an image (PNG, JPEG, JPG).");
+        document.getElementById("stcardBack").value = "";
+        return;
+      }
+  
       if (file.size > 500 * 1024) {
         alert("File size should not exceed 500 KB");
+        document.getElementById("stcardBack").value = "";
+        return;
+      }
+  
+  
+      if (!file) {
+        alert("No file selected.");
+        document.getElementById("stcardBack").value = "";
         return;
       }
 
@@ -81,6 +115,12 @@ const UserDetails = () => {
         const reader = new FileReader();
         reader.onloadend = () => {
           setStCardBack(reader.result);
+        };
+        reader.onerror = (error) => {
+          console.error("Error reading file:", error);
+          alert("An error occurred while reading the file.");
+          document.getElementById("stcardBack").value = "";
+          return;
         };
         reader.readAsDataURL(file);
         setData((prevData) => ({ ...prevData, stdBack: file }));

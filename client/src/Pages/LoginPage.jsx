@@ -57,6 +57,7 @@ const LoginPage = () => {
         if (response.data.data.user.isValidated === false) {
             setLoading(false);
             navigate("/verifycode");
+            return;
         }
           else {
             try {
