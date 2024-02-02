@@ -273,6 +273,7 @@ const Payments = ({}) => {
           <div className="col-md-6">
             {/* Payment section */}
             <h2>Payment</h2>
+            <p className='text-muted'>Note: Paying Registration & Social fees alone does not grant participation rights. You must also sign up for at least one sport or competition.</p>
             <hr />
             <div className="mb-3">
               <h6>Pay Online</h6>
