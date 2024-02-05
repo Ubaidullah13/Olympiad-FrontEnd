@@ -242,7 +242,7 @@ const UserDetails = () => {
         <div className="col-md-6 mb-3">
           {/* <div className="col-md-6 mb-3"> */}
           <label className="bold-label" htmlFor="stcardFront">
-            Student Card front side
+            Student Card front side <span className="text-muted"> Max file size is 500KB</span>
           </label>
           {/* </div> */}
           <div
@@ -268,7 +268,7 @@ const UserDetails = () => {
         <div className="col-md-6 mb-3">
           {/* <div className="col-md-6 mb-3"> */}
           <label className="bold-label" htmlFor="stcardBack">
-            Student Card back side
+            Student Card back side <span className="text-muted"> Max file size is 500KB</span>
           </label>
           {/* </div> */}
           <div class="upload-box"

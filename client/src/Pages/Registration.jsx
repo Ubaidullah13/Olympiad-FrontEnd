@@ -234,6 +234,7 @@ const OlympiadRegistration = () => {
         Please fill the form below to participate in Olympiad. Fill all the
         required fields
       </p>
+      <p className='text-muted'>Note: If you face any issue on mobile please switch to laptop or change the network</p>
 
       <form onSubmit={handleButtonClick}>
         <div className="row mb-5 centerRow">
@@ -247,7 +248,7 @@ const OlympiadRegistration = () => {
           ></div>
           <h4>Upload picture</h4>
           <p>Upload your picture by clicking on the upload sign</p>
-
+          <p className="text-muted">Max file size is 500KB</p>
           <label htmlFor="file-upload" className="upload-label">
             <input
               id="file_upload_pfp"
@@ -370,7 +371,7 @@ const OlympiadRegistration = () => {
           <div className="col-md-6 mb-3">
             {/* <div> */}
             <label className="bold-label" htmlFor="cnicFront">
-              CNIC Front Copy
+              CNIC Front Copy <span className="text-muted"> Max file size is 500KB</span>
             </label>
             {/* <input type="file" className="form-control-file" id="cnicFront" onChange={handleFileChange} /> */}
             {/* </div> */}
@@ -398,7 +399,7 @@ const OlympiadRegistration = () => {
           <div className="col-md-6 mb-3">
             <div className="col-md-6 mb-3">
               <label className="bold-label" htmlFor="cnicBack">
-                CNIC Back Copy
+                CNIC Back Copy <span className="text-muted"> Max file size is 500KB</span>
               </label>
               {/* <input type="file" className="form-control-file" id="cnicBack" onChange={handleFileChange} /> */}
             </div>
