@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 import JoinTeamCard from '../Components/JoinTeamCard';
 import OpenCard from '../Components/OpenCard';
+import OpenCardComp from '../Components/OpenCardComp';
 import AlertBox from '../Components/AlertBox';
 import Button from '@mui/material/Button';
 // import SideNav from '../Components/SideNav';
@@ -107,6 +108,7 @@ const Dashboard = () => {
       }})
       
       const teamComp = []
+      console.log(responseTeamComp.data.data)
       responseTeamComp.data.data.forEach((sport) => {
         if(sport.hasApplied) {
           teamComp.push(sport)
@@ -195,7 +197,7 @@ const Dashboard = () => {
             </Typography>
             
             <p className='text-muted'>Note: We will try to minimize clashes but the organizers will not be responsible if any participant misses their competition or sport due to clashes</p>
-            
+            <p className='text-muted'>We are thrilled to announce that the charges for one game of volleyball, basketball, futsal and cricket only are completely free. If you create a team for other sport, charges will be applicable. For example, if you create three teams: one for cricket, one for volleyball and one for basketball, then one of these three games will be free and you will only be charged for other two games. (Only for first challan)</p>
             {loading ? <CircularProgress /> : (
             <>
             
@@ -256,7 +258,7 @@ const Dashboard = () => {
             <Grid container spacing={2}>
               {cardDataComp.map((card, index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                  <OpenCard {...card} />
+                  <OpenCardComp {...card} />
                 </Grid>
               ))}
             </Grid>

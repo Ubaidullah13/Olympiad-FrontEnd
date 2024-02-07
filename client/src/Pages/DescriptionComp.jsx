@@ -15,7 +15,7 @@ import API_URL from '../config';
 import axios from 'axios';
 import Table from "react-bootstrap/Table";
 
-const CricketDescription = () => {
+const DescriptionComp = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   // const { title, description, teamMembers } = data;
@@ -32,7 +32,7 @@ const CricketDescription = () => {
   useEffect(() => {
     const getMembers = async () => {
         try {
-          const response = await axios.get(`${API_URL}/sports/getMembers/${id}`, 
+          const response = await axios.get(`${API_URL}/competitions/getMembers/${id}`, 
           {headers: {
             Authorization: `Bearer ${localStorage.accessToken}`,
         }})
@@ -95,7 +95,7 @@ const CricketDescription = () => {
           {teamMembers.length === 0 ? (
             <tr>
               <td className="text-center" colSpan={8}>
-                This is single player sport
+                This is single player competition
               </td>
             </tr>
           ) : (
@@ -157,7 +157,7 @@ const CricketDescription = () => {
   );
 };
 
-export default CricketDescription;
+export default DescriptionComp;
 
 
 

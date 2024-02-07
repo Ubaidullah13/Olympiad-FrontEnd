@@ -3,7 +3,7 @@ import { Card, CardContent, Button, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import AlertBox from './AlertBox'; // Import the AlertBox component
 
-const OpenCard = ({ name, price, minPlayer, maxPlayer, description, id }) => {
+const OpenCardComp = ({ name, price, minPlayer, maxPlayer, description, id }) => {
   const [isOpened, setIsOpened] = useState(false);
   const [alertOpen, setAlertOpen] = useState(false);
   const customDialogContent = "Are you sure you want to apply in this sports?";
@@ -12,7 +12,7 @@ const OpenCard = ({ name, price, minPlayer, maxPlayer, description, id }) => {
   const handleOpenClick = () => {
     console.log(id);
     // Direct to '/description' route when the 'Open' button is clicked
-    navigate(`/description/${id}`);
+    navigate(`/descriptionComp/${id}`);
   };
 
   const handleConfirmApply = () => {
@@ -70,4 +70,4 @@ const OpenCard = ({ name, price, minPlayer, maxPlayer, description, id }) => {
   );
 };
 
-export default OpenCard;
+export default OpenCardComp;

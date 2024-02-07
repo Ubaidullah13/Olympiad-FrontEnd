@@ -18,6 +18,7 @@ import Details from "./Pages/UserDetails";
 import RegEdit from "./Pages/RegEdit";
 import Payments from "./Pages/Payments";
 import CricketDescription from "./Pages/Description";
+import DescriptionComp from "./Pages/DescriptionComp";
 import VerificationCode from "./Pages/VerificationCode";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import RPR from "./Components/RPR";
@@ -36,25 +37,25 @@ import MasterSheet from "./Pages/RegPortal/MasterSheet";
 import SportsSheet from "./Pages/RegPortal/SportsSheet";
 
 const App = () => {
-  const dummyData = {
-    title: "Cricket Team",
-    description: "This is a dummy cricket team description.",
-    teamMembers: [
-      {
-        name: "Player 1",
-        role: "Batsman",
-        profilePicture:
-          "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      {
-        name: "Player 2",
-        role: "Bowler",
-        profilePicture:
-          "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      },
-      // Add more dummy data as needed
-    ],
-  };
+  // const dummyData = {
+  //   title: "Cricket Team",
+  //   description: "This is a dummy cricket team description.",
+  //   teamMembers: [
+  //     {
+  //       name: "Player 1",
+  //       role: "Batsman",
+  //       profilePicture:
+  //         "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+  //     },
+  //     {
+  //       name: "Player 2",
+  //       role: "Bowler",
+  //       profilePicture:
+  //         "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+  //     },
+  //     // Add more dummy data as needed
+  //   ],
+  // };
 
   return (
     <Router>
@@ -110,10 +111,19 @@ const App = () => {
           ></Route>
           <Route
             exact
-            path="/description"
+            path="/description/:id"
             element={
               <ProtectedRoute
-                Component={() => <CricketDescription data={dummyData} />}
+                Component={() => <CricketDescription />}
+              />
+            }
+          ></Route>
+          <Route
+            exact
+            path="/descriptionComp/:id"
+            element={
+              <ProtectedRoute
+                Component={() => <DescriptionComp />}
               />
             }
           ></Route>
