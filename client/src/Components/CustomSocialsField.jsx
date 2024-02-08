@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 
-const CustomSocialsField = ({ type, label,handleChange }) => {
+const CustomSocialsField = ({ type, label,handleChange, required }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const boldLabelStyle = {
   fontWeight: 'bold',
@@ -19,17 +19,16 @@ const CustomSocialsField = ({ type, label,handleChange }) => {
     <FormControl component="fieldset">
       <FormLabel component="legend" style={boldLabelStyle}>{label}</FormLabel>
       <RadioGroup
-        aria-label="University"
-        name="uni"
+        aria-label="socials"
+        name="socials"
         onChange={handleChange}
-        column
-        required
       >
         {Options.map((option) => (
           <FormControlLabel
             key={option.value}
             value={option.value}
-            control={<Radio />}
+            // control={<Radio />}
+            control={<Radio required={required} />}
             label={option.label}
           />
         ))}

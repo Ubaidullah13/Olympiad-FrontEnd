@@ -46,6 +46,7 @@ const UserDetails = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [showComponent, setShowComponent] = useState(false);
+    const [socials, setSocials] = useState("");
 
     const [stCardFront, setStCardFront] = useState("");
     const [stCardBack, setStCardBack] = useState("");
@@ -137,11 +138,20 @@ const UserDetails = () => {
 
   const handleSocialsChange = (event) => {
       const selected = event.target.value;
+      setSocials(selected);
       setData((prevData) => ({ ...prevData, socials: selected }));
     };
   
     const handleButtonClick = async (e) => {
+      // check if customRADIO FIELD "socials" is selected
+      console.log(socials);
+      if (!socials) {
+        alert("Please select the socials you want to participate in.");
+        return;
+      }
+      
       e.preventDefault();
+
       setLoading(true);
     
       const formData = new FormData();
@@ -179,7 +189,7 @@ const UserDetails = () => {
       } catch (err) {
         setLoading(false);
         console.error(err);
-        alert("Image Size is too large or Network Error");
+        alert(err.response.data.message);
       }
     };
 
@@ -196,12 +206,12 @@ const UserDetails = () => {
           </div>
       </div>
       <div className="col-md-4 mb-3 right-align-text">
-        <CustomSocialsField type="socials" name="socials" label="Which socials would you like to participate in? *" handleChange={handleSocialsChange} required/>
+        <CustomSocialsField type="socials" name="socials" label="Which socials would you like to participate in? (Select One)" handleChange={handleSocialsChange} required/>
         </div>
         <br/>
       <div className="row">
         <div className="col-md-4 mb-3 right-align-text">
-        <CustomRadioField type="University" name="studentOf" label="You are a Student of? *" handleChange={handleRadioChange} required/>
+        <CustomRadioField type="University" name="studentOf" label="You are a Student of? (Select One)" handleChange={handleRadioChange} required/>
         </div>
         </div>
         {/* {showComponent && ( */}

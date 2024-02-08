@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 
-const CustomRadioField = ({ type, label,handleChange }) => {
+const CustomRadioField = ({ type, label,handleChange, required }) => {
   const [selectedValue, setSelectedValue] = useState('');
   const boldLabelStyle = {
   fontWeight: 'bold',
@@ -30,7 +30,8 @@ const CustomRadioField = ({ type, label,handleChange }) => {
           <FormControlLabel
             key={option.value}
             value={option.value}
-            control={<Radio />}
+            // control={<Radio />}
+            control={<Radio required={required} />}
             label={option.label}
           />
         ))}

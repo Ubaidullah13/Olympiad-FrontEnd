@@ -122,6 +122,9 @@ const Dashboard2 = () => {
             <h2 style={{ margin: "0" }}>Team</h2>
           </div>
         </div>
+        {selectedHeader === "individual" ? '' :
+        <p className="text-muted">We are thrilled to announce that the charges for one game of volleyball, basketball, futsal and cricket only are completely free. If you create a team for other sport, charges will be applicable. For example, if you create three teams: one for cricket, one for volleyball and one for basketball, then one of these three games will be free and you will only be charged for other two games. (Only for first challan)</p>
+        }
         <div
           style={{
             display: "flex",
