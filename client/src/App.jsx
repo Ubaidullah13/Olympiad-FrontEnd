@@ -23,6 +23,7 @@ import VerificationCode from "./Pages/VerificationCode";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import RPR from "./Components/RPR";
 import Users from "./Pages/RegPortal/Users";
+import Accom from "./Pages/RegPortal/Accom";
 import AddSports from "./Pages/RegPortal/AddSports";
 import AddComp from "./Pages/RegPortal/AddComp";
 import Challans from "./Pages/RegPortal/Challans";
@@ -148,6 +149,12 @@ const App = () => {
             exact
             path="/challans"
             element={<RPR Component={Challans} />}
+          ></Route>
+
+        <Route
+            exact
+            path="/Accom"
+            element={<RPR Component={Accom} />}
           ></Route>
 
           <Route

@@ -10,7 +10,7 @@ import Pagination from "@mui/material/Pagination";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
-const Users = () => {
+const Accom = () => {
   const [search, setSearch] = useState("");
 
   const token = localStorage.getItem("accessToken");
@@ -26,7 +26,9 @@ const Users = () => {
         },
       });
 
-      setUsers(response.data.data.filter((user) => user.basicInfo !== null));
+      setUsers(response.data.data.filter((user) => user.basicInfo !== null).filter((user) => user.basicInfo.accomodation === true));
+      // setUsers(users.filter((user) => user.basicInfo !== null).filter((user) => user.basicInfo.accomodation === true));
+      console.log(users);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -61,9 +63,9 @@ const Users = () => {
         component="div"
         sx={{ fontWeight: "bold", fontFamily: "LemonMilkBold" }}
       >
-        Participants
+        Accommodation Candidates
       </Typography>
-      <p>Total Participants with Infos: {users.length}</p>
+      <p>Total Candidates: {users.length}</p>
       {loading && <CircularProgress />}
       <Form>
         <InputGroup>
@@ -79,11 +81,8 @@ const Users = () => {
             <th>User ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Email Status</th>
             <th>Phone</th>
             <th>Gender</th>
-            <th>Status</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -100,25 +99,19 @@ const Users = () => {
                 return search.toLowerCase() === ""
                   ? user
                   : user.name.toLowerCase().includes(search.toLowerCase()) ||
-                      user.email.toLowerCase().includes(search.toLowerCase()) || user.basicInfo.status.toLowerCase().includes(search.toLowerCase());
+                      user.email.toLowerCase().includes(search.toLowerCase());
               })
               .map((user) => {
                 return (
+                <>
                   <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
-                    <td>{user.isValidated ? "Verified" : "Unverified"}</td>
                     <td>{user.basicInfo.phoneno}</td>
                     <td>{user.basicInfo.gender ? "male" : "female"}</td>
-                    <td>{user.basicInfo.status}</td>
-                    <td>
-                      <button onClick={() => navigate(`/user/${user.id}`)}>
-                        View
-                      </button>
-                    </td>
                   </tr>
-                );
+                  </>)
               })
           )}
         </tbody>
@@ -132,4 +125,4 @@ const Users = () => {
     </RegLayout>
   );
 };
-export default Users;
+export default Accom;
