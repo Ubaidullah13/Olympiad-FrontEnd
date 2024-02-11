@@ -71,7 +71,13 @@ const OlympiadRegistration = () => {
     // Append text data to formData
     Object.keys(data).forEach((key) => {
       if (key !== "cnicFront" && key !== "cnicBack" && key !== "profilePhoto") {
-        formData.append(key, data[key]);
+        let value = String(data[key]);
+
+        if (value.charAt(value.length - 1) === " ") {
+          value = value.slice(0, -1);
+        }
+        console.log(value);
+        formData.append(key, value);
       }
     });
 

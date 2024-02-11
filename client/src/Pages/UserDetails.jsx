@@ -160,7 +160,16 @@ const UserDetails = () => {
     
       // Append text data to formData
       Object.keys(data).forEach(key => {
-        formData.append(key, data[key]);
+
+        if (key !== "stCardFront" && key !== "stCardBack") {
+          let value = String(data[key]);
+
+          if (value.charAt(value.length - 1) === " ") {
+            value = value.slice(0, -1);
+          }
+
+          formData.append(key, value);
+      }
       });
     
       // Append file data to formData
