@@ -19,6 +19,7 @@ import API_URL from '../config';
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import CustomSocialsField from '../Components/CustomSocialsField';
+import { Hidden } from '@mui/material';
 const UserDetails = () => {
 
   const initialState = { 
@@ -26,7 +27,7 @@ const UserDetails = () => {
     stdBack: null,
     cnic: "",
     studentOf: "",
-    student_id: "",
+    student_id: "0",
     schoolName: "",
     socials: "",
     ambassadorcode: "0000",
@@ -46,6 +47,7 @@ const UserDetails = () => {
     const [selectedValue, setSelectedValue] = useState('');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [showComponent, setShowComponent] = useState(false);
+    const [showOther, setShowOther] = useState(false);
     const [socials, setSocials] = useState("");
 
     const [stCardFront, setStCardFront] = useState("");
@@ -133,6 +135,7 @@ const UserDetails = () => {
       setSelectedValue(selected);
       setIsButtonDisabled(selected !== 'other');
       setShowComponent(selected !== 'other');
+      setShowOther(selected === 'other');
       setData((prevData) => ({ ...prevData, studentOf: selected }));
     };
 
@@ -223,9 +226,8 @@ const UserDetails = () => {
         <CustomRadioField type="University" name="studentOf" label="You are a Student of? (Select One)" handleChange={handleRadioChange} required/>
         </div>
         </div>
-        {/* {showComponent && ( */}
+        {showComponent && (
         <div>
-        {/* <StudentDetails/> */}
         <div className="row">
         <div className="col-md-4 mb-3">
           <CustomTextField
@@ -311,7 +313,99 @@ const UserDetails = () => {
         </div>
       </div>
         </div>
-      
+        )}
+
+        {showOther && ( 
+        // Other Category
+        <div>
+        <div className="row">
+        <div className="col-md-4 mb-3 d-none">
+          <CustomTextField
+            type="Person"
+            iconType={<AccountCircleOutlinedIcon />}
+            label="Number (Ignore)"
+            name="student_id"
+            value="00"
+            Hidden
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <CustomTextField
+            type="Campus"
+            iconType={<SchoolOutlinedIcon />}
+            label="Home Town / City"
+            name="schoolName"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="col-md-4 mb-3">
+          <CustomTextField
+            type="Code"
+            iconType={<AccountCircleOutlinedIcon />}
+            label="Ambassador Code"
+            req="0"
+            name="ambassadorcode"
+            onChange={handleInputChange}
+            helperText={"Type 0000 if you don't have any code"}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6 mb-3">
+          {/* <div className="col-md-6 mb-3"> */}
+          <label className="bold-label" htmlFor="stcardFront">
+            Father/Guardian CNIC front side <span className="text-muted"> Max file size is 500KB</span>
+          </label>
+          {/* </div> */}
+          <div
+            class="upload-box"
+            style={{
+              backgroundImage: `url(${stCardFront})`,
+              backgroundSize: "cover",
+              borderColor: "var(--primary-dark)",
+            }}
+          >
+          <label htmlFor="file-upload" className="upload-label">
+            <input
+              id="stcardFront"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleStCardFrontChange}
+              name="stdFront"
+              required
+              />
+          </label>
+              </div>
+        </div>
+        <div className="col-md-6 mb-3">
+          {/* <div className="col-md-6 mb-3"> */}
+          <label className="bold-label" htmlFor="stcardBack">
+          Father/Guardian CNIC back side <span className="text-muted"> Max file size is 500KB</span>
+          </label>
+          {/* </div> */}
+          <div class="upload-box"
+            style={{
+              backgroundImage: `url(${stCardBack})`,
+              backgroundSize: "cover",
+              borderColor: "var(--primary-dark)",
+            }}
+            >
+            <label htmlFor="file-upload" className="upload-label">
+              <input
+                id="stcardBack"
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={handleStCardBackChange}
+                name="stdBack"
+                required
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+        </div>
+        )}
       {loading ? (
           <div className="loader-container">
             <CircularProgress />
