@@ -10,7 +10,7 @@ import Pagination from "@mui/material/Pagination";
 
 function MasterSheet() {
   const token = localStorage.getItem("accessToken");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
 
@@ -81,7 +81,7 @@ function MasterSheet() {
                 <tr key={user.UserID}>
                   <td>{user.id}</td>
                   <td>{user.name}</td>
-                  <td>{user.cnic}</td>
+                  <td>{user.basicInfo.cnic}</td>
                   <td>{user.basicInfo.phoneno}</td>
                   <td>{user.email}</td>
                   <td>{user.basicInfo.guardianName}</td>
