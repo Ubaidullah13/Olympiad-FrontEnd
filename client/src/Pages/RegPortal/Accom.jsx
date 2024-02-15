@@ -65,7 +65,7 @@ const Accom = () => {
         id="test-table-xls-button"
         className="download-table-xls-button btn btn-success mb-3"
         table="table-to-xls"
-        filename="tablexls"
+        filename="AccomodationCandidates"
         sheet="tablexls"
         buttonText="Export Data to Excel Sheet"
       />
