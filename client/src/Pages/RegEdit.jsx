@@ -357,7 +357,7 @@ const RegEdit = () => {
             />
           </div>
         </div>
-        {data.studentOf !== "other" ? 
+        {
         <div className="row">
           <div className="col-md-4 mb-3">
             <CustomTextField
@@ -389,7 +389,7 @@ const RegEdit = () => {
             />
           </div>
         </div>
-        : <></>}
+        }
         <div className="row">
           <div className="col-md-6 mb-3">
             <div className="col-md-6 mb-3">
@@ -436,7 +436,7 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
-        {data.studentOf !== "other" ? 
+        
         <div className="row">
           <div className="col-md-6 mb-3">
             <div className="col-md-6 mb-3">
@@ -483,7 +483,7 @@ const RegEdit = () => {
             </label>
           </div>
         </div>
-        : <></>}
+        
         {status !== "verified" && (
           <>
         {buttonLoading ? <CircularProgress /> : (

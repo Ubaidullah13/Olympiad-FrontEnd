@@ -233,7 +233,7 @@ const UserDetails = () => {
               />
             </div>
           </div>
-          { stOf !== "other" &&
+          { 
           <div className="row">
             <div className="col-md-4 mb-3">
               <CustomTextField
@@ -334,7 +334,7 @@ const UserDetails = () => {
                     )}
             </div>
           </div>
-          { stOf !== "other" &&
+          {
           <div className="row">
             <div className="col-md-6 mb-3">
               <div className="col-md-6 mb-3">
