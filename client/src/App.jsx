@@ -23,6 +23,7 @@ import VerificationCode from "./Pages/VerificationCode";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import RPR from "./Components/RPR";
 import Users from "./Pages/RegPortal/Users";
+import Unreg from "./Pages/RegPortal/Unreg";
 import Accom from "./Pages/RegPortal/Accom";
 import AddSports from "./Pages/RegPortal/AddSports";
 import AddComp from "./Pages/RegPortal/AddComp";
@@ -161,6 +162,12 @@ const App = () => {
             exact
             path="/security"
             element={<RPR Component={SecuritySheet} />}
+          ></Route>
+
+          <Route
+            exact
+            path="/unreg"
+            element={<RPR Component={Unreg} />}
           ></Route>
 
           <Route
