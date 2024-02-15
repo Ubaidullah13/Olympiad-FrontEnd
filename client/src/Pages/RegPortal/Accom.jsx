@@ -16,7 +16,6 @@ const Accom = () => {
   const token = localStorage.getItem("accessToken");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const getUsers = async () => {
     try {
@@ -26,7 +25,11 @@ const Accom = () => {
         },
       });
 
-      setUsers(response.data.data.filter((user) => user.basicInfo !== null).filter((user) => user.basicInfo.accomodation === true));
+      setUsers(
+        response.data.data
+          .filter((user) => user.basicInfo !== null)
+          .filter((user) => user.basicInfo.accomodation === true)
+      );
       // setUsers(users.filter((user) => user.basicInfo !== null).filter((user) => user.basicInfo.accomodation === true));
       console.log(users);
       setLoading(false);
@@ -39,16 +42,6 @@ const Accom = () => {
       }
     }
   };
-
-  const postsPerPage = 50;
-  const lastPostIndex = postsPerPage * currentPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-
-  let pages = [];
-
-  for (let i = 1; i <= Math.ceil(users.length / postsPerPage); i++) {
-    pages.push(i);
-  }
 
   useEffect(() => {
     getUsers();
@@ -94,7 +87,6 @@ const Accom = () => {
             </tr>
           ) : (
             users
-              .slice(firstPostIndex, lastPostIndex)
               .filter((user) => {
                 return search.toLowerCase() === ""
                   ? user
@@ -103,15 +95,16 @@ const Accom = () => {
               })
               .map((user) => {
                 return (
-                <>
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.basicInfo.phoneno}</td>
-                    <td>{user.basicInfo.gender ? "male" : "female"}</td>
-                  </tr>
-                  </>)
+                  <>
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.basicInfo.phoneno}</td>
+                      <td>{user.basicInfo.gender ? "male" : "female"}</td>
+                    </tr>
+                  </>
+                );
               })
           )}
         </tbody>
