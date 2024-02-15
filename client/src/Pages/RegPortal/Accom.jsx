@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { FormControl, Grid, Typography } from "@mui/material";
 import RegLayout from "../../Components/RegLayout";
 import axios from "axios";
@@ -60,6 +61,14 @@ const Accom = () => {
       </Typography>
       <p>Total Candidates: {users.length}</p>
       {loading && <CircularProgress />}
+      <ReactHTMLTableToExcel
+        id="test-table-xls-button"
+        className="download-table-xls-button btn btn-success mb-3"
+        table="table-to-xls"
+        filename="tablexls"
+        sheet="tablexls"
+        buttonText="Export Data to Excel Sheet"
+      />
       <Form>
         <InputGroup>
           <Form.Control
@@ -68,7 +77,7 @@ const Accom = () => {
           ></Form.Control>
         </InputGroup>
       </Form>
-      <Table striped bordered hover>
+      <Table id="table-to-xls" striped bordered hover>
         <thead>
           <tr>
             <th>User ID</th>
@@ -109,12 +118,6 @@ const Accom = () => {
           )}
         </tbody>
       </Table>
-      <Typography>Page: {currentPage}</Typography>
-      <Pagination
-        count={pages.length}
-        page={currentPage}
-        onChange={(e, value) => setCurrentPage(value)}
-      />
     </RegLayout>
   );
 };

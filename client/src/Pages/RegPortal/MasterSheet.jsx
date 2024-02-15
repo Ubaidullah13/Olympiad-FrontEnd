@@ -7,12 +7,16 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
 function MasterSheet() {
   const token = localStorage.getItem("accessToken");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
 
   const getUsers = async () => {
     try {
@@ -48,7 +52,24 @@ function MasterSheet() {
         Master Sheet
       </Typography>
       {loading && <CircularProgress />}
-      <Table striped bordered hover>
+
+      <ReactHTMLTableToExcel
+        id="test-table-xls-button"
+        className="download-table-xls-button btn btn-success mb-3"
+        table="table-to-xls"
+        filename="tablexls"
+        sheet="tablexls"
+        buttonText="Export Data to Excel Sheet"
+      />
+      <Form>
+        <InputGroup>
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search By Name or Email or Status"
+          ></Form.Control>
+        </InputGroup>
+      </Form>
+      <Table id="table-to-xls" striped bordered hover>
         <thead>
           <tr>
             <th>User ID</th>
@@ -72,27 +93,34 @@ function MasterSheet() {
               </td>
             </tr>
           ) : (
-            users.map((user) => {
-              return user.basicInfo === null ? (
-                <>
-                  {/* You can use React.Fragment or an empty div to wrap the content */}
-                </>
-              ) : (
-                <tr key={user.UserID}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.basicInfo.cnic}</td>
-                  <td>{user.basicInfo.phoneno}</td>
-                  <td>{user.email}</td>
-                  <td>{user.basicInfo.guardianName}</td>
-                  <td>{user.basicInfo.guardianNumber}</td>
-                  <td>{user.basicInfo.address}</td>
-                  <td>{user.basicInfo.student_id}</td>
-                  <td>{user.basicInfo.schoolName}</td>
-                  <td>{user.basicInfo.socials}</td>
-                </tr>
-              );
-            })
+            users
+              .filter((user) => {
+                return search.toLowerCase() === ""
+                  ? user
+                  : user.name.toLowerCase().includes(search.toLowerCase()) ||
+                      user.email.toLowerCase().includes(search.toLowerCase());
+              })
+              .map((user) => {
+                return user.basicInfo === null ? (
+                  <>
+                    {/* You can use React.Fragment or an empty div to wrap the content */}
+                  </>
+                ) : (
+                  <tr key={user.UserID}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.basicInfo.cnic}</td>
+                    <td>{user.basicInfo.phoneno}</td>
+                    <td>{user.email}</td>
+                    <td>{user.basicInfo.guardianName}</td>
+                    <td>{user.basicInfo.guardianNumber}</td>
+                    <td>{user.basicInfo.address}</td>
+                    <td>{user.basicInfo.student_id}</td>
+                    <td>{user.basicInfo.schoolName}</td>
+                    <td>{user.basicInfo.socials}</td>
+                  </tr>
+                );
+              })
           )}
         </tbody>
       </Table>
