@@ -135,14 +135,14 @@ const RegSideNav = () => {
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Security Sheet" style={listItemTextStyles} />
-          </ListItem>
+          </ListItem>*/}
           <ListItem button component="a" href="/master">
             <ListItemIcon>
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Master Sheet" style={listItemTextStyles} />
           </ListItem>
-          <ListItem button component="a" href="/sports_sheet">
+         {/*  <ListItem button component="a" href="/sports_sheet">
             <ListItemIcon>
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>

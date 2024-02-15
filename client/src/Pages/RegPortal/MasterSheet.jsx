@@ -7,93 +7,40 @@ import Table from "react-bootstrap/Table";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 
-function SecuritySheet() {
+function MasterSheet() {
   const token = localStorage.getItem("accessToken");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      image: "www.example2.com",
-      name: "Aisha",
-      email: "aisha@gmail.com",
-      cnic: "4210345678901",
-      father_guardian_name: "Khalid Ahmed",
-      father_guardian_contact: "03156898741",
-      isVerified: true,
-      basicInfo: {
-        phoneno: "03211234567",
-        gender: false,
-        status: "verified",
-        address: "Lahore",
-        schoolID: "COMSATS",
-        studentID: "2",
-        campusName: "2",
-        socials: "Qawali",
-      },
-    },
-    {
-      id: 2,
-      image: "www.example.com",
-      name: "Umar",
-      email: "umar@gmail.com",
-      cnic: "4240120129765",
-      father_guardian_name: "Muhammad Ali",
-      father_guardian_contact: "Muhammad Ali",
-      isVerified: false,
-      basicInfo: {
-        phoneno: "03156844761",
-        gender: true,
-        status: "unverified",
-        address: "Karachi",
-        schoolID: "Nust",
-        studentID: "1",
-        campusName: "1",
-        socials: "All",
-      },
-    },
-    {
-      id: 3,
-      image: "www.example3.com",
-      name: "Ali",
-      email: "ali@gmail.com",
-      cnic: "4210567890123",
-      father_guardian_name: "Ahmed Khan",
-      father_guardian_contact: "021459895568",
-      isVerified: false,
-      basicInfo: {
-        phoneno: "03331234567",
-        gender: true,
-        status: "unverified",
-        address: "Islamabad",
-        schoolID: "FAST",
-        studentID: "3",
-        campusName: "3",
-        socials: "Concert",
-      },
-    },
-    {
-      id: 5,
-      image: "www.example4.com",
-      name: "Fatima",
-      email: "fatima@gmail.com",
-      cnic: "4210789012345",
-      father_guardian_name: "Imran Khan",
-      father_guardian_contact: "03012290568",
-      isVerified: true,
-      basicInfo: {
-        phoneno: "03451234567",
-        gender: false,
-        status: "verified",
-        address: "Rawalpindi",
-        schoolID: "PIEAS",
-        studentID: "4",
-        campusName: "4",
-        socials: "None",
-      },
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUsers(response.data.data.filter((user) => user.basicInfo !== null));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.message === "Unauthorized") {
+        alert("Session Expired! Please Login Again");
+        localStorage.clear();
+        navigate("/login");
+      }
+    }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <RegLayout>
@@ -105,7 +52,24 @@ function SecuritySheet() {
         Master Sheet
       </Typography>
       {loading && <CircularProgress />}
-      <Table striped bordered hover>
+
+      <ReactHTMLTableToExcel
+        id="test-table-xls-button"
+        className="download-table-xls-button btn btn-success mb-3"
+        table="table-to-xls"
+        filename="MasterSheet"
+        sheet="tablexls"
+        buttonText="Export Data to Excel Sheet"
+      />
+      <Form>
+        <InputGroup>
+          <Form.Control
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search By Name or Email or Status"
+          ></Form.Control>
+        </InputGroup>
+      </Form>
+      <Table id="table-to-xls" striped bordered hover>
         <thead>
           <tr>
             <th>User ID</th>
@@ -116,7 +80,6 @@ function SecuritySheet() {
             <th>Father/Guardian Name</th>
             <th>Father/Guardian Contact</th>
             <th>Address</th>
-            <th>Student ID</th>
             <th>Student ID</th>
             <th>Campus Name</th>
             <th>Socials</th>
@@ -130,28 +93,34 @@ function SecuritySheet() {
               </td>
             </tr>
           ) : (
-            users.map((user) => {
-              return user.basicInfo === null ? (
-                <>
-                  {/* You can use React.Fragment or an empty div to wrap the content */}
-                </>
-              ) : (
-                <tr key={user.UserID}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.cnic}</td>
-                  <td>{user.basicInfo.phoneno}</td>
-                  <td>{user.email}</td>
-                  <td>{user.father_guardian_name}</td>
-                  <td>{user.father_guardian_contact}</td>
-                  <td>{user.basicInfo.address}</td>
-                  <td>{user.basicInfo.schoolID}</td>
-                  <td>{user.basicInfo.studentID}</td>
-                  <td>{user.basicInfo.campusName}</td>
-                  <td>{user.basicInfo.socials}</td>
-                </tr>
-              );
-            })
+            users
+              .filter((user) => {
+                return search.toLowerCase() === ""
+                  ? user
+                  : user.name.toLowerCase().includes(search.toLowerCase()) ||
+                      user.email.toLowerCase().includes(search.toLowerCase());
+              })
+              .map((user) => {
+                return user.basicInfo === null ? (
+                  <>
+                    {/* You can use React.Fragment or an empty div to wrap the content */}
+                  </>
+                ) : (
+                  <tr key={user.UserID}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.basicInfo.cnic}</td>
+                    <td>{user.basicInfo.phoneno}</td>
+                    <td>{user.email}</td>
+                    <td>{user.basicInfo.guardianName}</td>
+                    <td>{user.basicInfo.guardianNumber}</td>
+                    <td>{user.basicInfo.address}</td>
+                    <td>{user.basicInfo.student_id}</td>
+                    <td>{user.basicInfo.schoolName}</td>
+                    <td>{user.basicInfo.socials}</td>
+                  </tr>
+                );
+              })
           )}
         </tbody>
       </Table>
@@ -159,4 +128,4 @@ function SecuritySheet() {
   );
 }
 
-export default SecuritySheet;
+export default MasterSheet;
