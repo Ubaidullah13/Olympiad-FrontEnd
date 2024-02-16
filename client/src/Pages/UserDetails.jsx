@@ -176,11 +176,11 @@ const UserDetails = () => {
       });
     
       // Append file data to formData
-      if (stCardFront) {
-        formData.append("stCardFront", stCardFront);
+      if (data.stCardFront) {
+        formData.append("stCardFront", data.stCardFront);
       }
-      if (stCardBack) {
-        formData.append("stCardBack", stCardBack);
+      if (data.stCardBack) {
+        formData.append("stCardBack", data.stCardBack);
       }
     
       try {
