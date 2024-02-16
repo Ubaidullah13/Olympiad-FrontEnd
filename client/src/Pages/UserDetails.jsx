@@ -164,9 +164,9 @@ const UserDetails = () => {
       // Append text data to formData
       Object.keys(data).forEach(key => {
 
-        if (key !== "stCardFront" && key !== "stCardBack") {
+        if (key !== "stdFront" && key !== "stdBack") {
           let value = String(data[key]);
-
+console.log(key);
           if (value.charAt(value.length - 1) === " ") {
             value = value.slice(0, -1);
           }
@@ -176,11 +176,15 @@ const UserDetails = () => {
       });
     
       // Append file data to formData
-      if (data.stCardFront) {
-        formData.append("stCardFront", data.stCardFront);
+      // console.log("data");
+      // console.log(data);
+      if (stCardFront) {
+        console.log("stCardFront");
+        formData.append("stdFront", data.stdFront);
       }
-      if (data.stCardBack) {
-        formData.append("stCardBack", data.stCardBack);
+      if (stCardBack) {
+        console.log("stCardFront");
+        formData.append("stdBack", data.stdBack);
       }
     
       try {
