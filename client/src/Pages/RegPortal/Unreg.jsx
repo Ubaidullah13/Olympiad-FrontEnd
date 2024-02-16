@@ -26,7 +26,7 @@ const Unreg = () => {
         },
       });
       
-      setUsers(response.data.data.filter((user) => user.basicInfo === null));
+      setUsers(response.data.data.filter((user) => user.isValidated === true).filter((user) => user.isParticipant === true).filter((user) => user.basicInfo === null));
       setLoading(false);
     } catch (error) {
       console.log(error);
