@@ -83,6 +83,7 @@ function MasterSheet() {
             <th>Student ID</th>
             <th>Campus Name</th>
             <th>Socials</th>
+            <th>Ambassador Code</th>
           </tr>
         </thead>
         <tbody>
@@ -118,6 +119,7 @@ function MasterSheet() {
                     <td>{user.basicInfo.student_id}</td>
                     <td>{user.basicInfo.schoolName}</td>
                     <td>{user.basicInfo.socials}</td>
+                    <td>{user.basicInfo.ambassadorcode}</td>
                   </tr>
                 );
               })
