@@ -5,42 +5,103 @@ import RegLayout from "../../Components/RegLayout";
 import TeamSportTable from "../../Components/TeamSportTable";
 import IndividualSportTable from "../../Components/IndividualSportTable";
 import SportsDropDown from "../../Components/SportsDropDown";
+import API_URL from "../../config";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function SportsSheet() {
-  const [sport, setSport] = useState({
-    sport: "Example Sport",
-    sportid: "1242",
-    IsIndividual: true,
-    members: [
-      {
-        name: "Member 1",
-        userid: "656",
-        cnic: "1234567890123",
-        phone_number: "0123456789",
-        email: "abc@example.com",
-        Fee: true,
-        Challan: true,
-      },
-      {
-        name: "Member 2",
-        userid: "123",
-        cnic: "2345678901234",
-        phone_number: "0987654321",
-        email: "abc@example.com",
-        Fee: true,
-        Challan: false,
-      },
-      {
-        name: "Member 3",
-        userid: "325",
-        cnic: "2345678901234",
-        phone_number: "0987654321",
-        email: "abc@example.com",
-        Fee: true,
-        Challan: false,
-      },
-    ],
-  });
+  const token = localStorage.getItem("accessToken");
+  const [loading, setLoading] = useState(true);
+  const [sport, setSport] = useState(null);
+  const [sportsList, setSportsList] = useState(null);
+  const navigate = useNavigate();
+
+  const getSports = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/sports/allSports`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSportsList(response.data.data);
+      console.log(response.data.data);
+      const firstSport = response.data.data[0];
+      if (firstSport.maxPlayer > 1) {
+        getTeamSport(firstSport.id);
+      } else {
+        getIndividualSport(firstSport.id);
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.message === "Unauthorized") {
+        alert("Session Expired! Please Login Again");
+        localStorage.clear();
+        navigate("/login");
+      }
+    }
+  };
+
+  const getTeamSport = async (id) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/sports/getSportsTeam/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSport(response.data.data);
+      console.log(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.message === "Unauthorized") {
+        alert("Session Expired! Please Login Again");
+        localStorage.clear();
+        navigate("/login");
+      }
+    }
+  };
+
+  const getIndividualSport = async (id) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/sports/getSportsIndividual/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSport(response.data.data);
+      console.log(response.data.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.message === "Unauthorized") {
+        alert("Session Expired! Please Login Again");
+        localStorage.clear();
+        navigate("/login");
+      }
+    }
+  };
+
+  const handleSportChange = async (id, isIndividual) => {
+    if (!isIndividual) {
+      getTeamSport(id);
+    } else {
+      getIndividualSport(id);
+    }
+  };
+
+  useEffect(() => {
+    getSports();
+  }, []);
+
   return (
     <div>
       <RegLayout>
@@ -52,13 +113,19 @@ function SportsSheet() {
           >
             Sports
           </Typography>
-          <SportsDropDown></SportsDropDown>
+          {sportsList && (
+            <SportsDropDown
+              onChange={handleSportChange}
+              sportsList={sportsList}
+            ></SportsDropDown>
+          )}
         </div>
-        {sport.IsIndividual ? (
-          <IndividualSportTable sport={sport}></IndividualSportTable>
-        ) : (
-          <TeamSportTable sport={sport}></TeamSportTable>
-        )}
+        {sport &&
+          (sport.IsIndividual ? (
+            <IndividualSportTable sport={sport}></IndividualSportTable>
+          ) : (
+            <TeamSportTable sport={sport}></TeamSportTable>
+          ))}
       </RegLayout>
     </div>
   );

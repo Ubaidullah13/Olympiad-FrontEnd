@@ -8,7 +8,7 @@ function IndividualSportTable({ sport }) {
         <thead>
           <tr>
             <td style={{ textAlign: "center" }} height={50} colSpan={7}>
-              <strong>{sport.sport}</strong>
+              <strong>{sport.sportName}</strong>
             </td>
           </tr>
           <tr>
@@ -17,27 +17,25 @@ function IndividualSportTable({ sport }) {
             <th>CNIC No.</th>
             <th>Phone No.</th>
             <th>Email</th>
-            <th>Registration Fee</th>
             <th>Challan Fee</th>
           </tr>
         </thead>
         <tbody>
-          {sport.members.length === 0 ? (
+          {sport.teams.length === 0 ? (
             <tr>
               <td className="text-center" colSpan={7}>
                 No entries Found
               </td>
             </tr>
           ) : (
-            sport.members.map((member) => (
-              <tr key={member.userid}>
-                <td>{member.userid}</td>
-                <td>{member.name}</td>
-                <td>{member.cnic}</td>
-                <td>{member.phone_number}</td>
-                <td>{member.email}</td>
-                <td>{member.Fee ? "Paid" : "Not paid"}</td>
-                <td>{member.Challan ? "Paid" : "Not paid"}</td>
+            sport.teams.map((team) => (
+              <tr key={team.members[0].id}>
+                <td>{team.members[0].id}</td>
+                <td>{team.members[0].name}</td>
+                <td>{team.members[0].cnic}</td>
+                <td>{team.members[0].phoneno}</td>
+                <td>{team.members[0].email}</td>
+                <td>{team.members[0].isChallanPaid ? "Paid" : "Not paid"}</td>
               </tr>
             ))
           )}
