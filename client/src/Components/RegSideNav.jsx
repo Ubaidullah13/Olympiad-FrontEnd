@@ -136,12 +136,12 @@ const RegSideNav = () => {
             </ListItemIcon>
             <ListItemText primary="Unreg" style={listItemTextStyles} />
           </ListItem>
-          {/* <ListItem button component="a" href="/security">
+          <ListItem button component="a" href="/security">
             <ListItemIcon>
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />
             </ListItemIcon>
             <ListItemText primary="Security Sheet" style={listItemTextStyles} />
-          </ListItem>*/}
+          </ListItem>
           <ListItem button component="a" href="/master">
             <ListItemIcon>
               <AccountBalanceWalletIcon style={{ color: "lightgrey" }} />

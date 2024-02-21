@@ -1,23 +1,46 @@
-const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
-const { Buffer } = require('buffer');
+const { S3Client } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { createRequest } = require('@aws-sdk/util-create-request');
+const { GetObjectCommand } = require('@aws-sdk/client-s3');
 
-
-
+// Your Wasabi configuration
 const wasabiConfig = {
-  accessKeyId: 'OFOPN9NMDIMFC8DUCAGW',
-  secretAccessKey: '2AV1clPdZbIhUE0eEh1TYGlrXc9wnZveOtcQffOM',
+  accessKeyId: 'OFOPN9NMDIMFC8DUCAGW', // Replace with your access key
+  secretAccessKey: '2AV1clPdZbIhUE0eEh1TYGlrXc9wnZveOtcQffOM', // Replace with your secret key
   region: 'ap-southeast-1',
-  bucket: 'olympiad',
+  bucket: 'olympiad', // The name of your bucket
 };
 
+// Initialize the S3 client
 const s3 = new S3Client({
   region: wasabiConfig.region,
-  endpoint: `https://s3.${wasabiConfig.region}.wasabisys.com`, 
+  endpoint: `https://s3.${wasabiConfig.region}.wasabisys.com`,
   credentials: {
     accessKeyId: wasabiConfig.accessKeyId,
     secretAccessKey: wasabiConfig.secretAccessKey,
   },
 });
+
+// Function to generate a pre-signed URL
+async function generatePresignedUrl(objectKey) {
+  try {
+    // Create a GetObjectCommand for the specified object
+    const command = new GetObjectCommand({
+      Bucket: wasabiConfig.bucket,
+      Key: objectKey, // The key of the object for which to generate the URL
+    });
+
+    // Generate the pre-signed URL
+    const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 }); // URL expires in 3600 seconds (1 hour)
+    
+    //console.log(`Pre-signed URL: ${presignedUrl}`);
+    return presignedUrl;
+  } catch (error) {
+    console.error("Error generating pre-signed URL", error);
+    return "/Images/images.PNG";
+  }
+}
+
 
 const readFromWasabi = async (fileKey) => {
   try {
@@ -26,6 +49,7 @@ const readFromWasabi = async (fileKey) => {
       Key: fileKey,
     };
 
+    console.log("fetching from wasabi with params --->", params);
     const response = await s3.send(new GetObjectCommand(params));
 
     // Convert the ReadableStream (response.Body) to a Blob
@@ -58,7 +82,7 @@ const getSingleImage = async (fileKey) => {
     return base64Image;
 };
 
-export default getSingleImage;
+export {getSingleImage,generatePresignedUrl};
 
 // How to Use this, First make promises (Don't know how)
 
