@@ -37,6 +37,7 @@ import MailSent from "./Pages/MailSent";
 import SecuritySheet from "./Pages/RegPortal/SecuritySheet";
 import MasterSheet from "./Pages/RegPortal/MasterSheet";
 import SportsSheet from "./Pages/RegPortal/SportsSheet";
+import CompSheet from "./Pages/RegPortal/CompSheet";
 
 const App = () => {
   // const dummyData = {
@@ -180,6 +181,12 @@ const App = () => {
             exact
             path="/sports_sheet"
             element={<RPR Component={SportsSheet} />}
+          ></Route>
+
+<Route
+            exact
+            path="/compsheet"
+            element={<RPR Component={CompSheet} />}
           ></Route>
 
           <Route

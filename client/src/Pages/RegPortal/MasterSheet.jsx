@@ -20,12 +20,12 @@ function MasterSheet() {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
+      const response = await axios.get(`${API_URL}/basic/mastersheet`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      console.log(response.data.data);
       setUsers(response.data.data.filter((user) => user.basicInfo !== null));
       setLoading(false);
     } catch (error) {
@@ -84,6 +84,8 @@ function MasterSheet() {
             <th>Campus Name</th>
             <th>Socials</th>
             <th>Ambassador Code</th>
+            <th>isPaid</th>
+            <th>NetTotal</th>
           </tr>
         </thead>
         <tbody>
@@ -120,6 +122,8 @@ function MasterSheet() {
                     <td>{user.basicInfo.schoolName}</td>
                     <td>{user.basicInfo.socials}</td>
                     <td>{user.basicInfo.ambassadorcode}</td>
+                    <td>{user.challan[0] ? user.challan[0].isPaid : "No Challen" }</td>
+                    <td>{user.challan[0] ? user.challan[0].netTotal : "No Challen" }</td>
                   </tr>
                 );
               })

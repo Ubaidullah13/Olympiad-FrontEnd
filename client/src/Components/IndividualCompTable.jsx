@@ -2,8 +2,8 @@ import React from "react";
 import Table from "react-bootstrap/Table"; 
 import ReactHTMLTableToExcel from "react-html-table-to-excel";// Assuming you are using react-bootstrap components
 
-function IndividualSportTable({ sport }) {
-  const fileName = `${sport.sport}_Sheet`;
+function IndividualCompTable({ sport }) {
+  const fileName = `${sport.competition}_Sheet`;
   return (
     <div style={{ marginTop: "10px" }}>
       <ReactHTMLTableToExcel
@@ -18,7 +18,7 @@ function IndividualSportTable({ sport }) {
         <thead>
           <tr>
             <td style={{ textAlign: "center" }} height={50} colSpan={7}>
-              <strong>{sport.sport}</strong>
+              <strong>{sport.competition}</strong>
             </td>
           </tr>
           <tr>
@@ -55,4 +55,4 @@ function IndividualSportTable({ sport }) {
   );
 }
 
-export default IndividualSportTable;
+export default IndividualCompTable;
