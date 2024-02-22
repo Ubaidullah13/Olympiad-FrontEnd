@@ -20,69 +20,132 @@ function SecuritySheet() {
     // Logic for exporting to XLSX
   };
 
-  const getUsers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const filteredUsers = response.data.data.filter(
-        (user) => user.basicInfo !== null
-      );
-
-      setUsers(filteredUsers);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      if (error.response.data.message === "Unauthorized") {
-        alert("Session Expired! Please Login Again");
-        localStorage.clear();
-        navigate("/login");
-      }
-    }
-  };
-
-  const loadImages = async () => {
-    if (users.length > 0) {
+  useEffect(() => {
+    const fetchAndLoadUsers = async () => {
       setLoading(true);
-      const imageLoadPromises = users.map(async (user) => {
-        try {
-          const image = await generatePresignedUrl(user.basicInfo.profilePhoto);
-          return { id: user.id, image: image };
-        } catch (error) {
-          console.error("Error loading image for user", user.id, error);
-          return {
-            id: user.id,
-            image: "default_image_url_here", // Provide a default image URL
-          };
-        }
-      });
-
-      const images = await Promise.all(imageLoadPromises);
-
-      setUsers((prevUsers) =>
-        prevUsers.map((user) => ({
+      try {
+        const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        let fetchedUsers = response.data.data.filter(
+          (user) => user.basicInfo !== null
+        );
+  
+        // Optionally limit to first 5 users for testing
+        // fetchedUsers = fetchedUsers.slice(0, 5);
+  
+        const imageLoadPromises = fetchedUsers.map(async (user) => {
+          try {
+            const image = await generatePresignedUrl(user.basicInfo.profilePhoto);
+            return { id: user.id, image: image };
+          } catch (error) {
+            return { id: user.id, image: "/Images/user.png" };
+          }
+        });
+  
+        const images = await Promise.all(imageLoadPromises);
+  
+        const updatedUsers = fetchedUsers.map((user) => ({
           ...user,
           image: images.find((img) => img.id === user.id)?.image || user.image,
-        }))
-      );
+        }));
+  
+        setUsers(updatedUsers);
+      } catch (error) {
+        console.error("Failed to fetch or load users", error);
+        // Handle error (e.g., unauthorized access)
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchAndLoadUsers();
+  }, [token, navigate]); // Only re-run the effect if `token` or `navigate` changes
+  
 
-      setImagesLoaded(true);
-      setLoading(false);
-    }
-  };
+//   const getUsers = async () => {
+//     try {
+//       const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
 
-  useEffect(() => {
-    getUsers();
-  }, []); // Run once on component mount
+//       const filteredUsers = response.data.data.filter(
+//         (user) => user.basicInfo !== null
+//       );
 
-  useEffect(() => {
-    if (users.length > 0 && !imagesLoaded) {
-      loadImages();
-    }
-  }, [users, imagesLoaded]); // Run when users or imagesLoaded change
+//       // setUsers(filteredUsers);
+//       // filter to first 5 users for testing
+//       setUsers(filteredUsers.slice(0, 5));
+//       setLoading(false);
+//     } catch (error) {
+//       console.log(error);
+//       if (error.response.data.message === "Unauthorized") {
+//         alert("Session Expired! Please Login Again");
+//         localStorage.clear();
+//         navigate("/login");
+//       }
+//     }
+//   };
+
+//   const loadImages = async () => {
+//     if (users.length > 0) {
+//       setLoading(true);
+//       const imageLoadPromises = users.map(async (user) => {
+//         try {
+//           const image = await generatePresignedUrl(user.basicInfo.profilePhoto);
+//           console.log("Image loaded for user", user.id);
+//           return { id: user.id, image: image };
+//         } catch (error) {
+//           console.log("Error loading image for user", user.id, error);
+//           return {
+//             id: user.id,
+//             image: "default_image_url_here", // Provide a default image URL
+//           };
+//         }
+//       });
+
+//       const images = await Promise.all(imageLoadPromises);
+
+//       console.log("Images loaded", images);
+
+//       setUsers((prevUsers) =>
+//   prevUsers.map((user) => {
+//     const newUserImage = images.find((img) => img.id === user.id)?.image || user.image;
+//     console.log(`Updating user ${user.id} image to ${newUserImage}`);
+//     return {
+//       ...user,
+//       image: newUserImage,
+//     };
+//   })
+// );
+
+//       // setUsers((prevUsers) =>
+//       //   prevUsers.map((user) => ({
+//       //     ...user,
+//       //     image: images.find((img) => img.id === user.id)?.image || user.image,
+//       //   }))
+//       // );
+
+//       setImagesLoaded(true);
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     getUsers();
+//   }, []); // Run once on component mount
+
+//   useEffect(() => {
+//     if (users.length > 0 && !imagesLoaded) {
+//       console.log("Loading images...");
+//       loadImages();
+//     }
+//   }, [users, imagesLoaded]); // Run when users or imagesLoaded change
 
   return (
     <RegLayout>
@@ -97,7 +160,7 @@ function SecuritySheet() {
         <CircularProgress />
       ) : (
         <>
-          <Button
+          {/* <Button
             style={{
               borderRadius: 35,
               backgroundColor: "#157347",
@@ -106,7 +169,7 @@ function SecuritySheet() {
             onClick={exportToXLSX}
           >
             Export Data to Excel Sheet
-          </Button>
+          </Button> */}
           <ReactHTMLTableToExcel
             id="test-table-xls-button"
             className="download-table-xls-button btn btn-success mb-3"
@@ -115,7 +178,7 @@ function SecuritySheet() {
             sheet="tablexls"
             buttonText="Export Data to Excel Sheet"
           />
-          <Table id="test-table-xls-button" striped bordered hover>
+          <Table id="table-to-xls" striped bordered hover>
             <thead>
               <tr>
                 <th>User ID</th>
@@ -138,7 +201,8 @@ function SecuritySheet() {
                   <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>
-                      <img
+                      <a href={user.image} target="_blank">Image of {user.name}</a>
+                      {/* <img
                         className="photo"
                         style={{
                           width: "60px",
@@ -147,7 +211,7 @@ function SecuritySheet() {
                         }}
                         src={user.image}
                         alt={"Profile Picture"}
-                      />
+                      /> */}
                     </td>
                     <td>{user.name}</td>
                     <td>{user.basicInfo.cnic}</td>

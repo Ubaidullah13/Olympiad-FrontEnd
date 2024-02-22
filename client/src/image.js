@@ -31,7 +31,7 @@ async function generatePresignedUrl(objectKey) {
     });
 
     // Generate the pre-signed URL
-    const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 3600 }); // URL expires in 3600 seconds (1 hour)
+    const presignedUrl = await getSignedUrl(s3, command, { expiresIn: 5*24*3600 }); // URL expires in 3600 seconds (1 hour)
     
     //console.log(`Pre-signed URL: ${presignedUrl}`);
     return presignedUrl;
