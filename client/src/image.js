@@ -22,12 +22,13 @@ const s3 = new S3Client({
 });
 
 // Function to generate a pre-signed URL
-async function generatePresignedUrl(objectKey) {
+async function generatePresignedUrl(objectKey, customFileName) {
   try {
     // Create a GetObjectCommand for the specified object
     const command = new GetObjectCommand({
       Bucket: wasabiConfig.bucket,
       Key: objectKey, // The key of the object for which to generate the URL
+      ResponseContentDisposition: `inline; filename="${customFileName}"`
     });
 
     // Generate the pre-signed URL

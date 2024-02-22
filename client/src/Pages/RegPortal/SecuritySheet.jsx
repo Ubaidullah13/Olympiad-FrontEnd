@@ -39,7 +39,11 @@ function SecuritySheet() {
   
         const imageLoadPromises = fetchedUsers.map(async (user) => {
           try {
-            const image = await generatePresignedUrl(user.basicInfo.profilePhoto);
+            const fileName = user.id + "_" + user.name;
+            // get the extension of profile photo
+            const extension = user.basicInfo.profilePhoto.split('.').pop();
+            const image = await generatePresignedUrl(user.basicInfo.profilePhoto, fileName + '.' + extension);
+            //const image = await generatePresignedUrl(user.basicInfo.profilePhoto, fileName);
             return { id: user.id, image: image };
           } catch (error) {
             return { id: user.id, image: "/Images/user.png" };
