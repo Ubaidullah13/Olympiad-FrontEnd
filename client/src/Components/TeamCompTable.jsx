@@ -14,6 +14,9 @@ function TeamCompTable({ sport }) {
         sheet="tablexls"
         buttonText="Export Data to Excel Sheet"
       />
+      <h6>Total count of paid teams: {sport.teams.filter((teams) => teams.isChallanPaid !== "not paid").length}</h6>
+      <h6>Total count of unpaid teams: {sport.teams.filter((teams) => teams.isChallanPaid === "not paid").length}</h6>
+      <h6>Total count: {sport.teams.length}</h6>
       <Table id="TeamSport-table-to-xls" striped bordered hover>
         <thead>
           <tr>

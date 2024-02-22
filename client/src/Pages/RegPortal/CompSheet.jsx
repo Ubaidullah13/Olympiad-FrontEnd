@@ -112,7 +112,7 @@ function CompSheet() {
             component="div"
             sx={{ fontWeight: "bold", fontFamily: "LemonMilkBold" }}
           >
-            Sports
+            Competitions
           </Typography>
           {sportsList && (
             <SportsDropDown
