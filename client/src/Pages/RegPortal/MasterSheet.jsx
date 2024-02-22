@@ -51,6 +51,30 @@ function MasterSheet() {
       >
         Master Sheet
       </Typography>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ fontWeight: "normal", fontFamily: "LemonMilkBold" }}
+      >
+        Total Concert Paid Users:{" "}
+        {users.filter((user) => user.challan[0] && user.challan[0].isPaid !== "No Challen").filter((user)=> user.basicInfo.socials === "concert").length}
+      </Typography>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ fontWeight: "normal", fontFamily: "LemonMilkBold" }}
+      >
+        Total Qawali Paid Users:{" "}
+        {users.filter((user) => user.challan[0] && user.challan[0].isPaid !== "No Challen").filter((user)=> user.basicInfo.socials === "qawali").length}
+      </Typography>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ fontWeight: "normal", fontFamily: "LemonMilkBold" }}
+      >
+        Total Concert + Qawali Paid Users:{" "}
+        {users.filter((user) => user.challan[0] && user.challan[0].isPaid !== "No Challen").filter((user)=> user.basicInfo.socials === "all").length}
+      </Typography>
       {loading && <CircularProgress />}
 
       <ReactHTMLTableToExcel

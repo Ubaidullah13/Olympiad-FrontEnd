@@ -24,7 +24,7 @@ function SecuritySheet() {
     const fetchAndLoadUsers = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
+        const response = await axios.get(`${API_URL}/basic/mastersheet`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,7 +32,10 @@ function SecuritySheet() {
   
         let fetchedUsers = response.data.data.filter(
           (user) => user.basicInfo !== null
-        );
+        ).filter((user) => user.id !== 5).filter((user) => !user.name.toLowerCase().includes("test"));
+
+        // challan should not empty
+        fetchedUsers = fetchedUsers.filter((user) => user.challan.length > 0);
   
         // Optionally limit to first 5 users for testing
         // fetchedUsers = fetchedUsers.slice(0, 5);
@@ -68,88 +71,7 @@ function SecuritySheet() {
   
     fetchAndLoadUsers();
   }, [token, navigate]); // Only re-run the effect if `token` or `navigate` changes
-  
 
-//   const getUsers = async () => {
-//     try {
-//       const response = await axios.get(`${API_URL}/basic/basicAllUsers`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-
-//       const filteredUsers = response.data.data.filter(
-//         (user) => user.basicInfo !== null
-//       );
-
-//       // setUsers(filteredUsers);
-//       // filter to first 5 users for testing
-//       setUsers(filteredUsers.slice(0, 5));
-//       setLoading(false);
-//     } catch (error) {
-//       console.log(error);
-//       if (error.response.data.message === "Unauthorized") {
-//         alert("Session Expired! Please Login Again");
-//         localStorage.clear();
-//         navigate("/login");
-//       }
-//     }
-//   };
-
-//   const loadImages = async () => {
-//     if (users.length > 0) {
-//       setLoading(true);
-//       const imageLoadPromises = users.map(async (user) => {
-//         try {
-//           const image = await generatePresignedUrl(user.basicInfo.profilePhoto);
-//           console.log("Image loaded for user", user.id);
-//           return { id: user.id, image: image };
-//         } catch (error) {
-//           console.log("Error loading image for user", user.id, error);
-//           return {
-//             id: user.id,
-//             image: "default_image_url_here", // Provide a default image URL
-//           };
-//         }
-//       });
-
-//       const images = await Promise.all(imageLoadPromises);
-
-//       console.log("Images loaded", images);
-
-//       setUsers((prevUsers) =>
-//   prevUsers.map((user) => {
-//     const newUserImage = images.find((img) => img.id === user.id)?.image || user.image;
-//     console.log(`Updating user ${user.id} image to ${newUserImage}`);
-//     return {
-//       ...user,
-//       image: newUserImage,
-//     };
-//   })
-// );
-
-//       // setUsers((prevUsers) =>
-//       //   prevUsers.map((user) => ({
-//       //     ...user,
-//       //     image: images.find((img) => img.id === user.id)?.image || user.image,
-//       //   }))
-//       // );
-
-//       setImagesLoaded(true);
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     getUsers();
-//   }, []); // Run once on component mount
-
-//   useEffect(() => {
-//     if (users.length > 0 && !imagesLoaded) {
-//       console.log("Loading images...");
-//       loadImages();
-//     }
-//   }, [users, imagesLoaded]); // Run when users or imagesLoaded change
 
   return (
     <RegLayout>
@@ -159,6 +81,13 @@ function SecuritySheet() {
         sx={{ fontWeight: "bold", fontFamily: "LemonMilkBold" }}
       >
         Security Sheet
+      </Typography>
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{ fontWeight: "normal", fontFamily: "LemonMilkBold" }}
+      >
+        Total Users: {users.length}
       </Typography>
       {loading ? (
         <CircularProgress />
@@ -191,6 +120,9 @@ function SecuritySheet() {
                 <th>CNIC No.</th>
                 <th>Phone No.</th>
                 <th>Email</th>
+                <th>Father/Guardian Name</th>
+                <th>Father/Guardian Contact</th>
+                <th>isPaid</th>
               </tr>
             </thead>
             <tbody>
@@ -221,6 +153,9 @@ function SecuritySheet() {
                     <td>{user.basicInfo.cnic}</td>
                     <td>{user.basicInfo.phoneno}</td>
                     <td>{user.email}</td>
+                    <td>{user.basicInfo.guardianName}</td>
+                    <td>{user.basicInfo.guardianNumber}</td>
+                    <td>{user.challan[0] ? user.challan[0].isPaid : "No Challen" }</td>
                   </tr>
                 ))
               )}
