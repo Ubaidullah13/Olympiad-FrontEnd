@@ -162,7 +162,7 @@ const App = () => {
           <Route
             exact
             path="/security"
-            element={<RPR Component={SecuritySheet} />}
+            element={<SecuritySheet />}
           ></Route>
 
           <Route
