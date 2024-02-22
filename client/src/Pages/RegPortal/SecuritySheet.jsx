@@ -120,6 +120,7 @@ function SecuritySheet() {
                 <th>CNIC No.</th>
                 <th>Phone No.</th>
                 <th>Email</th>
+                <th>Institute</th>
                 <th>Father/Guardian Name</th>
                 <th>Father/Guardian Contact</th>
                 <th>isPaid</th>
@@ -153,6 +154,7 @@ function SecuritySheet() {
                     <td>{user.basicInfo.cnic}</td>
                     <td>{user.basicInfo.phoneno}</td>
                     <td>{user.email}</td>
+                    <td>{user.basicInfo.schoolName}</td>
                     <td>{user.basicInfo.guardianName}</td>
                     <td>{user.basicInfo.guardianNumber}</td>
                     <td>{user.challan[0] ? user.challan[0].isPaid : "No Challen" }</td>
