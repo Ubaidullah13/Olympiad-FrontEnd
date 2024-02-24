@@ -81,6 +81,9 @@ const CreateTeamCard = ({
     }
   };
 
+  // TeamCap
+  const competitionIds = [8];
+
   return (
     <div>
       <Card
@@ -113,6 +116,23 @@ const CreateTeamCard = ({
               Team Code: {code}
             </Typography>
           ) : (
+            <>
+            { competitionIds.includes(id) ? 
+              <Button
+              variant="contained"
+              color="primary"
+              disabled
+              sx={{
+                width: "60%",
+                mt: 2,
+                color: "white",
+                borderRadius: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              TeamCap Completed
+            </Button>
+              : 
             <Button
               variant="contained"
               color="primary"
@@ -129,6 +149,8 @@ const CreateTeamCard = ({
             >
               {isCreated ? `Team Code: ${code}` : "Create"}
             </Button>
+            }
+            </>
           )}
           <Box
             sx={{

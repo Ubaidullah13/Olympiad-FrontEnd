@@ -61,6 +61,9 @@ const CustomCard = ({
     setAlertOpen(false);
   };
 
+  // TeamCap
+  const competitionIds = [];
+
   return (
     <div>
       <Card
@@ -84,6 +87,40 @@ const CustomCard = ({
           >
             Rs. {price}/-
           </Typography>
+          {   isApplied ?  <Button
+            variant="contained"
+            color={isApplied ? "grey" : "primary"}
+            sx={{
+              width: "60%",
+              mt: 2,
+              color: "white",
+              borderRadius: "20px",
+              fontWeight: "bold",
+            }}
+            onClick={handleApplyClick}
+            disabled={isApplied}
+            data-sport-id={id}
+          >
+            {isApplied ? "Applied" : "Apply"}
+          </Button>
+        :
+        <>
+         { competitionIds.includes(id) ? 
+              <Button
+              variant="contained"
+              color="primary"
+              disabled
+              sx={{
+                width: "60%",
+                mt: 2,
+                color: "white",
+                borderRadius: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              TeamCap Completed
+            </Button>
+              : 
           <Button
             variant="contained"
             color={isApplied ? "grey" : "primary"}
@@ -100,6 +137,9 @@ const CustomCard = ({
           >
             {isApplied ? "Applied" : "Apply"}
           </Button>
+          }
+        </>  
+        }
           <Box
             sx={{
               mt: 2,
