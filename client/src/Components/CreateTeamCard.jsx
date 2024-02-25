@@ -80,7 +80,7 @@ const CreateTeamCard = ({
   };
 
   // TeamCap
-  const sportsIds = [];
+  const sportsIds = [5,17,18];
 
   return (
     <div>

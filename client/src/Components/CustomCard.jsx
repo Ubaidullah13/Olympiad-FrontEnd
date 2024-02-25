@@ -62,7 +62,7 @@ const CustomCard = ({
   };
 
   // TeamCap
-  const sportsIds = [];
+  const sportsIds = [11,15, 16];
 
   return (
     <div>
